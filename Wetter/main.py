@@ -1,7 +1,36 @@
+from GUI.visualisation_function import GUI_VIS
 from database_function import DataBaseWetter
 import datetime
 
 db=DataBaseWetter()
-actual_time=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
-db.store_new_info([12,34,67],actual_time)
+#db.store_new_info([12,34,67],actual_time)
+from tkinter import *
+window = Tk()
+window.geometry(f"1000x1000")
+window.title("WETTER")
+
+
+
+gui=GUI_VIS(window)
+gui.first_screen(window)
+gui.release_windows(window)
+
+############################################################
+# from tkinter import *
+# r=Tk()
+# r.geometry(f"400x400")
+# r.title("WETTER")
+#
+# def update():
+#     actual_time = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#     my_label.config(text=actual_time)
+#     my_label.after(10, update)
+#
+#
+# my_label=Label(r,text='D')
+# my_label.pack()
+# update()
+#
+#
+# r.mainloop()
