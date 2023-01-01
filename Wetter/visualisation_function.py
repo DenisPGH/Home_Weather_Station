@@ -6,6 +6,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 from statistic_function import History
+from wetter_outside_function import Outside
 
 
 class GUI_VIS:
@@ -22,6 +23,7 @@ class GUI_VIS:
         self.font_buttons = 'Areil'
         self.history=History()
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
+        self.outside=Outside()
 
 
     def clean_screen_function(self,win):
@@ -163,7 +165,8 @@ class GUI_VIS:
             elif index==4: # time
                 self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
             elif index==5: # temperature outside
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                self.value = self.outside.acctual_temperature_outside()
             name.config(text=self.value)
             name.after(300, update_time)
 

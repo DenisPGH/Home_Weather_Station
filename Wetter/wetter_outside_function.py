@@ -25,6 +25,7 @@ import re
 #     current_temperature=each.group('temp')
 #
 # print(current_temperature)
+from database_function import TIME_DATE
 
 
 class Outside:
@@ -39,30 +40,43 @@ class Outside:
         self.current_temperature=0
         self.pattern=r"(?P<temp>([0-9]+))"
         self.current_temperature=0
+        self.last_temperature=0
+        self.hour=TIME_DATE()
+        self.hours=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        self.first_run = 0
 
     def acctual_temperature_outside(self):
         """
-        with curl get the page from the wetter
+        with curl get the page from the wetter, only if 1:00 or 1:30 or 22:00 or 22:30 etc in half hour
         then parse to html
         with regex get the value
 
 
         :return: the temperatue in C
         """
-        try:
-            response = requests.get('https://www.accuweather.com/de/ch/bern/312122/current-weather/312122', headers=self.headers)
-            html = soup(response.text, 'html.parser')
-            temp = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div')
-            found = re.finditer(self.pattern, str(temp[0]))
-            for each in found:
-                self.current_temperature = each.group('temp')
-        except:
-            return self.current_temperature
+
+        if self.hour.TIME()[1] ==00 or self.hour.TIME()[1]==30 or self.first_run==0: # 1:00, 2:00 etc
+            self.first_run=1
+
+            try:
+                response = requests.get('https://www.accuweather.com/de/ch/bern/312122/current-weather/312122', headers=self.headers)
+                html = soup(response.text, 'html.parser')
+                temp = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div')
+                found = re.finditer(self.pattern, str(temp[0]))
+                for each in found:
+                    self.current_temperature = each.group('temp')
+                    self.last_temperature=self.current_temperature
+            except:
+                self.last_temperature = self.current_temperature
+                return self.last_temperature
+        else:
+            #self.last_temperature = self.current_temperature
+            return self.last_temperature
 
         return self.current_temperature
 
 
-if __name__ == "__main__":
-    pass
+# if __name__ == "__main__":
+#     pass
     # k=Outside()
     # print(k.acctual_temperature_outside())
