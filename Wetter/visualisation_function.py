@@ -74,10 +74,10 @@ class GUI_VIS:
         # labels live values ####################################################
         level_values=350
         size_double=50
-        self.label_dynamic("press", win, 65, level_values,1,size_double)
-        self.label_dynamic("press4", win, 355, level_values,2,size_double)
-        self.label_dynamic("press4", win, 600, level_values,3)
-        self.label_dynamic("press5", win, 150, 0,4) # time
+        self.label_dynamic("press", win, 65, level_values,1,size_double) #temp
+        self.label_dynamic("press4", win, 355, level_values,2,size_double) #humidity
+        self.label_dynamic("press4", win, 600, level_values,3) # pressure
+        self.label_dynamic("press5", win, 180, 0,4) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
 
         # buttons ######################
@@ -163,7 +163,7 @@ class GUI_VIS:
             elif index==3: # pressure
                 self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
             elif index==4: # time
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
             elif index==5: # temperature outside
                 #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
                 self.value = self.outside.acctual_temperature_outside()
