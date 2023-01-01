@@ -3,33 +3,8 @@ import sys
 import tkinter as tk
 from tkinter import *
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
-                                               NavigationToolbar2Tk)
-import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
-
-# def clean_screen_function(win):
-#     """ this function cleen the scree, when call it"""
-#     for each in win.winfo_children():
-#         each.destroy()
-
-# def button_login(win):
-#     pass
-
-# def first_screen(win):
-#     """ this function start our first windows view"""
-#     clean_screen_function(win)
-#     value=20
-#     tk.Label(text=f" {value}", fg="Green", bg="Red").grid(row=30, column=30)
-#
-#     tk.Button(win, text="LOGIN", fg="blue", bg="green", command=lambda :button_login(win)).grid(row=0, column=0)
-#     tk.Button(win, text="REGISTER", fg="blue", bg="green", command= lambda :button_login(win)).grid(row=0, column=1)
-
-# window = tk.Tk()
-# window.geometry("750x700")
-# window.title("WETTER")
-# first_screen(window)
-# window.mainloop()
 from statistic_function import History
 
 
@@ -47,9 +22,6 @@ class GUI_VIS:
         self.font_buttons = 'Areil'
         self.history=History()
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
-
-
-
 
 
     def clean_screen_function(self,win):
@@ -78,8 +50,6 @@ class GUI_VIS:
         but.pack()
         but.place(x=0, y=0)
         self.plot_me(win, parameter.lower(), self.DAY)
-
-
 
 
     def first_screen(self,win):
@@ -178,11 +148,9 @@ class GUI_VIS:
         name.pack()
         name.place(x=x, y=y)
 
-        # my_label = Label(win, text=self.value, fg="White", bg="Red")
-        # my_label.pack()
-
         def update_time():
             """
+            have to change here the source information from the sensor
 
             :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
             """
@@ -229,7 +197,7 @@ class GUI_VIS:
 
 
         # the figure that will contain the plot
-        fig = Figure(figsize=(5, 5), dpi=70)
+        fig = Figure(figsize=(5, 5), dpi=90)
 
 
         # list of squares
@@ -238,7 +206,7 @@ class GUI_VIS:
         plot1.plot(xs, ys, 'bo-')
         #################
         plot1.set_xlabel('Hours')
-        plot1.set_ylabel('Temperatures')
+        plot1.set_ylabel(f'{parameter}')
         for x, y in zip(xs, ys):
             #label = "{:.2f}".format(y)
             label = f"{y:.2f} {self.value_unit[parameter]}"

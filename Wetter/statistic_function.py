@@ -12,6 +12,7 @@ class History:
 
     def get_values(self,values:str,wished_day:str):
         """
+        get the wished values from the csv file
 
         :param values: 'temperature','humidity','pressure'
         :param wished_day: which day I want
@@ -33,6 +34,7 @@ class GraphHistory:
 
     def show_graphic(self,parameter,today):
         """
+        visulate the data from the csv file in plot
 
         :param today: date format "2023-01-01"
         :param parameter: 'temperature','humidity','pressure'
@@ -60,8 +62,8 @@ class GraphHistory:
 
 
 
-if __name__ == "__main__":
-    pass
+# if __name__ == "__main__":
+#     pass
     # h=Histroy()
     # print(h.get_values('temperature','2023-01-01'))
     # gh=GraphHistory()
