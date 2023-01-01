@@ -8,14 +8,19 @@ db=DataBaseWetter()
 from tkinter import *
 window = Tk()
 window.geometry(f"1000x1000")
+window.configure(background='black')
 window.title("WETTER")
-#window.attributes("-fullscreen", True)
+window.attributes("-fullscreen", True)
 
 
 
 gui=GUI_VIS(window)
 gui.first_screen(window)
 gui.release_windows(window)
+
+date = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
+hr,min,sec=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")
+print(sec)
 
 ############################################################
 # from tkinter import *

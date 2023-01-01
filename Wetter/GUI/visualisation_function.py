@@ -1,4 +1,5 @@
 import datetime
+import sys
 import tkinter as tk
 from tkinter import *
 
@@ -30,6 +31,11 @@ class GUI_VIS:
         self.width=700
         self.height=700
         self.value=0
+        ################
+        self.fg_buttons = 'White'
+        self.bg_buttons = "Black"
+        self.size_buttons = 10
+        self.font_buttons = 'Areil'
 
 
 
@@ -51,8 +57,13 @@ class GUI_VIS:
         """
 
         self.clean_screen_function(win)
-        tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
-        tk.Button(win, text="BACK", fg="Red",command=lambda: self.first_screen(win))
+        # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
+        self.label_static("parameter", win, 350, 0, f" {parameter} for last 24 hours")
+
+        but=tk.Button(win, text="BACK", fg="Red",bd="White",command=lambda: self.first_screen(win))
+        but.config(font=(f"{self.font_buttons}", self.size_buttons))
+        but.pack()
+        but.place(x=0, y=0)
 
 
 
@@ -61,12 +72,45 @@ class GUI_VIS:
         """ this function start our first windows view"""
         self.clean_screen_function(win)
         value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-        self.label_static("temp", win, 50, 200, "Temperature")
-        self.label_static("temprr", win, 50, 300, "Humidity")
-        self.label_static("press", win, 50, 400, "Pressure")
+        # lable function
+        self.label_static("temp", win, 60, 400, "Temperature")
+        self.label_static("temprr", win, 450, 400, "Humidity")
+        self.label_static("press", win, 800, 400, "Pressure")
+        # labels units
+        size_units=30
+        level_units=540
+        self.label_static("temp", win, 230, level_units, " C",size_units)
+        self.label_static("temprr", win, 600, level_units, " %",size_units)
+        self.label_static("press", win, 920, level_units, " hPa",size_units)
+        # labels live values
+        self.label_dynamic("press", win, 10, 500)
+        self.label_dynamic("press4", win, 400, 500)
+        self.label_dynamic("press4", win, 730, 500)
 
-        self.label_dynamic("press", win, 50, 500)
-        self.label_dynamic("press4", win, 50, 600)
+        # buttons ######################
+        name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Temp", win))
+        name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_a.pack()
+        name_a.place(x=60, y=600)
+
+        name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons, command=lambda: self.show_statistic("Temp",win))
+        name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_b.pack()
+        name_b.place(x=450, y=600)
+
+        name_c = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Temp", win))
+        name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_c.pack()
+        name_c.place(x=800, y=600)
+
+        # break button
+        name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
+                           command=lambda: self.terminate())
+        name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_d.pack()
+        name_d.place(x=0, y=0)
 
 
 
@@ -84,7 +128,7 @@ class GUI_VIS:
         #     my_label.after(300, update_time)
         # update_time()
 
-    def label_static(self,name:str,win,x,y,text:str,font='Ariel', size_text=15,fg="Black",bg="White"):
+    def label_static(self,name:str,win,x,y,text:str,size_text=15,font='Ariel', fg="White",bg="Black"):
         """
         :param font: font of the text
         :param size_text: size of the text
@@ -105,7 +149,7 @@ class GUI_VIS:
         name.place(x=x, y=y)
 
 
-    def label_dynamic(self,name:str,win,x,y, index=0,font='Ariel', size_text=10,fg="Red",bg="White"):
+    def label_dynamic(self,name:str,win,x,y, index=0,font='Ariel', size_text=60,fg="White",bg="Black"):
         """
         :param font: font of the text
         :param size_text: size of the text
@@ -129,7 +173,8 @@ class GUI_VIS:
         # my_label.pack()
 
         def update_time():
-            self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:] #sec
             name.config(text=self.value)
             name.after(300, update_time)
 
@@ -140,54 +185,12 @@ class GUI_VIS:
 
 
 
-    def button(self,name_b:str,win,x,y,text:str,function,font='Ariel', size_text=10,fg="Black",bg="Green"):
+    def terminate(self):
         """
-        :param function: what shoud it do
-        :param font: font of the text
-        :param size_text: size of the text
-        :param name: name of the label
-        :param win: windows
-        :param x: coord of x
-        :param y: of y
-        :param text: what shoud be shown
-        :param fg: color of the text
-        :param bg: beckground color
-        :return: nothing
+        terminate the program, have to add code 1234
+        :return:
         """
-        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
-
-        name_b = tk.Button(win, text=text, fg=fg, bg=bg, command=lambda: function)
-        name_b.config(font=(f"{font}", size_text))
-        name_b.pack()
-        name_b.place(x=x, y=y)
-
-    def button_1(self,win,x,y,text:str,function,font='Ariel', size_text=10,fg="Black",bg="Green"):
-        """
-        :param function: what shoud it do
-        :param font: font of the text
-        :param size_text: size of the text
-        :param name: name of the label
-        :param win: windows
-        :param x: coord of x
-        :param y: of y
-        :param text: what shoud be shown
-        :param fg: color of the text
-        :param bg: beckground color
-        :return: nothing
-        """
-        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
-
-        name_1 = tk.Button(win, text=text, fg=fg, bg=bg, command=lambda: function)
-        name_1.config(font=(f"{font}", size_text))
-        name_1.pack()
-        name_1.place(x=x, y=y)
-
-
-
-
-
-
-
+        sys.exit()
 
 
     def release_windows(self,win):
