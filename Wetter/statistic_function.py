@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-class Histroy:
+class History:
     def __init__(self):
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv("wetter_DB.csv",sep='|',names=self.colums,skiprows=[0],header=None)
@@ -28,7 +28,7 @@ class Histroy:
 
 class GraphHistory:
     def __init__(self):
-        self.history=Histroy()
+        self.history=History()
 
 
     def show_graphic(self,parameter,today):

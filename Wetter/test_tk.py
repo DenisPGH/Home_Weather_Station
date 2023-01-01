@@ -19,7 +19,7 @@ def plot():
     plot1 = fig.add_subplot(111)
 
     # plotting the graph
-    plot1.plot(y)
+    plot1.plot_me(y)
 
     # creating the Tkinter canvas
     # containing the Matplotlib figure

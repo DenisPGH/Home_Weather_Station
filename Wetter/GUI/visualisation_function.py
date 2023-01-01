@@ -5,6 +5,7 @@ from tkinter import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
+import matplotlib.pyplot as plt
 
 
 # def clean_screen_function(win):
@@ -29,6 +30,8 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 # window.title("WETTER")
 # first_screen(window)
 # window.mainloop()
+from statistic_function import History
+
 
 class GUI_VIS:
     def __init__(self,win):
@@ -42,6 +45,9 @@ class GUI_VIS:
         self.bg_buttons = "Black"
         self.size_buttons = 10
         self.font_buttons = 'Areil'
+        self.history=History()
+        self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
+
 
 
 
@@ -58,7 +64,7 @@ class GUI_VIS:
     def show_statistic(self,parameter,win):
         """
 
-        :param parameter: what to be shown
+        :param parameter: 'Temperature','Humidity','Pressure'
         :param win: cur windows
         :return:
         """
@@ -71,7 +77,7 @@ class GUI_VIS:
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
-        self.plot(win)
+        self.plot_me(win, parameter.lower(), self.DAY)
 
 
 
@@ -128,8 +134,6 @@ class GUI_VIS:
         name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_d.pack()
         name_d.place(x=0, y=0)
-
-
 
 
 
@@ -198,10 +202,6 @@ class GUI_VIS:
         update_time()
 
 
-
-
-
-
     def terminate(self):
         """
         terminate the program, have to add code 1234
@@ -218,20 +218,36 @@ class GUI_VIS:
         """
         win.mainloop()
 
-    def plot(self,win):
+    def plot_me(self, win, parameter, today):
+        """
+
+        :param win: windows
+        :param parameter: 'temperature','humidity','pressure'
+        :param today: todays date
+        :return:
+        """
+
 
         # the figure that will contain the plot
         fig = Figure(figsize=(5, 5), dpi=70)
 
 
         # list of squares
-        y = [i ** 2 for i in range(101)]
-
-        # adding the subplot
+        ys, xs = self.history.get_values(parameter, today)
         plot1 = fig.add_subplot(111)
+        plot1.plot(xs, ys, 'bo-')
+        #################
+        plot1.set_xlabel('Hours')
+        plot1.set_ylabel('Temperatures')
+        for x, y in zip(xs, ys):
+            #label = "{:.2f}".format(y)
+            label = f"{y:.2f} {self.value_unit[parameter]}"
 
-        # plotting the graph
-        plot1.plot(y)
+            plot1.annotate(label,  # this is the text
+                         (x, y),  # these are the coordinates to position the label
+                         textcoords="offset points",  # how to position the text
+                         xytext=(0, 10),  # distance from text to points (x,y)
+                         ha='center')  # horizontal alignment can be left, right or cente
 
 
         canvas = FigureCanvasTkAgg(fig,master=win)
