@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 # date|hour|minute|temperature|humidity|pressure
 
 
@@ -8,28 +10,58 @@ class Histroy:
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv("wetter_DB.csv",sep='|',names=self.colums,skiprows=[0],header=None)
 
-    def get_values(self,values:str,wished_day):
+    def get_values(self,values:str,wished_day:str):
         """
 
         :param values: 'temperature','humidity','pressure'
         :param wished_day: which day I want
-        :return: return [values,time(0-24hr)]
+        :return: return [values,time(0-24hr)] lists
         """
-        val_return=self.data.loc[self.data['date']==wished_day][values]
-        hr_return=self.data.loc[self.data['date']==wished_day]['hour']
-
-
+        val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
+        hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
         return val_return,hr_return
 
 
 
-# h=Histroy()
-# print(h.get_values('temperature','2023-01-01'))
+
 
 
 class GraphHistory:
     def __init__(self):
-        pass
+        self.history=Histroy()
 
-    def graphic(self):
-        pass
+
+    def show_graphic(self,parameter,today):
+        """
+
+        :param today: date format "2023-01-01"
+        :param parameter: 'temperature','humidity','pressure'
+        :return:
+        """
+        ys,xs=self.history.get_values(parameter,today)
+        print(ys,xs)
+        plt.clf()
+        plt.plot(xs,ys,'bo-')
+        plt.xlabel('Hours')
+        plt.ylabel('Temperatures')
+        plt.title(f"Information for {parameter.capitalize()}")
+        for x, y in zip(xs, ys):
+            label = "{:.2f}".format(y)
+
+            plt.annotate(label,  # this is the text
+                         (x, y),  # these are the coordinates to position the label
+                         textcoords="offset points",  # how to position the text
+                         xytext=(0, 10),  # distance from text to points (x,y)
+                         ha='center')  # horizontal alignment can be left, right or cente
+        plt.show()
+
+
+
+
+
+
+if __name__ == "__main__":
+    # h=Histroy()
+    # print(h.get_values('temperature','2023-01-01'))
+    gh=GraphHistory()
+    gh.show_graphic('temperature','2023-01-01')
