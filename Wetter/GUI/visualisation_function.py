@@ -65,19 +65,24 @@ class GUI_VIS:
         self.label_static("temprr", win, 50, 300, "Humidity")
         self.label_static("press", win, 50, 400, "Pressure")
 
+        self.label_dynamic("press", win, 50, 500)
+        self.label_dynamic("press4", win, 50, 600)
+
+
+
         #self.button_1(win, 20, 20, "Temperature",self.show_statistic('Temp',win))
         # self.button("hum", win, 200, 300, "Hummidity",self.show_statistic('hum',win))
         #self.button("press", win, 200, 400, "Presure",self.show_statistic('Press',win))
 
 
-        my_label = Label(win, text=self.value, fg="White", bg="Red")
-        my_label.pack()
-
-        def update_time():
-            self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            my_label.config(text=self.value)
-            my_label.after(300, update_time)
-        update_time()
+        # my_label = Label(win, text=self.value, fg="White", bg="Red")
+        # my_label.pack()
+        #
+        # def update_time():
+        #     self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        #     my_label.config(text=self.value)
+        #     my_label.after(300, update_time)
+        # update_time()
 
     def label_static(self,name:str,win,x,y,text:str,font='Ariel', size_text=15,fg="Black",bg="White"):
         """
@@ -98,6 +103,42 @@ class GUI_VIS:
         name.config(font=(f"{font}", size_text))
         name.pack()
         name.place(x=x, y=y)
+
+
+    def label_dynamic(self,name:str,win,x,y, index=0,font='Ariel', size_text=10,fg="Red",bg="White"):
+        """
+        :param font: font of the text
+        :param size_text: size of the text
+        :param name: name of the label
+        :param win: windows
+        :param x: coord of x
+        :param y: of y
+        :param text: what shoud be shown
+        :param fg: color of the text
+        :param bg: beckground color
+        :return: nothing
+        """
+        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
+
+        name = Label(win, text=self.value, fg=fg, bg=bg,relief="groove", borderwidth=2,bd=0)
+        name.config(font=(f"{font}", size_text),text=self.value)
+        name.pack()
+        name.place(x=x, y=y)
+
+        # my_label = Label(win, text=self.value, fg="White", bg="Red")
+        # my_label.pack()
+
+        def update_time():
+            self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            name.config(text=self.value)
+            name.after(300, update_time)
+
+        update_time()
+
+
+
+
+
 
     def button(self,name_b:str,win,x,y,text:str,function,font='Ariel', size_text=10,fg="Black",bg="Green"):
         """
