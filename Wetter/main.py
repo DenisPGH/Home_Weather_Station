@@ -4,19 +4,16 @@ import datetime
 
 db=DataBaseWetter()
 
-#db.store_new_info([12,34,67],actual_time)
-from tkinter import *
-window = Tk()
-window.geometry(f"800x480")
-window.configure(background='black')
-window.title("WETTER")
+db.store_new_info([12,34,67])
+# from tkinter import *
+# window = Tk()
+# window.geometry(f"800x480")
+# window.configure(background='black')
+# window.title("WETTER")
 #window.attributes("-fullscreen", True)
-
-
-
-gui=GUI_VIS(window)
-gui.first_screen(window)
-gui.release_windows(window)
+# gui=GUI_VIS(window)
+# gui.first_screen(window)
+# gui.release_windows(window)
 
 date = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
 hr,min,sec=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")
