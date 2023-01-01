@@ -5,6 +5,8 @@ import datetime
 db=DataBaseWetter()
 
 db.store_new_info([12,34,67])
+db.store_new_info([12,34,7])
+db.store_new_info([12,34,670])
 # from tkinter import *
 # window = Tk()
 # window.geometry(f"800x480")

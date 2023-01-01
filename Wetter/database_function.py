@@ -31,7 +31,7 @@ class DataBaseWetter:
         temp=values[0]
         humm=values[1]
         pressure=values[2]
-        with open(f'{self.name_DB}.csv', mode='w', newline='') as csv_write:  # w,a
+        with open(f'{self.name_DB}.csv', mode='a', newline='') as csv_write:  # w,a
             file = csv.writer(csv_write, delimiter='|', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # [2023-01-01,HH,MM,Temperature,Humidity,Pressure]
             file.writerow([self.date.DATE(),self.date.TIME()[0],self.date.TIME()[1],temp,humm,pressure])
