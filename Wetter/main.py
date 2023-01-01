@@ -9,6 +9,7 @@ from tkinter import *
 window = Tk()
 window.geometry(f"1000x1000")
 window.title("WETTER")
+#window.attributes("-fullscreen", True)
 
 
 

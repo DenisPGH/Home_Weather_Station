@@ -51,8 +51,8 @@ class GUI_VIS:
         """
 
         self.clean_screen_function(win)
-        tk.Label(text=f" {parameter} for last 24 hours", fg="blue").grid(row=0, column=0)
-        tk.Button(win, text="BACK", fg="Red",command=lambda: self.first_screen(win)).grid(row=0, column=2)
+        tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
+        tk.Button(win, text="BACK", fg="Red",command=lambda: self.first_screen(win))
 
 
 
@@ -61,15 +61,14 @@ class GUI_VIS:
         """ this function start our first windows view"""
         self.clean_screen_function(win)
         value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-        but=tk.Button(win, text="Weather", fg="blue", bg="green", command=lambda: self.show_statistic("Temp",win))
-        but.pack()
-        but.place(x=120, y=62)
-        but_2=tk.Button(win, text="Hummidity", fg="blue", bg="green", command=lambda: self.show_statistic("Humm",win))
-        but_3=tk.Button(win, text="Presure", fg="blue", bg="green", command=lambda: self.show_statistic("Pressure",win))
-        but_2.pack()
-        but_2.place(x=120, y=92)
-        but_3.pack()
-        but_3.place(x=120, y=122)
+        self.label_static("temp", win, 50, 200, "Temperature")
+        self.label_static("temprr", win, 50, 300, "Humidity")
+        self.label_static("press", win, 50, 400, "Pressure")
+
+        #self.button_1(win, 20, 20, "Temperature",self.show_statistic('Temp',win))
+        # self.button("hum", win, 200, 300, "Hummidity",self.show_statistic('hum',win))
+        #self.button("press", win, 200, 400, "Presure",self.show_statistic('Press',win))
+
 
         my_label = Label(win, text=self.value, fg="White", bg="Red")
         my_label.pack()
@@ -79,6 +78,72 @@ class GUI_VIS:
             my_label.config(text=self.value)
             my_label.after(300, update_time)
         update_time()
+
+    def label_static(self,name:str,win,x,y,text:str,font='Ariel', size_text=15,fg="Black",bg="White"):
+        """
+        :param font: font of the text
+        :param size_text: size of the text
+        :param name: name of the label
+        :param win: windows
+        :param x: coord of x
+        :param y: of y
+        :param text: what shoud be shown
+        :param fg: color of the text
+        :param bg: beckground color
+        :return: nothing
+        """
+        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
+
+        name = Label(win, text=text, fg=fg, bg=bg,relief="groove", borderwidth=2,bd=0)
+        name.config(font=(f"{font}", size_text))
+        name.pack()
+        name.place(x=x, y=y)
+
+    def button(self,name_b:str,win,x,y,text:str,function,font='Ariel', size_text=10,fg="Black",bg="Green"):
+        """
+        :param function: what shoud it do
+        :param font: font of the text
+        :param size_text: size of the text
+        :param name: name of the label
+        :param win: windows
+        :param x: coord of x
+        :param y: of y
+        :param text: what shoud be shown
+        :param fg: color of the text
+        :param bg: beckground color
+        :return: nothing
+        """
+        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
+
+        name_b = tk.Button(win, text=text, fg=fg, bg=bg, command=lambda: function)
+        name_b.config(font=(f"{font}", size_text))
+        name_b.pack()
+        name_b.place(x=x, y=y)
+
+    def button_1(self,win,x,y,text:str,function,font='Ariel', size_text=10,fg="Black",bg="Green"):
+        """
+        :param function: what shoud it do
+        :param font: font of the text
+        :param size_text: size of the text
+        :param name: name of the label
+        :param win: windows
+        :param x: coord of x
+        :param y: of y
+        :param text: what shoud be shown
+        :param fg: color of the text
+        :param bg: beckground color
+        :return: nothing
+        """
+        # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
+
+        name_1 = tk.Button(win, text=text, fg=fg, bg=bg, command=lambda: function)
+        name_1.config(font=(f"{font}", size_text))
+        name_1.pack()
+        name_1.place(x=x, y=y)
+
+
+
+
 
 
 
