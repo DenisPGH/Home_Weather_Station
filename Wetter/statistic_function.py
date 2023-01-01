@@ -61,7 +61,8 @@ class GraphHistory:
 
 
 if __name__ == "__main__":
+    pass
     # h=Histroy()
     # print(h.get_values('temperature','2023-01-01'))
-    gh=GraphHistory()
-    gh.show_graphic('temperature','2023-01-01')
+    # gh=GraphHistory()
+    # gh.show_graphic('temperature','2023-01-01')

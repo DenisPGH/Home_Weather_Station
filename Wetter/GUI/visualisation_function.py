@@ -2,6 +2,10 @@ import datetime
 import sys
 import tkinter as tk
 from tkinter import *
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
+                                               NavigationToolbar2Tk)
+
 
 # def clean_screen_function(win):
 #     """ this function cleen the scree, when call it"""
@@ -61,12 +65,13 @@ class GUI_VIS:
 
         self.clean_screen_function(win)
         # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
-        self.label_static("parameter", win, 300, 0, f" {parameter} for the {self.DAY}")
+        self.label_static("parameter", win, 270, 430, f" {parameter} for the {self.DAY}")
 
         but=tk.Button(win, text="BACK", fg="Red",bg='Black',command=lambda: self.first_screen(win))
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
+        self.plot(win)
 
 
 
@@ -212,4 +217,25 @@ class GUI_VIS:
         :return:
         """
         win.mainloop()
+
+    def plot(self,win):
+
+        # the figure that will contain the plot
+        fig = Figure(figsize=(5, 5), dpi=70)
+
+
+        # list of squares
+        y = [i ** 2 for i in range(101)]
+
+        # adding the subplot
+        plot1 = fig.add_subplot(111)
+
+        # plotting the graph
+        plot1.plot(y)
+
+
+        canvas = FigureCanvasTkAgg(fig,master=win)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
+
 
