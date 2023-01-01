@@ -7,10 +7,10 @@ db=DataBaseWetter()
 #db.store_new_info([12,34,67],actual_time)
 from tkinter import *
 window = Tk()
-window.geometry(f"1000x1000")
+window.geometry(f"800x480")
 window.configure(background='black')
 window.title("WETTER")
-window.attributes("-fullscreen", True)
+#window.attributes("-fullscreen", True)
 
 
 

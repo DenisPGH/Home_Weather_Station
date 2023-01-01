@@ -31,11 +31,14 @@ class GUI_VIS:
         self.width=700
         self.height=700
         self.value=0
+        self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
+        self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
         ################
         self.fg_buttons = 'White'
         self.bg_buttons = "Black"
         self.size_buttons = 10
         self.font_buttons = 'Areil'
+
 
 
 
@@ -58,9 +61,9 @@ class GUI_VIS:
 
         self.clean_screen_function(win)
         # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
-        self.label_static("parameter", win, 350, 0, f" {parameter} for last 24 hours")
+        self.label_static("parameter", win, 300, 0, f" {parameter} for the {self.DAY}")
 
-        but=tk.Button(win, text="BACK", fg="Red",bd="White",command=lambda: self.first_screen(win))
+        but=tk.Button(win, text="BACK", fg="Red",bg='Black',command=lambda: self.first_screen(win))
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
@@ -69,41 +72,50 @@ class GUI_VIS:
 
 
     def first_screen(self,win):
-        """ this function start our first windows view"""
+        """ this function start our first windows view 800x480"""
         self.clean_screen_function(win)
         value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
-        self.label_static("temp", win, 60, 400, "Temperature")
-        self.label_static("temprr", win, 450, 400, "Humidity")
-        self.label_static("press", win, 800, 400, "Pressure")
-        # labels units
-        size_units=30
-        level_units=540
-        self.label_static("temp", win, 230, level_units, " C",size_units)
-        self.label_static("temprr", win, 600, level_units, " %",size_units)
-        self.label_static("press", win, 920, level_units, " hPa",size_units)
-        # labels live values
-        self.label_dynamic("press", win, 10, 500)
-        self.label_dynamic("press4", win, 400, 500)
-        self.label_dynamic("press4", win, 730, 500)
+        level_tables=300
+        self.label_static("temp", win, 60, level_tables, "Temperature :")
+        self.label_static("temprr", win, 350, level_tables, "Humidity :")
+        self.label_static("press", win, 600, level_tables, "Pressure :")
+        self.label_static("tem_outside", win, 50, 100, "Temperature Outside :")
+        # labels units ########################################################
+        size_units=20
+        level_units=370
+        self.label_static("temp", win, 150, level_units, " C",size_units)
+        self.label_static("temprr", win, 430, level_units, " %",size_units)
+        self.label_static("press", win, 730, level_units, " hPa",size_units)
+        self.label_static("tem_out", win, 150, 200, " C",size_units)
+        # labels live values ####################################################
+        level_values=350
+        size_double=50
+        self.label_dynamic("press", win, 65, level_values,1,size_double)
+        self.label_dynamic("press4", win, 355, level_values,2,size_double)
+        self.label_dynamic("press4", win, 600, level_values,3)
+        self.label_dynamic("press5", win, 150, 0,4) # time
+        self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
 
         # buttons ######################
+        level_buttons=440
         name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic("Temp", win))
+                           command=lambda: self.show_statistic("Temperature", win))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=60, y=600)
+        name_a.place(x=60, y=level_buttons)
 
-        name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons, command=lambda: self.show_statistic("Temp",win))
+        name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Humidity",win))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=450, y=600)
+        name_b.place(x=350, y=level_buttons)
 
-        name_c = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic("Temp", win))
+        name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Pressure", win))
         name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_c.pack()
-        name_c.place(x=800, y=600)
+        name_c.place(x=600, y=level_buttons)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
@@ -114,19 +126,7 @@ class GUI_VIS:
 
 
 
-        #self.button_1(win, 20, 20, "Temperature",self.show_statistic('Temp',win))
-        # self.button("hum", win, 200, 300, "Hummidity",self.show_statistic('hum',win))
-        #self.button("press", win, 200, 400, "Presure",self.show_statistic('Press',win))
 
-
-        # my_label = Label(win, text=self.value, fg="White", bg="Red")
-        # my_label.pack()
-        #
-        # def update_time():
-        #     self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-        #     my_label.config(text=self.value)
-        #     my_label.after(300, update_time)
-        # update_time()
 
     def label_static(self,name:str,win,x,y,text:str,size_text=15,font='Ariel', fg="White",bg="Black"):
         """
@@ -149,7 +149,7 @@ class GUI_VIS:
         name.place(x=x, y=y)
 
 
-    def label_dynamic(self,name:str,win,x,y, index=0,font='Ariel', size_text=60,fg="White",bg="Black"):
+    def label_dynamic(self,name:str,win,x,y, index=0,size_text=40,font='Ariel', fg="White",bg="Black"):
         """
         :param font: font of the text
         :param size_text: size of the text
@@ -173,8 +173,20 @@ class GUI_VIS:
         # my_label.pack()
 
         def update_time():
-            #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-            self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:] #sec
+            """
+
+            :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
+            """
+            if index==1: # temperature
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+            elif index==2: # humidity
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+            elif index==3: # pressure
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
+            elif index==4: # time
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+            elif index==5: # temperature outside
+                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
             name.config(text=self.value)
             name.after(300, update_time)
 
