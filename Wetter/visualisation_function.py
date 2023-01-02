@@ -5,6 +5,7 @@ from tkinter import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
+from sensor_function import Sensor
 from statistic_function import History
 from wetter_outside_function import Outside
 
@@ -24,6 +25,7 @@ class GUI_VIS:
         self.history=History()
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
         self.outside=Outside()
+        self.sensor=Sensor()
 
 
     def clean_screen_function(self,win):
@@ -157,11 +159,14 @@ class GUI_VIS:
             :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
             """
             if index==1: # temperature
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                self.value =self.sensor.reading()[0]
             elif index==2: # humidity
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
+                self.value = self.sensor.reading()[1]
             elif index==3: # pressure
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
+                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
+                self.value = self.sensor.reading()[2]
             elif index==4: # time
                 self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
             elif index==5: # temperature outside

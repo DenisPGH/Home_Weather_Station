@@ -1,24 +1,42 @@
+from database_function import DataBaseWetter, TIME_DATE
 
-try:
-    from smbus2 import SMBus
-except ImportError:
-    from smbus import SMBus
-from bme280 import BME280
+## uncomment here
+# try:
+#     from smbus2 import SMBus
+# except ImportError:
+#     from smbus import SMBus
+# from bme280 import BME280
 
 
 
 class Sensor:
     def __init__(self):
-        self.bus = SMBus(1) # buss
-        self.bme280 = BME280(i2c_dev=self.bus)
+        # self.bus = SMBus(1) # buss
+        # self.bme280 = BME280(i2c_dev=self.bus)
+        self.db=DataBaseWetter()
+        self.td=TIME_DATE()
+        self.first_run=0
     def reading(self):
         """
         get the values from the sensor and return it in array [temp,humm,pressure]
         :return:
         """
-        temperature = self.bme280.get_temperature()
-        pressure = self.bme280.get_pressure()
-        humidity = self.bme280.get_humidity()
+        # uncomment here
+        # temperature = self.bme280.get_temperature()
+        # humidity = self.bme280.get_humidity()
+        # pressure = self.bme280.get_pressure()
+        temperature=25
+        humidity=99
+        pressure=1100
+
+        date=self.td.DATE()
+        hh=self.td.TIME()[0]
+        mm=self.td.TIME()[1]
+
+        if mm == 00 or mm == 30 or self.first_run == 0:  # 1:00, 2:00, 2:30 etc
+            self.first_run = 1
+            self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
+
 
         return [temperature,humidity,pressure]
 

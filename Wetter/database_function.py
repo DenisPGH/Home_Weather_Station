@@ -19,9 +19,9 @@ class DataBaseWetter:
     def __init__(self):
         self.path_store_wetter= 'Wetter'
         self.name_DB= 'wetter_DB'
-        self.date=TIME_DATE()
+        #self.date=TIME_DATE()
 
-    def store_new_info(self,values:list):
+    def store_new_info(self,values:list,date,hh,mm):
         """
 
         :param values: array [temp,humm,pressure]
@@ -34,7 +34,8 @@ class DataBaseWetter:
         with open(f'{self.name_DB}.csv', mode='a', newline='') as csv_write:  # w,a
             file = csv.writer(csv_write, delimiter='|', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # [2023-01-01,HH,MM,Temperature,Humidity,Pressure]
-            file.writerow([self.date.DATE(),self.date.TIME()[0],self.date.TIME()[1],temp,humm,pressure])
+            #file.writerow([self.date.DATE(),self.date.TIME()[0],self.date.TIME()[1],temp,humm,pressure])
+            file.writerow([date,hh,mm,temp,humm,pressure])
 
 
     def return_info_db(self):
