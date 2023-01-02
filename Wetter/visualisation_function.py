@@ -200,7 +200,7 @@ class GUI_VIS:
 
 
         # the figure that will contain the plot
-        fig = Figure(figsize=(5, 5), dpi=90)
+        fig = Figure(figsize=(5, 5), dpi=80)
 
 
         # list of squares

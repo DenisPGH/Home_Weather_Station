@@ -20,7 +20,10 @@ class History:
         """
         val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
         hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
-        return val_return,hr_return
+
+        val_return_yesterday = self.data.loc[self.data['date'] == "2023-01-01"][values].values.tolist()
+        hr_return_yesterday = self.data.loc[self.data['date'] == "2023-01-01"]['hour'].values.tolist()
+        return val_return+val_return_yesterday,hr_return+hr_return_yesterday
 
 
 
