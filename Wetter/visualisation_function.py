@@ -26,6 +26,7 @@ class GUI_VIS:
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
         self.outside=Outside()
         self.sensor=Sensor()
+        self.interval_refresh_page=2000
 
 
     def clean_screen_function(self,win):
@@ -173,7 +174,7 @@ class GUI_VIS:
                 #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
                 self.value = self.outside.acctual_temperature_outside()
             name.config(text=self.value)
-            name.after(300, update_time)
+            name.after(self.interval_refresh_page, update_time)
 
         update_time()
 
