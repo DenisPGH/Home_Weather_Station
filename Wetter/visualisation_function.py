@@ -17,6 +17,8 @@ class GUI_VIS:
         self.value=0
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
+        self.yesterday=datetime.datetime.today()-datetime.timedelta(days=1) # '2011-01-01'
+        self.YESTERDAY=self.yesterday.strftime('%Y-%m-%d %H:%M:%S').split(" ")[0] # '2011-01-01'
         ################
         self.fg_buttons = 'White'
         self.bg_buttons = "Black"
@@ -54,7 +56,7 @@ class GUI_VIS:
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
-        self.plot_me(win, parameter.lower(), self.DAY)
+        self.plot_me(win, parameter.lower(), self.DAY,self.YESTERDAY)
 
 
     def first_screen(self,win):
@@ -108,7 +110,7 @@ class GUI_VIS:
                            command=lambda: self.terminate())
         name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_d.pack()
-        name_d.place(x=0, y=0)
+        name_d.place(x=780, y=0)
 
 
 
@@ -195,7 +197,7 @@ class GUI_VIS:
         """
         win.mainloop()
 
-    def plot_me(self, win, parameter, today):
+    def plot_me(self, win, parameter, today, yesterday):
         """
 
         :param win: windows
@@ -210,7 +212,7 @@ class GUI_VIS:
 
 
         # list of squares
-        ys, xs = self.history.get_values(parameter, today)
+        ys, xs = self.history.get_values(parameter, today,yesterday)
         plot1 = fig.add_subplot(111)
         plot1.plot(xs, ys, 'bo-')
         #################

@@ -10,19 +10,19 @@ class History:
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv("wetter_DB.csv",sep='|',names=self.colums,skiprows=[0],header=None)
 
-    def get_values(self,values:str,wished_day:str):
+    def get_values(self,values:str,wished_day:str,yesterday:str):
         """
         get the wished values from the csv file
 
         :param values: 'temperature','humidity','pressure'
-        :param wished_day: which day I want
+        :param wished_day: which day I want : '2023-01-01'
         :return: return [values,time(0-24hr)] lists
         """
         val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
         hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
 
-        val_return_yesterday = self.data.loc[self.data['date'] == "2023-01-01"][values].values.tolist()
-        hr_return_yesterday = self.data.loc[self.data['date'] == "2023-01-01"]['hour'].values.tolist()
+        val_return_yesterday = self.data.loc[self.data['date'] == yesterday][values].values.tolist()
+        hr_return_yesterday = self.data.loc[self.data['date'] == yesterday]['hour'].values.tolist()
         return val_return+val_return_yesterday,hr_return+hr_return_yesterday
 
 
