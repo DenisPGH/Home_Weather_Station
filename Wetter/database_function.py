@@ -26,7 +26,7 @@ class DataBaseWetter:
     def __init__(self):
         self.path_store_wetter= 'Wetter'
         self.name_DB= HELPER().return_DB()
-        self.name_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
+        #self.name_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
         #self.date=TIME_DATE()
 
     def store_new_info(self,values:list,date,hh,mm):
