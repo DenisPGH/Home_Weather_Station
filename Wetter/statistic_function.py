@@ -11,11 +11,30 @@ class History:
         self.h=HELPER()
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv(self.h.return_DB(),sep='|',names=self.colums,skiprows=[0],header=None)
+        self.hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 
-    def get_values(self,values:str,wished_day:str,yesterday:str):
+    def select_right_values(self,now,hours_yesterday,values_yesterday):
+        """
+        :param now: the current hours
+        :param hours_yesterday: list with all hours from day before
+        :param values_yesterday: list with all measured values for the day before
+        :return: list hh, list val ==only the values outside the hours from today(24 hr insgesamt)
+        """
+        selected_hours=[]
+        selected_values=[]
+        yesterday_hr_val = dict(zip(hours_yesterday, values_yesterday))
+        for hr,val in yesterday_hr_val.items():
+            if hr >int(8):
+                selected_hours.append(hr)
+                selected_values.append(val)
+
+        return selected_hours,selected_values
+
+
+    def get_values(self,values:str,wished_day:str,yesterday:str,now):
         """
         get the wished values from the csv file
-
+        :param now: the hour now
         :param values: 'temperature','humidity','pressure'
         :param wished_day: which day I want : '2023-01-01'
         :return: return [values,time(0-24hr)] lists
@@ -23,9 +42,11 @@ class History:
         val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
         hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
 
-        val_return_yesterday = self.data.loc[self.data['date'] == yesterday][values].values.tolist()
-        hr_return_yesterday = self.data.loc[self.data['date'] == yesterday]['hour'].values.tolist()
-        return val_return+val_return_yesterday,hr_return+hr_return_yesterday
+        val_return_yesterday_all = self.data.loc[self.data['date'] == yesterday][values].values.tolist()
+        hr_return_yesterday_all = self.data.loc[self.data['date'] == yesterday]['hour'].values.tolist()
+        hr_return_yesterday,val_return_yesterday=self.select_right_values(now,
+                                                                          hr_return_yesterday_all,val_return_yesterday_all)
+        return val_return_yesterday+val_return,hr_return_yesterday+hr_return
 
 
 
