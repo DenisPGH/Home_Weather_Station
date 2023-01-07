@@ -110,7 +110,7 @@ class GUI_VIS:
                            command=lambda: self.terminate())
         name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_d.pack()
-        name_d.place(x=780, y=0)
+        name_d.place(x=770, y=0)
 
 
 
