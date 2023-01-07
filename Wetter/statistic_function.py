@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from database_function import HELPER
 import numpy as np
 # date|hour|minute|temperature|humidity|pressure
 
@@ -7,8 +8,9 @@ import numpy as np
 
 class History:
     def __init__(self):
+        self.h=HELPER()
         self.colums=['date','hour','minute','temperature','humidity','pressure']
-        self.data=pd.read_csv("wetter_DB.csv",sep='|',names=self.colums,skiprows=[0],header=None)
+        self.data=pd.read_csv(self.h.return_DB(),sep='|',names=self.colums,skiprows=[0],header=None)
 
     def get_values(self,values:str,wished_day:str,yesterday:str):
         """
