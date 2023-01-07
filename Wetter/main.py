@@ -2,7 +2,7 @@ from visualisation_function import GUI_VIS
 from tkinter import *
 
 
-
+#export DISPLAY=0:0
 window = Tk()
 window.geometry("800x480")
 window.configure(background='black')
