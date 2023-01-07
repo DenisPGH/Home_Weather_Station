@@ -209,25 +209,32 @@ class GUI_VIS:
 
 
         # the figure that will contain the plot
-        fig = Figure(figsize=(5, 5), dpi=80)
+        fig_color=0.01
+        fig = Figure(figsize=(8.5, 5), dpi=80)
+        fig.patch.set_facecolor((fig_color, fig_color, fig_color))
 
 
         # list of squares
         ys, xs = self.history.get_values(parameter, today,yesterday,self.CURRENT_HOUR)
-        plot1 = fig.add_subplot(111)
-        plot1.plot(xs, ys, 'bo-')
+        plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
+        plot1.grid(color=((0.15,0.15,0.15)))
+        plot1.set_facecolor((fig_color, fig_color, fig_color))
+        plot1.plot(xs, ys, 'g',linewidth=3)
         #################
-        plot1.set_xlabel('Hours')
-        plot1.set_ylabel(f'{parameter}')
-        for x, y in zip(xs, ys):
-            #label = "{:.2f}".format(y)
-            label = f"{y:.2f} {self.value_unit[parameter]}"
-
-            plot1.annotate(label,  # this is the text
-                         (x, y),  # these are the coordinates to position the label
-                         textcoords="offset points",  # how to position the text
-                         xytext=(0, 10),  # distance from text to points (x,y)
-                         ha='center')  # horizontal alignment can be left, right or cente
+        plot1.set_xlabel('Hours',fontsize=20,color='White') # xaxis.label.set_color('red')
+        plot1.set_ylabel(f'{parameter}',fontsize=20,color='White')
+        plot1.tick_params(axis='x', colors='white')
+        plot1.tick_params(axis='y', colors='white')
+        ## label here down ###############################
+        # for x, y in zip(xs, ys):
+        #     #label = "{:.2f}".format(y)
+        #     label = f"{y:.2f} {self.value_unit[parameter]}"
+        #
+        #     plot1.annotate(label,  # this is the text
+        #                  (x, y),  # these are the coordinates to position the label
+        #                  textcoords="offset points",  # how to position the text
+        #                  xytext=(0, 10),  # distance from text to points (x,y)
+        #                  ha='center')  # horizontal alignment can be left, right or cente
 
 
         canvas = FigureCanvasTkAgg(fig,master=win)

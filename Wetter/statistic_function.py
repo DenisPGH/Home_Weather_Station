@@ -18,15 +18,18 @@ class History:
         :param now: the current hours
         :param hours_yesterday: list with all hours from day before
         :param values_yesterday: list with all measured values for the day before
-        :return: list hh, list val ==only the values outside the hours from today(24 hr insgesamt)
+        :return: list hh, list val ==only the values outside the hours from today(0-24 hr insgesamt)
         """
         selected_hours=[]
         selected_values=[]
         yesterday_hr_val = dict(zip(hours_yesterday, values_yesterday))
         for hr,val in yesterday_hr_val.items():
-            if hr >int(8):
+            if hr >int(now):
                 selected_hours.append(hr)
                 selected_values.append(val)
+        # date_rng = pd.date_range('2023-01-01 12:00:00', '2023-01-02', freq='1H')
+        # dates = date_rng.strftime('%H:%M').tolist()
+        # print(dates)
 
         return selected_hours,selected_values
 
@@ -37,7 +40,7 @@ class History:
         :param now: the hour now
         :param values: 'temperature','humidity','pressure'
         :param wished_day: which day I want : '2023-01-01'
-        :return: return [values,time(0-24hr)] lists
+        :return: return [values: numbers,time:strings(0-24)] lists
         """
         val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
         hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
@@ -46,7 +49,7 @@ class History:
         hr_return_yesterday_all = self.data.loc[self.data['date'] == yesterday]['hour'].values.tolist()
         hr_return_yesterday,val_return_yesterday=self.select_right_values(now,
                                                                           hr_return_yesterday_all,val_return_yesterday_all)
-        return val_return_yesterday+val_return,hr_return_yesterday+hr_return
+        return val_return_yesterday+val_return,[str(x) for x in hr_return_yesterday+hr_return]
 
 
 
