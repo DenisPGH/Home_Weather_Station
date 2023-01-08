@@ -30,7 +30,7 @@ class GUI_VIS:
         ################
         self.fg_buttons = 'White'
         self.bg_buttons = "Black"
-        self.size_buttons = 10
+        self.size_buttons = 17
         self.font_buttons = 'Areil'
         self.history=History()
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
@@ -67,13 +67,13 @@ class GUI_VIS:
                            command=lambda: self.show_statistic(parameter,win,1))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=0, y=30)
+        name_a.place(x=0, y=50)
 
         name_b = tk.Button(win, text="7 days", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,7))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=0, y=60)
+        name_b.place(x=0, y=100)
 
 
 
