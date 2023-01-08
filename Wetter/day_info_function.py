@@ -53,7 +53,8 @@ class Ortodox:
         self.holi = 'holi'
         self.date_day_info = {}  # {date: [{day:'P', holi:'absved'} , {}] , }
         self.counter = 0
-        self.LINK_CSV_HOLIDAYS= 'holdays_2023.csv'
+        #self.LINK_CSV_HOLIDAYS= 'holdays_2023.csv' 
+        self.LINK_CSV_HOLIDAYS= '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/holdays_2023.csv'
         self.colums=['month','date','inforamtion']
 
 
