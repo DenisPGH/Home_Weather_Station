@@ -247,7 +247,7 @@ class GUI_VIS:
 
         # the figure that will contain the plot
         fig_color=0.01
-        fig = Figure(figsize=(8.5, 5), dpi=80)
+        fig = Figure(figsize=(7, 5), dpi=80)
         fig.patch.set_facecolor((fig_color, fig_color, fig_color))
 
 
