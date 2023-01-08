@@ -2,6 +2,11 @@ import datetime
 import sys
 import tkinter as tk
 from tkinter import *
+from matplotlib import ticker
+import matplotlib.dates as mdates
+import numpy as np
+
+
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
@@ -247,7 +252,6 @@ class GUI_VIS:
 
 
         # list of squares
-        #ys, xs = self.history.get_values(parameter, today,yesterday,self.datetime_)
         ys, xs = self.history.values_for_a_period(parameter,period)
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
@@ -257,8 +261,25 @@ class GUI_VIS:
         word_day='day' if period==1 else 'days'
         plot1.set_xlabel(f'{period} {word_day}',fontsize=20,color='White') # xaxis.label.set_color('red')
         plot1.set_ylabel(f'{parameter}',fontsize=20,color='White')
-        plot1.tick_params(axis='x', colors='white')
+        # set first and last
+        plot1.set_xticks([plot1.get_xticks()[0],plot1.get_xticks()[-1]],[f'{plot1.get_xticklabels()[0].get_text()}',plot1.get_xticklabels()[-1]])
+        plot1.tick_params(axis='x', colors='white',rotation=0)
         plot1.tick_params(axis='y', colors='white')
+
+        # print(plot1.get_xticks())
+        # plot1.set_xticks([3],['now'])
+        # labels = [item.get_text().split(" ")[1].split(":")[0] for item in plot1.get_xticklabels()]
+        # plot1.set_xticklabels(labels)
+        # plot1.set_xticklabels(FormatStrFormatter('').format_ticks(labels))
+        # plot1.xaxis.set_major_formatter(mdates.DateFormatter(' %m:%d'))
+        # start, end = plot1.get_xlim()
+        # plot1.set_xticks(plot1.get_xticks()[-1::100])
+
+        # plot1.xaxis.set_ticks(np.arange(start, end, 2))
+
+        # plot1.xaxis.set_major_formatter(ticker.StrMethodFormatter('.')) # StrMethodFormatter('*')
+
+        """ LABEL here"""
         ## label here down ###############################
         # for x, y in zip(xs, ys):
         #     #label = "{:.2f}".format(y)
