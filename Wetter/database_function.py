@@ -1,10 +1,12 @@
 import csv
 import time
 import datetime
+import os
 
 class HELPER():
     def __init__(self):
-        self.__path_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
+        self.__path_DB='wetter_DB_1.csv' if os.getlogin() == 'Owner' else '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
+        #self.__path_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
         #self.__path_DB='wetter_DB.csv'
     def return_DB(self):
         return self.__path_DB

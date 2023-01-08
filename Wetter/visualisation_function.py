@@ -200,6 +200,7 @@ class GUI_VIS:
 
     def plot_me(self, win, parameter, today, yesterday):
         """
+        this control the graphical windows in the tkinter page
 
         :param win: windows
         :param parameter: 'temperature','humidity','pressure'
