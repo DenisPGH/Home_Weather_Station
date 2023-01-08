@@ -44,7 +44,7 @@ class GUI_VIS:
         for each in win.winfo_children():
             each.destroy()
 
-    def show_statistic(self,parameter,win):
+    def show_statistic(self,parameter,win,period=1):
         """
 
         :param parameter: 'Temperature','Humidity','Pressure'
@@ -56,11 +56,28 @@ class GUI_VIS:
         # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
         self.label_static("parameter", win, 270, 430, f" {parameter} for the {self.DAY}")
 
+        # BUTTONS
+        level_buttons = 430
+        name_a = tk.Button(win, text="One day", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic(parameter,win,1))
+        name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_a.pack()
+        name_a.place(x=0, y=30)
+
+        name_b = tk.Button(win, text="7 days", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic(parameter,win,7))
+        name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
+        name_b.pack()
+        name_b.place(x=0, y=60)
+
+
+
+        # BACK BUTTON
         but=tk.Button(win, text="BACK", fg="Red",bg='Black',command=lambda: self.first_screen(win))
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
-        self.plot_me(win, parameter.lower(), self.DAY,self.YESTERDAY)
+        self.plot_me(win, parameter.lower(), period)
 
 
     def first_screen(self,win):
@@ -212,7 +229,7 @@ class GUI_VIS:
         """
         win.mainloop()
 
-    def plot_me(self, win, parameter, today, yesterday):
+    def plot_me(self, win, parameter, period):
         """
         this control the graphical windows in the tkinter page
 
@@ -231,13 +248,14 @@ class GUI_VIS:
 
         # list of squares
         #ys, xs = self.history.get_values(parameter, today,yesterday,self.datetime_)
-        ys, xs = self.history.values_for_a_period(parameter,1)
+        ys, xs = self.history.values_for_a_period(parameter,period)
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
         plot1.set_facecolor((fig_color, fig_color, fig_color))
         plot1.plot(xs, ys, 'g',linewidth=3)
         #################
-        plot1.set_xlabel('Hours',fontsize=20,color='White') # xaxis.label.set_color('red')
+        word_day='day' if period==1 else 'days'
+        plot1.set_xlabel(f'{period} {word_day}',fontsize=20,color='White') # xaxis.label.set_color('red')
         plot1.set_ylabel(f'{parameter}',fontsize=20,color='White')
         plot1.tick_params(axis='x', colors='white')
         plot1.tick_params(axis='y', colors='white')
