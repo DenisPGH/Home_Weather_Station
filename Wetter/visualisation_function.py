@@ -5,6 +5,7 @@ from tkinter import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
+from day_info_function import Ortodox
 from sensor_function import Sensor
 from statistic_function import History
 from wetter_outside_function import Outside
@@ -30,6 +31,7 @@ class GUI_VIS:
         self.outside=Outside()
         self.sensor=Sensor()
         self.interval_refresh_page=2000
+        self.orthodox=Ortodox()
 
 
     def clean_screen_function(self,win):
@@ -70,13 +72,7 @@ class GUI_VIS:
         self.label_static("temprr", win, 350, level_tables, "Humidity :")
         self.label_static("press", win, 600, level_tables, "Pressure :")
         self.label_static("tem_outside", win, 50, 100, "Temperature Outside :")
-        # labels units ########################################################
-        size_units=20
-        level_units=370
-        self.label_static("temp", win, 150, level_units, " C",size_units)
-        self.label_static("temprr", win, 430, level_units, " %",size_units)
-        self.label_static("press", win, 730, level_units, " hPa",size_units)
-        self.label_static("tem_out", win, 150, 200, " C",size_units)
+
         # labels live values ####################################################
         level_values=350
         size_double=50
@@ -85,6 +81,15 @@ class GUI_VIS:
         self.label_dynamic("press4", win, 600, level_values,3) # pressure
         self.label_dynamic("press5", win, 180, 0,4) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
+        self.label_dynamic("press7", win, 400, 100,6,20) # Nameday
+
+        # labels units ########################################################
+        size_units = 20
+        level_units = 370
+        self.label_static("temp", win, 150, level_units, " C", size_units)
+        self.label_static("temprr", win, 430, level_units, " %", size_units)
+        self.label_static("press", win, 730, level_units, " hPa", size_units)
+        self.label_static("tem_out", win, 150, 200, " C", size_units)
 
         # buttons ######################
         level_buttons=440
@@ -176,6 +181,14 @@ class GUI_VIS:
             elif index==5: # temperature outside
                 #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
                 self.value = self.outside.acctual_temperature_outside()
+            elif index==6: # Nameday
+                text_=self.orthodox.current_day_ortodox()
+                if text_ !="":
+                    self.value = f"Днес:  {text_}"
+                else:
+                    self.value = f" Schön dass du da bist!!!"
+
+
             name.config(text=self.value)
             name.after(self.interval_refresh_page, update_time)
 
