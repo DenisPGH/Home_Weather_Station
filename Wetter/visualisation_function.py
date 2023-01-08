@@ -110,8 +110,8 @@ class GUI_VIS:
         size_units = 20
         level_units = 370
         self.label_static("temp", win, 150, level_units, " C", size_units)
-        self.label_static("temprr", win, 430, level_units, " %", size_units)
-        self.label_static("press", win, 730, level_units, " hPa", size_units)
+        self.label_static("temprr", win, 450, level_units, " %", size_units)
+        self.label_static("press", win, 740, level_units, " hPa", size_units)
         self.label_static("tem_out", win, 150, 200, " C", size_units)
 
         # buttons ######################
@@ -120,19 +120,19 @@ class GUI_VIS:
                            command=lambda: self.show_statistic("Temperature", win))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=60, y=level_buttons)
+        name_a.place(x=30, y=level_buttons)
 
         name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Humidity",win))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=350, y=level_buttons)
+        name_b.place(x=320, y=level_buttons)
 
         name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Pressure", win))
         name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_c.pack()
-        name_c.place(x=600, y=level_buttons)
+        name_c.place(x=570, y=level_buttons)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
