@@ -6,7 +6,9 @@ import os
 class HELPER():
     def __init__(self):
         self.PATH_RASPI='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
-        self.__path_DB='wetter_DB_1.csv' if os.getlogin() == 'Owner' else self.PATH_RASPI
+        #self.__path_DB='wetter_DB_1.csv' if os.getlogin() == 'Owner' else self.PATH_RASPI
+        #self.__path_DB='wetter_DB_1.csv'
+        self.__path_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
     def return_DB(self):
         return self.__path_DB
 
