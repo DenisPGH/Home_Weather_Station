@@ -1,6 +1,8 @@
+import datetime
+
 import pandas as pd
 import matplotlib.pyplot as plt
-from database_function import HELPER
+from database_function import HELPER, TIME_DATE
 import numpy as np
 # date|hour|minute|temperature|humidity|pressure
 
@@ -11,7 +13,20 @@ class History:
         self.h=HELPER()
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv(self.h.return_DB(),sep='|',names=self.colums,skiprows=[0],header=None)
-        self.hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    def values_for_a_period(self,values,period):
+        """
+
+        :param values: 'temperature','humidity','pressure'
+        :param period: how many days int
+        :return: list:values, list:hours
+        """
+
+        now=datetime.datetime.today()
+        start_period=(now-datetime.timedelta(days=period)).strftime('%Y-%m-%d %H:00:00')
+        date_rng = pd.date_range(start_period, now, freq=f'{period}H').strftime('%Y-%m-%d %H:%M:%S').tolist()
+        hr_return = self.data[self.data['date'].isin(date_rng)]['hour'].values.tolist()
+        val_return = self.data[self.data['date'].isin(date_rng)][values].values.tolist()
+        return val_return, hr_return
 
     def select_right_values(self,now,hours_yesterday,values_yesterday):
         """
@@ -27,14 +42,12 @@ class History:
             if hr >int(now):
                 selected_hours.append(hr)
                 selected_values.append(val)
-        # date_rng = pd.date_range('2023-01-01 12:00:00', '2023-01-02', freq='1H')
-        # dates = date_rng.strftime('%H:%M').tolist()
-        # print(dates)
+
 
         return selected_hours,selected_values
 
 
-    def get_values(self,values:str,wished_day:str,yesterday:str,now):
+    def get_values(self,values:str,wished_day:str,yesterday:str,now,period=1):
         """
         get the wished values from the csv file
         :param now: the hour now
@@ -42,6 +55,7 @@ class History:
         :param wished_day: which day I want : '2023-01-01'
         :return: return [values: numbers,time:strings(0-24)] lists
         """
+
         val_return=self.data.loc[self.data['date']==wished_day][values].values.tolist()
         hr_return=self.data.loc[self.data['date']==wished_day]['hour'].values.tolist()
 
@@ -49,7 +63,12 @@ class History:
         hr_return_yesterday_all = self.data.loc[self.data['date'] == yesterday]['hour'].values.tolist()
         hr_return_yesterday,val_return_yesterday=self.select_right_values(now,
                                                                           hr_return_yesterday_all,val_return_yesterday_all)
-        return val_return_yesterday+val_return,[str(x) for x in hr_return_yesterday+hr_return]
+
+        # res_val=val_return_yesterday+val_return
+        # res_hours=[str(x) for x in hr_return_yesterday+hr_return]
+        res_val,res_hours=self.values_for_a_period(values,period)
+
+        return res_val,res_hours
 
 
 

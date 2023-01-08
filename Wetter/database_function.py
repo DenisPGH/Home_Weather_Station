@@ -16,6 +16,11 @@ class TIME_DATE():
     def DATE(self):
         date_ = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         return date_
+
+    def date(self):
+        date_2 = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        return date_2
+
     def TIME(self):
         hh = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[0]
         mm = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1]

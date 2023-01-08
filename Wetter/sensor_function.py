@@ -25,15 +25,15 @@ class Sensor:
         # temperature = self.bme280.get_temperature()
         # humidity = self.bme280.get_humidity()
         # pressure = self.bme280.get_pressure()
-        temperature=25
+        temperature=3
         humidity=99
         pressure=1100
 
-        date=self.td.DATE()
+        date=self.td.date()
         hh=self.td.TIME()[0]
         mm=self.td.TIME()[1]
 
-        if mm == 00 or mm == 30 or self.first_run == 0:  # 1:00, 2:00, 2:30 etc
+        if mm == 00 or self.first_run == 0:  # 1:00, 2:00, 3:00 etc
             self.first_run = 1
             self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
 

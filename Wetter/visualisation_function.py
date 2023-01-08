@@ -16,6 +16,7 @@ class GUI_VIS:
         self.width=700
         self.height=700
         self.value=0
+        self.datetime_=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
         self.yesterday=datetime.datetime.today()-datetime.timedelta(days=1) # '2011-01-01'
@@ -229,7 +230,8 @@ class GUI_VIS:
 
 
         # list of squares
-        ys, xs = self.history.get_values(parameter, today,yesterday,self.CURRENT_HOUR)
+        #ys, xs = self.history.get_values(parameter, today,yesterday,self.datetime_)
+        ys, xs = self.history.values_for_a_period(parameter,1)
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
         plot1.set_facecolor((fig_color, fig_color, fig_color))
