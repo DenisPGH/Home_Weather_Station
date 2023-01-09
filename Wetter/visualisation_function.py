@@ -336,7 +336,7 @@ class GUI_VIS:
                            command=lambda: self.first_screen(win))
         name_e.config(font=(f"{self.font_buttons}", SIZE_FONT))
         name_e.pack()
-        name_e.place(x=700, y=0)
+        name_e.place(x=680, y=0)
 
 
     def shut_down(self,win):
