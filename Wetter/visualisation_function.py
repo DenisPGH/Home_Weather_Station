@@ -1,4 +1,5 @@
 import datetime
+import os
 import sys
 import tkinter as tk
 from tkinter import *
@@ -38,6 +39,8 @@ class GUI_VIS:
         self.sensor=Sensor()
         self.interval_refresh_page=2000
         self.orthodox=Ortodox()
+        self.VIDEO_ON=False
+
 
     def back_button(self,win):
 
@@ -144,6 +147,15 @@ class GUI_VIS:
         name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_d.pack()
         name_d.place(x=770, y=0)
+
+        ## video button
+        self.video_button(win)
+
+        ## shutdown button
+        self.shutdown_button(win)
+
+
+
 
 
 
@@ -299,5 +311,53 @@ class GUI_VIS:
         canvas = FigureCanvasTkAgg(fig,master=win)
         canvas.draw()
         canvas.get_tk_widget().pack()
+
+
+    def video_button(self,win):
+        TEXT = 'Video on' if self.VIDEO_ON == True else 'Video off'
+        FG = 'White'
+        BG = 'Red' if self.VIDEO_ON == True else 'Green'
+        SIZE_FONT=10
+
+        command='sudo systemctl start video.service' if self.VIDEO_ON == True else 'sudo systemctl stop video.service'
+        print(f"{command}")
+        if os.getlogin()=='raspi':
+            os.system(command)
+
+
+        if self.VIDEO_ON == False:
+            self.VIDEO_ON = True
+        elif self.VIDEO_ON == True:
+            self.VIDEO_ON = False
+        name_e = tk.Button(win, text=f"{TEXT}",
+                           fg=f"{FG}",
+                           bg=f"{BG}",
+
+                           command=lambda: self.first_screen(win))
+        name_e.config(font=(f"{self.font_buttons}", SIZE_FONT))
+        name_e.pack()
+        name_e.place(x=700, y=0)
+
+
+    def shut_down(self,win):
+        """
+        just shut down the raspi
+        """
+        self.clean_screen_function(win)
+        shut_down='sudo shutdown'
+        print('shutdown')
+        if os.getlogin()=='raspi':
+            os.system(shut_down)
+
+
+    def shutdown_button(self,win):
+        shutdown_size=13
+        name_shutdown = tk.Button(win, text="Shutdown", fg="Red", bg=self.bg_buttons,
+                           command=lambda: self.shut_down(win))
+        name_shutdown.config(font=(f"{self.font_buttons}", shutdown_size))
+        name_shutdown.pack()
+        name_shutdown.place(x=700, y=60)
+
+
 
 
