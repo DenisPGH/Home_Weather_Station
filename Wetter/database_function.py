@@ -3,14 +3,8 @@ import time
 import datetime
 import os
 
-class HELPER():
-    def __init__(self):
-        self.PATH_RASPI='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
-        #self.__path_DB='wetter_DB_1.csv' if os.getlogin() == 'Owner' else self.PATH_RASPI
-        #self.__path_DB='wetter_DB_1.csv'
-        self.__path_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
-    def return_DB(self):
-        return self.__path_DB
+from paths import PATH_DB
+
 
 class TIME_DATE():
     def __init__(self):
@@ -34,7 +28,7 @@ class TIME_DATE():
 class DataBaseWetter:
     def __init__(self):
         self.path_store_wetter= 'Wetter'
-        self.name_DB= HELPER().return_DB()
+        self.name_DB= PATH_DB
         #self.name_DB='/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
         #self.date=TIME_DATE()
 

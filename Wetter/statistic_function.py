@@ -2,17 +2,16 @@ import datetime
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from database_function import HELPER, TIME_DATE
+from database_function import  TIME_DATE
 import numpy as np
 # date|hour|minute|temperature|humidity|pressure
-
+from paths import PATH_DB
 
 
 class History:
     def __init__(self):
-        self.h=HELPER()
         self.colums=['date','hour','minute','temperature','humidity','pressure']
-        self.data=pd.read_csv(self.h.return_DB(),sep='|',names=self.colums,skiprows=[0],header=None)
+        self.data=pd.read_csv(PATH_DB, sep='|', names=self.colums, skiprows=[0], header=None)
     def values_for_a_period(self,values,period):
         """
 

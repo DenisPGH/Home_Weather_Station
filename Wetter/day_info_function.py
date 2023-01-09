@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup as soup
 from database_function import TIME_DATE
+from paths import PATH_HOLIDAYS
 
 
 class Ortodox:
@@ -54,7 +55,7 @@ class Ortodox:
         self.date_day_info = {}  # {date: [{day:'P', holi:'absved'} , {}] , }
         self.counter = 0
         #self.LINK_CSV_HOLIDAYS= 'holdays_2023.csv'
-        self.LINK_CSV_HOLIDAYS= '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/holdays_2023.csv'
+        self.LINK_CSV_HOLIDAYS=PATH_HOLIDAYS
         self.colums=['month','date','inforamtion']
 
 
