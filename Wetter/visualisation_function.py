@@ -39,6 +39,15 @@ class GUI_VIS:
         self.interval_refresh_page=2000
         self.orthodox=Ortodox()
 
+    def back_button(self,win):
+
+        # BACK BUTTON to first screen
+        but = tk.Button(win, text="BACK", fg="Red", bg='Black', command=lambda: self.first_screen(win))
+        but.config(font=(f"{self.font_buttons}", self.size_buttons))
+        but.pack()
+        but.place(x=0, y=0)
+
+
 
     def clean_screen_function(self,win):
         """
@@ -76,12 +85,7 @@ class GUI_VIS:
         name_b.place(x=0, y=100)
 
 
-
-        # BACK BUTTON
-        but=tk.Button(win, text="BACK", fg="Red",bg='Black',command=lambda: self.first_screen(win))
-        but.config(font=(f"{self.font_buttons}", self.size_buttons))
-        but.pack()
-        but.place(x=0, y=0)
+        self.back_button(win)
         self.plot_me(win, parameter.lower(), period)
 
 
@@ -91,18 +95,18 @@ class GUI_VIS:
         value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
         level_tables=300
-        self.label_static("temp", win, 60, level_tables, "Temperature :")
+        self.label_static("temp", win, 60, level_tables, "Temperature Inside :")
         self.label_static("temprr", win, 350, level_tables, "Humidity :")
         self.label_static("press", win, 600, level_tables, "Pressure :")
         self.label_static("tem_outside", win, 50, 100, "Temperature Outside :")
 
         # labels live values ####################################################
         level_values=350
-        size_double=50
+        size_double=65
         self.label_dynamic("press", win, 65, level_values,1,size_double) #temp
         self.label_dynamic("press4", win, 355, level_values,2,size_double) #humidity
         self.label_dynamic("press4", win, 600, level_values,3) # pressure
-        self.label_dynamic("press5", win, 180, 0,4) # time
+        self.label_dynamic("press5", win, 140, 0,4,50) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
         self.label_dynamic("press7", win, 400, 100,6,20) # Nameday
 
