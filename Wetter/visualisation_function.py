@@ -15,6 +15,7 @@ from day_info_function import Ortodox
 from sensor_function import Sensor
 from statistic_function import History
 from wetter_outside_function import Outside
+from paths import USER
 
 
 class GUI_VIS:
@@ -321,7 +322,7 @@ class GUI_VIS:
 
         command='sudo systemctl start video.service' if self.VIDEO_ON == True else 'sudo systemctl stop video.service'
         print(f"{command}")
-        if os.getlogin()=='raspi':
+        if USER=='raspi':
             os.system(command)
 
 
@@ -346,7 +347,7 @@ class GUI_VIS:
         self.clean_screen_function(win)
         shut_down='sudo shutdown'
         print('shutdown')
-        if os.getlogin()=='raspi':
+        if USER=='raspi':
             os.system(shut_down)
 
 
