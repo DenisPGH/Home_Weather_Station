@@ -109,7 +109,7 @@ class GUI_VIS:
         self.label_dynamic("press", win, 65, level_values,1,size_double) #temp
         self.label_dynamic("press4", win, 355, level_values,2,size_double) #humidity
         self.label_dynamic("press4", win, 600, level_values,3) # pressure
-        self.label_dynamic("press5", win, 140, 0,4,50) # time
+        self.label_dynamic("press5", win, 0, 0,4,50) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
         self.label_dynamic("press7", win, 400, 100,6,20) # Nameday
 
