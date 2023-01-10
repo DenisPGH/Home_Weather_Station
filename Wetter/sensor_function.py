@@ -22,9 +22,9 @@ class Sensor:
         :return:
         """
         # uncomment here
-        temperature = self.bme280.get_temperature()
-        humidity = self.bme280.get_humidity()
-        pressure = self.bme280.get_pressure()
+        temperature = int(self.bme280.get_temperature())
+        humidity = int(self.bme280.get_humidity())
+        pressure = int(self.bme280.get_pressure())
         # temperature=3
         # humidity=99
         # pressure=1100
