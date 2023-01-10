@@ -117,10 +117,10 @@ class GUI_VIS:
         # labels units ########################################################
         size_units = 20
         level_units = 370
-        self.label_static("temp", win, 150, level_units, " C", size_units)
-        self.label_static("temprr", win, 450, level_units, " %", size_units)
+        self.label_static("temp", win, 170, level_units, " C", size_units)
+        self.label_static("temprr", win, 470, level_units, " %", size_units)
         self.label_static("press", win, 740, level_units, " hPa", size_units)
-        self.label_static("tem_out", win, 150, 200, " C", size_units)
+        self.label_static("tem_out", win, 170, 200, " C", size_units)
 
         # buttons ######################
         level_buttons=440
