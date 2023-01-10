@@ -37,7 +37,7 @@ class Sensor:
             self.first_run = 1
             self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
 
-        print(temperature,humidity,pressure)
+        #print(temperature,humidity,pressure)
         return [temperature,humidity,pressure]
 
 
