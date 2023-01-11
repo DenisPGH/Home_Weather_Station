@@ -12,7 +12,7 @@ class History:
     def __init__(self):
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv(PATH_DB, sep='|', names=self.colums, skiprows=[0], header=None)
-        self.interval='30min'
+        self.interval='s'
     def values_for_a_period(self,values,period):
         """
 
@@ -28,7 +28,7 @@ class History:
         hr_return = self.data[self.data['date'].isin(date_rng)]['date'].values.tolist()
         val_return = self.data[self.data['date'].isin(date_rng)][values].values.tolist()
         #print(f" now: {now} , before {start_period}")
-        #print(date_rng)
+        print(date_rng)
         #return [str(x) for x in val_return], [str(y) for y in hr_return]
 
         return val_return, hr_return
