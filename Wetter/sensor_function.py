@@ -21,6 +21,8 @@ class Sensor:
         self.db=DataBaseWetter()
         self.td=TIME_DATE()
         self.first_run=0
+        self.hh_old=""
+        self.mm_old=""
     def reading(self):
         """
         get the values from the sensor and return it in array [temp,humm,pressure]
@@ -46,7 +48,10 @@ class Sensor:
 
         if mm == "00" or mm == "30"  or self.first_run == 0:  # 1:00, 2:00, 3:00 etc
             self.first_run = 1
-            self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
+            if mm !=self.mm_old and hh != self.hh_old:
+                self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
+                self.hh_old=hh
+                self.mm_old=mm
 
         #print(temperature,humidity,pressure)
         return [temperature,humidity,pressure]
