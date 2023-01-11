@@ -27,6 +27,7 @@ class Sensor:
         """
         # uncomment here
         if USER==USER_CLIENT:
+            print('a')
             temperature = int(self.bme280.get_temperature())
             humidity = int(self.bme280.get_humidity())
             pressure = int(self.bme280.get_pressure())
