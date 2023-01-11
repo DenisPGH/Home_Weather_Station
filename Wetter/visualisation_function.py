@@ -278,7 +278,7 @@ class GUI_VIS:
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
         plot1.set_facecolor((fig_color, fig_color, fig_color))
-        plot1.plot(xs, ys, 'g',linewidth=3)
+        plot1.plot(xs, ys, 'g',linewidth=4)
         #################
         word_day='day' if period==1 else 'days'
         plot1.set_xlabel(f'{period} {word_day}',fontsize=20,color='White') # xaxis.label.set_color('red')
