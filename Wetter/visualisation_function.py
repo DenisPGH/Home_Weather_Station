@@ -38,7 +38,7 @@ class GUI_VIS:
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
         self.outside=Outside()
         self.sensor=Sensor()
-        self.interval_refresh_page=30000 #4000
+        self.interval_refresh_page=10000 #4000
         self.orthodox=Ortodox()
         ###################
         self.VIDEO_ON=False
