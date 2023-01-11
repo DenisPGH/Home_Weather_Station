@@ -26,6 +26,9 @@ class Sensor:
         :return:
         """
         # uncomment here
+        date = self.td.date()
+        hh = self.td.TIME()[0]
+        mm = self.td.TIME()[1]
         if USER==USER_CLIENT:
             print('a')
             temperature = int(self.bme280.get_temperature())
@@ -35,11 +38,6 @@ class Sensor:
             temperature=3
             humidity=99
             pressure=1100
-
-        date=self.td.date()
-        hh=self.td.TIME()[0]
-        mm=self.td.TIME()[1]
-
 
         if mm == "00" or mm == "30"  or self.first_run == 0:  # 1:00, 2:00, 3:00 etc
             self.first_run = 1
