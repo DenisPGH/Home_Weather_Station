@@ -28,7 +28,7 @@ class History:
         hr_return = self.data[self.data['date'].isin(date_rng)]['date'].values.tolist()
         val_return = self.data[self.data['date'].isin(date_rng)][values].values.tolist()
         #print(f" now: {now} , before {start_period}")
-        print(date_rng)
+        #print(date_rng)
         #return [str(x) for x in val_return], [str(y) for y in hr_return]
 
         return val_return, hr_return
