@@ -46,7 +46,7 @@ class Sensor:
             humidity=99
             pressure=1100
 
-        if mm == "00" or mm == "30"  or self.first_run == 0:  # 1:00, 2:00, 3:00 etc
+        if mm == "00" or mm == "30":  # 1:00, 2:00, 3:00 etc
             self.first_run = 1
             if mm !=self.mm_old and hh != self.hh_old:
                 self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
