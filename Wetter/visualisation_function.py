@@ -356,6 +356,9 @@ class GUI_VIS:
         just shut down the raspi
         """
         self.clean_screen_function(win)
+        self.label_static("byebye",win,300,200,"Bye-Bye",70)
+
+
         shut_down='sudo shutdown'
         print('shutdown')
         if USER=='raspi':
