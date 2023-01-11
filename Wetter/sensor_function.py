@@ -2,6 +2,7 @@ from database_function import DataBaseWetter, TIME_DATE
 
 # uncomment here
 from paths import USER,USER_CLIENT
+#import copy
 
 if USER==USER_CLIENT:
     try:
@@ -34,6 +35,10 @@ class Sensor:
             temperature = int(self.bme280.get_temperature())
             humidity = int(self.bme280.get_humidity())
             pressure = int(self.bme280.get_pressure())
+
+            # temperature=copy.copy(t)
+            # humidity=copy.copy(h)
+            # pressure=copy.copy(p)
         else:
             temperature=3
             humidity=99
