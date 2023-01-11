@@ -14,7 +14,7 @@ class TIME_DATE():
         return date_
 
     def date(self):
-        date_2 = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        date_2 = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
         return date_2
 
     def TIME(self):
