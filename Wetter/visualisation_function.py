@@ -40,7 +40,12 @@ class GUI_VIS:
         self.sensor=Sensor()
         self.interval_refresh_page=4000
         self.orthodox=Ortodox()
+        ###################
         self.VIDEO_ON=False
+        self.TEXT = 'Video on' if self.VIDEO_ON == True else 'Video off'
+        self.FG = 'White'
+        self.BG = 'Red' if self.VIDEO_ON == True else 'Green'
+        self.SIZE_FONT = 10
 
 
     def back_button(self,win):
@@ -315,29 +320,35 @@ class GUI_VIS:
 
 
     def video_button(self,win):
-        TEXT = 'Video on' if self.VIDEO_ON == True else 'Video off'
-        FG = 'White'
-        BG = 'Red' if self.VIDEO_ON == True else 'Green'
-        SIZE_FONT=10
 
-        command='sudo systemctl start video.service' if self.VIDEO_ON == True else 'sudo systemctl stop video.service'
-        print(f"{command}")
-        if USER==USER_CLIENT:
-            os.system(command)
+        name_e = tk.Button(win, text=f"{self.TEXT}",
+                           fg=f"{self.FG}",
+                           bg=f"{self.BG}",
 
+                           command=lambda: self.video_function(win))
+        name_e.config(font=(f"{self.font_buttons}", self.SIZE_FONT))
+        name_e.pack()
+        name_e.place(x=680, y=0)
+
+
+    def video_function(self,win):
+        """
+        work but not change the color
+        :param win:
+        :return:
+        """
 
         if self.VIDEO_ON == False:
             self.VIDEO_ON = True
         elif self.VIDEO_ON == True:
             self.VIDEO_ON = False
-        name_e = tk.Button(win, text=f"{TEXT}",
-                           fg=f"{FG}",
-                           bg=f"{BG}",
 
-                           command=lambda: self.first_screen(win))
-        name_e.config(font=(f"{self.font_buttons}", SIZE_FONT))
-        name_e.pack()
-        name_e.place(x=680, y=0)
+
+
+        command = 'sudo systemctl start video.service' if self.VIDEO_ON == True else 'sudo systemctl stop video.service'
+        print(f"{command}")
+        if USER == USER_CLIENT:
+            os.system(command)
 
 
     def shut_down(self,win):
