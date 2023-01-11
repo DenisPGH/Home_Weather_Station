@@ -33,7 +33,7 @@ class Sensor:
         hh = self.td.TIME()[0]
         mm = self.td.TIME()[1]
         if USER==USER_CLIENT:
-            print('a')
+            #print('a')
             temperature = int(self.bme280.get_temperature())
             humidity = int(self.bme280.get_humidity())
             pressure = int(self.bme280.get_pressure())
