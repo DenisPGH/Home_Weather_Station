@@ -22,11 +22,11 @@ class History:
 
         now=datetime.datetime.today()
         start_period=(now-datetime.timedelta(days=period)).strftime('%Y-%m-%d %H:00:00')
-        date_rng = pd.date_range(start_period, now, freq=f'1H').strftime('%Y-%m-%d %H:%M:%S').tolist()
+        date_rng = pd.date_range(start_period, now, freq=f'30min').strftime('%Y-%m-%d %H:%M:%S').tolist()
         hr_return = self.data[self.data['date'].isin(date_rng)]['date'].values.tolist()
         val_return = self.data[self.data['date'].isin(date_rng)][values].values.tolist()
         #print(f" now: {now} , before {start_period}")
-        #print(hr_return)
+        #print(date_rng)
         #return [str(x) for x in val_return], [str(y) for y in hr_return]
 
         return val_return, hr_return
