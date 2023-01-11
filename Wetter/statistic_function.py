@@ -12,7 +12,7 @@ class History:
     def __init__(self):
         self.colums=['date','hour','minute','temperature','humidity','pressure']
         self.data=pd.read_csv(PATH_DB, sep='|', names=self.colums, skiprows=[0], header=None)
-        self.interval='1min'
+        self.interval='30min'
     def values_for_a_period(self,values,period):
         """
 
