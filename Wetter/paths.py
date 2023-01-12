@@ -18,5 +18,5 @@ USER_CLIENT='raspi'
 
 PATH_HOLIDAYS= 'holdays_2023.csv' if USER=='Owner' else '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/holdays_2023.csv'
 PATH_DB ='wetter_DB_1.csv' if USER=='Owner' else '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/wetter_DB.csv'
-PATH_SQLite='sensor_DataBase.db' if USER=='Owner' else '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/sensor_DataBaseRP.db'
+PATH_SQLite='sensor_DataBase.db' if USER=='Owner' else '/home/raspi/Desktop/watch/Home_Weather_Station/Wetter/DataBase.db'
 #print(USER)

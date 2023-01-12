@@ -3,6 +3,7 @@ from database_function import DataBaseWetter, TIME_DATE
 # uncomment here
 from paths import USER,USER_CLIENT
 #import copy
+from sqlite_db__function import SQLiteSensor
 
 if USER==USER_CLIENT:
     try:
@@ -19,6 +20,7 @@ class Sensor:
             self.bus = SMBus(1) # buss
             self.bme280 = BME280(i2c_dev=self.bus)
         self.db=DataBaseWetter()
+        self.db_sql=SQLiteSensor()
         self.td=TIME_DATE()
         self.first_run=0
         self.hh_old=""
@@ -50,6 +52,7 @@ class Sensor:
             self.first_run = 1
             if mm !=self.mm_old and hh != self.hh_old:
                 self.db.store_new_info([temperature,humidity,pressure],date,hh,mm)
+                self.db_sql.store_new_info__into__table(date, hh, mm, temperature, humidity, pressure)
                 self.hh_old=hh
                 self.mm_old=mm
 

@@ -13,6 +13,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 from day_info_function import Ortodox
 from sensor_function import Sensor
+from sqlite_db__function import SQLiteSensor
 from statistic_function import History
 from wetter_outside_function import Outside
 from paths import USER, USER_CLIENT
@@ -34,7 +35,8 @@ class GUI_VIS:
         self.bg_buttons = "Black"
         self.size_buttons = 17
         self.font_buttons = 'Areil'
-        self.history=History()
+        #self.history=History()
+        self.history=SQLiteSensor()
         self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
         self.outside=Outside()
         self.sensor=Sensor()
@@ -274,7 +276,8 @@ class GUI_VIS:
 
 
         # list of squares
-        ys, xs = self.history.values_for_a_period(parameter,period)
+        #ys, xs = self.history.values_for_a_period(parameter,period)
+        xs,ys = self.history.return_info_for_period(parameter,period)
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
         plot1.set_facecolor((fig_color, fig_color, fig_color))

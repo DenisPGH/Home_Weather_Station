@@ -1,6 +1,7 @@
 
 import sqlite3
 from copy import copy
+import datetime
 
 from database_function import DataBaseWetter
 from paths import PATH_SQLite
@@ -50,15 +51,15 @@ class SQLiteSensor:
             print(node)
         return
 
-    def adding_new__row__into__table(self, date,hh,mm,temp,hum,press):
+    def store_new_info__into__table(self, date:str, hh:str, mm:str, temp:int, hum:int, press:int):
         """
         create a new row
-        :param date:
-        :param hh:
-        :param mm:
-        :param temp:
-        :param hum:
-        :param pressure:
+        :param date: str '2023-01-08 01:00'
+        :param hh: str
+        :param mm: str
+        :param temp: int
+        :param hum: int
+        :param pressure: int
         :return:
         """
 
@@ -93,20 +94,29 @@ class SQLiteSensor:
             temp=a_list[3]
             hum=a_list[4]
             pres=a_list[5]
-            self.adding_new__row__into__table(date,hh,mm,temp,hum,pres.strip())
+            self.store_new_info__into__table(date, hh, mm, temp, hum, pres.strip())
 
-    def return_info_for_period(self,parameter):
+    def return_info_for_period(self,parameter,period=1):
         """
         return the parameter and the times for the specific period
-        :param parameter:
-        :return:
+        :param period: how many days int
+        :param parameter: 'temperature','humidity','pressure'
+        :return: list dates , list values
         """
-        self.cur.execute(f"select datetime_,{parameter} from {self.NAME_TABLE}")
+        now = datetime.datetime.today()
+        start_period = (now - datetime.timedelta(days=period)).strftime('%Y-%m-%d %H:00:00')
+        # start_period='2023-01-08 01:00:00'
+        # end_period='2023-01-08 06:00:00'
+        command=f"SELECT datetime_,{parameter} FROM {self.NAME_TABLE}" \
+                f" WHERE datetime_ BETWEEN '{start_period}' AND '{now}'"
+        self.cur.execute(command)
         result = self.cur.fetchall()
-        print('INFO:')
+        x,y=[],[]
         for node in result:
-            print(node)
-        return
+            x.append(node[0])
+            y.append(node[1])
+            # print(node)
+        return x,y
 
 
 
@@ -114,7 +124,8 @@ if __name__=='__main__':
     db=SQLiteSensor()
     #db.csv__to_sqlite()
     #db.print_all_info_from_table()
-    db.return_info_for_period('humidity')
+    a=db.return_info_for_period('humidity',6)
+    print(a)
     #db.drop_table()
     #db.create_table()
     # db.adding_new__row__into__table('2022-02-02','18','30',300,200,1000)
