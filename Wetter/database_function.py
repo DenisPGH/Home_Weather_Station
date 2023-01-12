@@ -54,10 +54,11 @@ class DataBaseWetter:
 
         :return: values from the DB with the values of temp, humm, pressure
         """
+        res=[]
         with open(f'{self.name_DB}', mode='r', newline='') as csv_read:  # w,a
-            print(csv_read.readlines())
-
-
+            #print(csv_read.readlines())
+            res=csv_read.readlines()
+        return res
 
 
 
