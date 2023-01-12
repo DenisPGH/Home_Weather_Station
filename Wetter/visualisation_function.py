@@ -124,8 +124,8 @@ class GUI_VIS:
         self.label_dynamic("press4", win, 600, level_values,3) # pressure
         self.label_dynamic("press5", win, 0, 0,4,50) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
-        self.label_dynamic("press7", win, 400, 100,6,20) # Nameday
-        self.label_dynamic("press8", win, 620, 40,7,12) # Video mode
+        self.label_dynamic("press7", win, 380, 200,6,20) # Nameday
+        self.label_dynamic("press8", win, 600, 100,7,12) # Video mode
 
         # labels units ########################################################
         size_units = 20
@@ -342,7 +342,7 @@ class GUI_VIS:
                            command=lambda: self.video_screen(win))
         name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
-        name_e.place(x=620, y=10)
+        name_e.place(x=500, y=100)
 
     def video_play_function(self,win):
         print('palyed')
