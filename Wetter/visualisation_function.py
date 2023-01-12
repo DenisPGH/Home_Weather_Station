@@ -44,10 +44,15 @@ class GUI_VIS:
         self.orthodox=Ortodox()
         ###################
         self.VIDEO_ON=False
-        self.TEXT = 'Video on' if self.VIDEO_ON == True else 'Video off'
+        self.VIDEO_TEXT = 'Video'
         self.FG = 'White'
-        self.BG = 'Red' if self.VIDEO_ON == True else 'Green'
-        self.SIZE_FONT = 10
+        self.VIDEO_BG = 'Green'
+        self.VIDEO_SIZE_FONT = 10
+        self.VIDEO_TEXT_FG='White'
+        self.VIDEO_STOPPED_STRING='Stopped!'
+        self.VIDEO_ON_STRING='Recording...'
+        self.VIDEO_MODUS=self.VIDEO_STOPPED_STRING
+
 
 
     def back_button(self,win):
@@ -103,7 +108,7 @@ class GUI_VIS:
     def first_screen(self,win):
         """ this function start our first windows view 800x480"""
         self.clean_screen_function(win)
-        value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+        #value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
         level_tables=300
         self.label_static("temp", win, 60, level_tables, "Temperature Inside :")
@@ -120,6 +125,7 @@ class GUI_VIS:
         self.label_dynamic("press5", win, 0, 0,4,50) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
         self.label_dynamic("press7", win, 400, 100,6,20) # Nameday
+        self.label_dynamic("press8", win, 620, 40,7,12) # Video mode
 
         # labels units ########################################################
         size_units = 20
@@ -224,7 +230,8 @@ class GUI_VIS:
                 #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
                 self.value = self.sensor.reading()[2]
             elif index==4: # time
-                self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
+                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
+                self.value = datetime.datetime.today().strftime('%d-%m-%Y    %H:%M')
             elif index==5: # temperature outside
                 #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
                 self.value = self.outside.acctual_temperature_outside()
@@ -233,7 +240,11 @@ class GUI_VIS:
                 if text_ !="":
                     self.value = f"Днес:  {text_}"
                 else:
-                    self.value = f" Schön dass du da bist!!!"
+                    self.value = f"  "
+            elif index == 7:
+                self.value=self.VIDEO_MODUS
+                self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
+                self.VIDEO_TEXT='Stop video' if self.VIDEO_ON == True else 'Play video'
 
 
             name.config(text=self.value)
@@ -324,14 +335,14 @@ class GUI_VIS:
 
     def video_button(self,win):
 
-        name_e = tk.Button(win, text=f"{self.TEXT}",
-                           fg=f"{self.FG}",
-                           bg=f"{self.BG}",
+        name_e = tk.Button(win, text=f"{self.VIDEO_TEXT}",
+                           fg=f"{self.VIDEO_TEXT_FG}",
+                           bg=f"{self.VIDEO_BG}",
 
                            command=lambda: self.video_function(win))
-        name_e.config(font=(f"{self.font_buttons}", self.SIZE_FONT))
+        name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
-        name_e.place(x=680, y=0)
+        name_e.place(x=620, y=10)
 
 
     def video_function(self,win):
@@ -340,14 +351,16 @@ class GUI_VIS:
         :param win:
         :return:
         """
+        self.clean_screen_function(win)
+        self.back_button(win)
+        self.label_static("video", win, 400, 0, "VIDEO: ", 30)
 
         if self.VIDEO_ON == False:
             self.VIDEO_ON = True
         elif self.VIDEO_ON == True:
             self.VIDEO_ON = False
 
-
-
+        self.VIDEO_MODUS = self.VIDEO_ON_STRING if self.VIDEO_ON == True else self.VIDEO_STOPPED_STRING
         command = 'sudo systemctl start video.service' if self.VIDEO_ON == True else 'sudo systemctl stop video.service'
         print(f"{command}")
         if USER == USER_CLIENT:
@@ -370,11 +383,11 @@ class GUI_VIS:
 
     def shutdown_button(self,win):
         shutdown_size=13
-        name_shutdown = tk.Button(win, text="Shutdown", fg="Red", bg=self.bg_buttons,
+        name_shutdown = tk.Button(win, text="Shtd", fg="Red", bg=self.bg_buttons,
                            command=lambda: self.shut_down(win))
         name_shutdown.config(font=(f"{self.font_buttons}", shutdown_size))
         name_shutdown.pack()
-        name_shutdown.place(x=700, y=60)
+        name_shutdown.place(x=750, y=60)
 
 
 
