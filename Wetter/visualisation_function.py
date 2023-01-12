@@ -339,13 +339,16 @@ class GUI_VIS:
                            fg=f"{self.VIDEO_TEXT_FG}",
                            bg=f"{self.VIDEO_BG}",
 
-                           command=lambda: self.video_function(win))
+                           command=lambda: self.video_screen(win))
         name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
         name_e.place(x=620, y=10)
 
+    def video_play_function(self,win):
+        print('palyed')
 
-    def video_function(self,win):
+
+    def video_screen(self, win):
         """
         work but not change the color
         :param win:
@@ -354,6 +357,14 @@ class GUI_VIS:
         self.clean_screen_function(win)
         self.back_button(win)
         self.label_static("video", win, 400, 0, "VIDEO: ", 30)
+        video_play = tk.Button(win, text=f"Play Video",
+                           fg=f"White",
+                           bg=f"Black",
+
+                           command=lambda: self.video_play_function(win))
+        video_play.config(font=(f"{self.font_buttons}", 20))
+        video_play.pack()
+        video_play.place(x=620, y=10)
 
         if self.VIDEO_ON == False:
             self.VIDEO_ON = True
