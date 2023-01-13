@@ -6,7 +6,7 @@ from paths import USER,USER_CLIENT
 from sqlite_db__function import SQLiteSensor
 
 
-mode=2 # 1=bme280 git, 2= pip install RPi.bme280
+mode=1 # 1=bme280 git, 2= pip install RPi.bme280
 
 if mode==1:
     if USER == USER_CLIENT:
@@ -43,6 +43,8 @@ if mode==1:
                 temperature = int(self.bme280.get_temperature())
                 humidity = int(self.bme280.get_humidity())
                 pressure = int(self.bme280.get_pressure())
+                altitude=self.bme280.get_altitude()
+                print(altitude)
 
                 # temperature=copy.copy(t)
                 # humidity=copy.copy(h)
@@ -60,7 +62,7 @@ if mode==1:
                     self.mm_old = mm
 
             # print(temperature,humidity,pressure)
-            return [temperature, humidity, pressure]
+            return [temperature, humidity, altitude]
 
 
 
