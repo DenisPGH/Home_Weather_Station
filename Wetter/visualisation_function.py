@@ -109,11 +109,11 @@ class GUI_VIS:
         self.FS_LEVEL_UNITS = 370
         self.FS_UNITS_X_TEMP = 170
         self.FS_UNITS_X_HUM = 470
-        self.FS_UNITS_X_PRESS = 730
+        self.FS_UNITS_X_PRESS = 735
         self.FS_UNITS_X_TEMP_OUTSIDE = 470
         self.FS_UNITS_Y_TEMP_OUTSIDE = 240
 
-        self.FS_UNITS_X_PRESSURE_OUTSIDE = 730
+        self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
         self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
         #buttons
         self.FS_LEVEL_BUTTONS = 440
