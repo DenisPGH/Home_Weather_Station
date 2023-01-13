@@ -6,7 +6,7 @@ from paths import USER,USER_CLIENT
 from sqlite_db__function import SQLiteSensor
 
 
-mode=1 # 1=bme280 git, 2= pip install RPi.bme280
+mode=2 # 1=bme280 git, 2= pip install RPi.bme280
 
 if mode==1:
     if USER == USER_CLIENT:
