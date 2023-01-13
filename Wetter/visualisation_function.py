@@ -294,9 +294,30 @@ class GUI_VIS:
             have to change here the source information from the sensor
 
             :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
+            1: self.sensor.reading()[0],
+                                     2: self.sensor.reading()[1],
+                                     3: self.sensor.reading()[2],
+                                     4: datetime.datetime.today().strftime('%d-%m-%Y    %H:%M'),
+                                     5: self.outside.acctual_temperature_outside()[0],
+                                     6: self.outside.acctual_temperature_outside()[1],
+                                     7: self.outside.acctual_temperature_outside()[2],
             """
-            if 0< index <= len(self.dinamic_value_function):
-                self.value = self.dinamic_value_function[index]
+            if index==1: #temp
+                self.value = self.sensor.reading()[0]
+            elif index==2: # hum
+                self.value = self.sensor.reading()[1]
+            elif index==3: # pressure
+                self.value = self.sensor.reading()[2]
+
+            elif index==4: #time
+                self.value = datetime.datetime.today().strftime('%d-%m-%Y    %H:%M')
+            elif index==5: #temp outside
+                self.value =self.outside.acctual_temperature_outside()[0]
+            elif index==6: #status outside
+                self.value =self.outside.acctual_temperature_outside()[1]
+            elif index==7: #presure outside
+                self.value =self.outside.acctual_temperature_outside()[2]
+
             elif index==99: # Nameday
                 text_=self.orthodox.current_day_ortodox()
                 if text_ !="":

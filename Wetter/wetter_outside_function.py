@@ -54,7 +54,7 @@ class Outside:
         with regex get the value
 
 
-        :return: the temperatue in C
+        :return: the temperatue in C, status, luftdruck in hPa
         """
 
         if self.hour.TIME()[1] ==00 or self.hour.TIME()[1]==30 or self.first_run==0: # 1:00, 2:00 etc
