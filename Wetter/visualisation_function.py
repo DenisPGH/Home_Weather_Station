@@ -75,11 +75,8 @@ class GUI_VIS:
         self.FS_VALUE_Y_TIME = 0
         self.FS_SIZE_VALUE_TIME = 50
 
-        self.FS_VALUE_X_NAMEDAY = 380
-        self.FS_VALUE_Y_NAMEDAY = 200
-        self.FS_SIZE_VALUE_NAMEDAY =20
 
-        self.FS_VALUE_X_NAMEDAY = 0
+        self.FS_VALUE_X_NAMEDAY = 20
         self.FS_VALUE_Y_NAMEDAY = 100
         self.FS_SIZE_VALUE_NAMEDAY = 20
 
@@ -305,7 +302,7 @@ class GUI_VIS:
                 if text_ !="":
                     self.value = f"Днес:  {text_}"
                 else:
-                    self.value = f" DENISLAV PETROV "
+                    self.value = f"Denislav Petrov "
             elif index == 100:
                 self.value=self.VIDEO_MODUS
                 self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
