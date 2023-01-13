@@ -61,10 +61,61 @@ class GUI_VIS:
                                      6: self.orthodox.current_day_ortodox(),
                                      }
         ####
-        self.FS_LEVEL_UNITS=370
+        #values
+        self.FS_VALUE_SIZE=65
         self.FS_LEVEL_VALUES=350
-        self.FS_LEVEL_TABLES=300
-        self.FS_LEVEL_BUTTONS=440
+        self.FS_VALUE_X_TEMP = 65
+        self.FS_VALUE_X_HUM = 355
+        self.FS_VALUE_X_PRESS = 600
+        self.FS_VALUE_X_TEMP_OUTSIDE = 65
+        self.FS_VALUE_Y_TEMP_OUTSIDE = 180
+        self.FS_VALUE_X_TIME = 0
+        self.FS_VALUE_Y_TIME = 0
+        self.FS_SIZE_VALUE_TIME = 50
+
+        self.FS_VALUE_X_NAMEDAY = 380
+        self.FS_VALUE_Y_NAMEDAY = 200
+        self.FS_SIZE_VALUE_NAMEDAY =20
+
+        self.FS_VALUE_X_NAMEDAY = 380
+        self.FS_VALUE_Y_NAMEDAY = 200
+        self.FS_SIZE_VALUE_NAMEDAY = 20
+
+        self.FS_VALUE_X_VIDEO_MODE = 600
+        self.FS_VALUE_Y_VIDEO_MODE = 100
+        self.FS_SIZE_VALUE_VIDEO_MODE = 12
+
+
+        self.FS_VIDEO_BUTTON_X=500
+        self.FS_VIDEO_BUTTON_Y=100
+        # table
+        self.FS_LEVEL_TABLES = 300
+        self.FS_TABLE_X_TEMP=60
+        self.FS_TABLE_X_HUM=350
+        self.FS_TABLE_X_PRESS=600
+        self.FS_TABLE_X_TEMP_OUTSIDE=50
+        #units
+        self.FS_SIZE_UNITS=20
+        self.FS_LEVEL_UNITS = 370
+        self.FS_UNITS_X_TEMP = 170
+        self.FS_UNITS_X_HUM = 470
+        self.FS_UNITS_X_PRESS = 740
+        self.FS_UNITS_X_TEMP_OUTSIDE = 170
+        self.FS_UNITS_Y_TEMP_OUTSIDE = 200
+        #buttons
+        self.FS_LEVEL_BUTTONS = 440
+        self.FS_BUTTON_X_HISTORY_TEMP = 30
+        self.FS_BUTTON_X_HISTORY_HUM = 320
+        self.FS_BUTTON_X_HISTORY_PRESS = 570
+        self.FS_BUTTON_X_BREAK = 770
+        self.FS_BUTTON_Y_BREAK = 0
+
+        self.FS_BUTTON_X_SHUTDOWN = 750
+        self.FS_BUTTON_Y_SHUTDOWN = 60
+        self.FS_SHUTDOWN_SIZE=13
+
+
+
 
 
 
@@ -123,55 +174,51 @@ class GUI_VIS:
         self.clean_screen_function(win)
         #value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
-        self.label_static("temp", win, 60, self.FS_LEVEL_TABLES, "Temperature Inside :")
-        self.label_static("temprr", win, 350, self.FS_LEVEL_TABLES, "Humidity :")
-        self.label_static("press", win, 600, self.FS_LEVEL_TABLES, "Pressure :")
-        self.label_static("tem_outside", win, 50, 100, "Temperature Outside :")
+        self.label_static("temp", win, self.FS_TABLE_X_TEMP, self.FS_LEVEL_TABLES, "Temperature Inside :")
+        self.label_static("temprr", win, self.FS_TABLE_X_HUM, self.FS_LEVEL_TABLES, "Humidity :")
+        self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, "Pressure :")
+        self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, 100, "Temperature Outside :")
 
         # labels live values ####################################################
-
-        size_double=65
-        self.label_dynamic("press", win, 65, self.FS_LEVEL_VALUES, 1, size_double) #temp
-        self.label_dynamic("press4", win, 355, self.FS_LEVEL_VALUES, 2, size_double) #humidity
-        self.label_dynamic("press4", win, 600, self.FS_LEVEL_VALUES, 3) # pressure
-        self.label_dynamic("press5", win, 0, 0,4,50) # time
-        self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
-        self.label_dynamic("press7", win, 380, 200,6,20) # Nameday
-        self.label_dynamic("press8", win, 600, 100,7,12) # Video mode
+        self.label_dynamic("press", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, 1, self.FS_VALUE_SIZE) #temp
+        self.label_dynamic("press4", win, self.FS_VALUE_X_HUM, self.FS_LEVEL_VALUES, 2, self.FS_VALUE_SIZE) #humidity
+        self.label_dynamic("press4", win, self.FS_VALUE_X_PRESS, self.FS_LEVEL_VALUES, 3) # pressure
+        self.label_dynamic("press5", win, self.FS_VALUE_X_TIME, self.FS_VALUE_Y_TIME,4,self.FS_SIZE_VALUE_TIME) # time
+        self.label_dynamic("press6", win, self.FS_VALUE_X_TEMP_OUTSIDE, self.FS_VALUE_Y_TEMP_OUTSIDE,5,self.FS_VALUE_SIZE) # temp out
+        self.label_dynamic("press7", win, self.FS_VALUE_X_NAMEDAY, self.FS_VALUE_Y_NAMEDAY,6,self.FS_SIZE_VALUE_NAMEDAY) # Nameday
+        self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,7,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
 
         # labels units ########################################################
-        size_units = 20
-        self.label_static("temp", win, 170, self.FS_LEVEL_UNITS, " C", size_units)
-        self.label_static("temprr", win, 470, self.FS_LEVEL_UNITS, " %", size_units)
-        self.label_static("press", win, 740, self.FS_LEVEL_UNITS, " hPa", size_units)
-        self.label_static("tem_out", win, 170, 200, " C", size_units)
+        self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, " C", self.FS_SIZE_UNITS)
+        self.label_static("temprr", win, self.FS_UNITS_X_HUM, self.FS_LEVEL_UNITS, " %", self.FS_SIZE_UNITS)
+        self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS)
+        self.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
 
         # buttons ######################
-        level_buttons=440
         name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature", win))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=30, y=self.FS_LEVEL_BUTTONS)
+        name_a.place(x=self.FS_BUTTON_X_HISTORY_TEMP, y=self.FS_LEVEL_BUTTONS)
 
         name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Humidity",win))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=320, y=self.FS_LEVEL_BUTTONS)
+        name_b.place(x=self.FS_BUTTON_X_HISTORY_HUM, y=self.FS_LEVEL_BUTTONS)
 
         name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Pressure", win))
         name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_c.pack()
-        name_c.place(x=570, y=self.FS_LEVEL_BUTTONS)
+        name_c.place(x=self.FS_BUTTON_X_HISTORY_PRESS, y=self.FS_LEVEL_BUTTONS)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
                            command=lambda: self.terminate())
         name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_d.pack()
-        name_d.place(x=770, y=0)
+        name_d.place(x=self.FS_BUTTON_X_BREAK, y=self.FS_BUTTON_Y_BREAK)
 
         ## video button
         self.video_button(win)
@@ -342,7 +389,7 @@ class GUI_VIS:
                            command=lambda: self.video_screen(win))
         name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
-        name_e.place(x=500, y=100)
+        name_e.place(x=self.FS_VIDEO_BUTTON_X, y=self.FS_VIDEO_BUTTON_Y)
 
     def video_play_function(self,win):
         print('palyed')
@@ -395,12 +442,11 @@ class GUI_VIS:
 
 
     def shutdown_button(self,win):
-        shutdown_size=13
         name_shutdown = tk.Button(win, text="Shtd", fg="Red", bg=self.bg_buttons,
                            command=lambda: self.shut_down(win))
-        name_shutdown.config(font=(f"{self.font_buttons}", shutdown_size))
+        name_shutdown.config(font=(f"{self.font_buttons}", self.FS_SHUTDOWN_SIZE))
         name_shutdown.pack()
-        name_shutdown.place(x=750, y=60)
+        name_shutdown.place(x=self.FS_BUTTON_X_SHUTDOWN, y=self.FS_BUTTON_Y_SHUTDOWN)
 
 
 
