@@ -44,6 +44,8 @@ class Outside:
         self.hour=TIME_DATE()
         self.hours=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         self.first_run = 0
+        self.current_status="no"
+        self.current_pressure_outside=1000
 
     def acctual_temperature_outside(self):
         """
@@ -62,21 +64,26 @@ class Outside:
                 response = requests.get('https://www.accuweather.com/de/ch/bern/312122/current-weather/312122', headers=self.headers)
                 html = soup(response.text, 'html.parser')
                 temp = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div')
-                found = re.finditer(self.pattern, str(temp[0]))
-                for each in found:
-                    self.current_temperature = each.group('temp')
-                    self.last_temperature=self.current_temperature
+                status_wetter = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.phrase')
+                presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(6)")
+                self.current_status=status_wetter[0].text
+                self.current_pressure_outside=presure_outside[0].text.split(" ")[1]
+                self.current_temperature=temp[0].text.split("C")[0]
+                #print(self.current_temperature)
+                # found = re.finditer(self.pattern, str(temp[0]))
+                # for each in found:
+                #     self.current_temperature = each.group('temp')
+                self.last_temperature=self.current_temperature
             except:
                 self.last_temperature = self.current_temperature
-                return self.last_temperature
-        else:
+                return self.last_temperature,self.current_status,self.current_pressure_outside
             #self.last_temperature = self.current_temperature
-            return self.last_temperature
+            return self.last_temperature,self.current_status,self.current_pressure_outside
 
-        return self.current_temperature
+        return self.current_temperature ,self.current_status,self.current_pressure_outside
 
 
-# if __name__ == "__main__":
-#     pass
+if __name__ == "__main__":
+    pass
     # k=Outside()
     # print(k.acctual_temperature_outside())

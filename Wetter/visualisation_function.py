@@ -57,8 +57,10 @@ class GUI_VIS:
                                      2: self.sensor.reading()[1],
                                      3: self.sensor.reading()[2],
                                      4: datetime.datetime.today().strftime('%d-%m-%Y    %H:%M'),
-                                     5: self.outside.acctual_temperature_outside(),
-                                     6: self.orthodox.current_day_ortodox(),
+                                     5: self.outside.acctual_temperature_outside()[0],
+                                     6: self.outside.acctual_temperature_outside()[1],
+                                     7: self.outside.acctual_temperature_outside()[2],
+
                                      }
         ####
         #values
@@ -67,8 +69,8 @@ class GUI_VIS:
         self.FS_VALUE_X_TEMP = 65
         self.FS_VALUE_X_HUM = 355
         self.FS_VALUE_X_PRESS = 600
-        self.FS_VALUE_X_TEMP_OUTSIDE = 65
-        self.FS_VALUE_Y_TEMP_OUTSIDE = 180
+        self.FS_VALUE_X_TEMP_OUTSIDE = 380
+        self.FS_VALUE_Y_TEMP_OUTSIDE = 200
         self.FS_VALUE_X_TIME = 0
         self.FS_VALUE_Y_TIME = 0
         self.FS_SIZE_VALUE_TIME = 50
@@ -77,31 +79,45 @@ class GUI_VIS:
         self.FS_VALUE_Y_NAMEDAY = 200
         self.FS_SIZE_VALUE_NAMEDAY =20
 
-        self.FS_VALUE_X_NAMEDAY = 380
-        self.FS_VALUE_Y_NAMEDAY = 200
+        self.FS_VALUE_X_NAMEDAY = 0
+        self.FS_VALUE_Y_NAMEDAY = 100
         self.FS_SIZE_VALUE_NAMEDAY = 20
 
         self.FS_VALUE_X_VIDEO_MODE = 600
         self.FS_VALUE_Y_VIDEO_MODE = 100
         self.FS_SIZE_VALUE_VIDEO_MODE = 12
 
+        self.FS_VALUE_X_WETTER_STATUS = 380
+        self.FS_VALUE_Y_WETTER_STATUS = 175
+        self.FS_SIZE_VALUE_WETTER_STATUS = 16
+
+        self.FS_VALUE_X_PRESSURE_OUTSIDE = 600
+        self.FS_VALUE_Y_PRESSURE_OUTSIDE = 230
+        self.FS_SIZE_VALUE_PRESSURE_OUTSIDE = 20
+
 
         self.FS_VIDEO_BUTTON_X=500
         self.FS_VIDEO_BUTTON_Y=100
         # table
-        self.FS_LEVEL_TABLES = 300
+        self.FS_LEVEL_TABLES = 320
         self.FS_TABLE_X_TEMP=60
         self.FS_TABLE_X_HUM=350
         self.FS_TABLE_X_PRESS=600
-        self.FS_TABLE_X_TEMP_OUTSIDE=50
+        self.FS_TABLE_X_TEMP_OUTSIDE=345
+        self.FS_TABLE_Y_TEMP_OUTSIDE=150
+        self.FS_TABLE_X_PRESS_OUTSIDE=600
+        self.FS_TABLE_Y_PRESS_OUTSIDE=200
         #units
         self.FS_SIZE_UNITS=20
         self.FS_LEVEL_UNITS = 370
         self.FS_UNITS_X_TEMP = 170
         self.FS_UNITS_X_HUM = 470
-        self.FS_UNITS_X_PRESS = 740
-        self.FS_UNITS_X_TEMP_OUTSIDE = 170
-        self.FS_UNITS_Y_TEMP_OUTSIDE = 200
+        self.FS_UNITS_X_PRESS = 720
+        self.FS_UNITS_X_TEMP_OUTSIDE = 470
+        self.FS_UNITS_Y_TEMP_OUTSIDE = 240
+
+        self.FS_UNITS_X_PRESSURE_OUTSIDE = 720
+        self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
         #buttons
         self.FS_LEVEL_BUTTONS = 440
         self.FS_BUTTON_X_HISTORY_TEMP = 30
@@ -175,9 +191,10 @@ class GUI_VIS:
         #value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
         self.label_static("temp", win, self.FS_TABLE_X_TEMP, self.FS_LEVEL_TABLES, "Temperature Inside :")
-        self.label_static("temprr", win, self.FS_TABLE_X_HUM, self.FS_LEVEL_TABLES, "Humidity :")
-        self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, "Pressure :")
-        self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, 100, "Temperature Outside :")
+        self.label_static("temprr", win, self.FS_TABLE_X_HUM, self.FS_LEVEL_TABLES, "Humidity Inside:")
+        self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, "Pressure Inside:")
+        self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, self.FS_TABLE_Y_TEMP_OUTSIDE, "Temperature Outside :")
+        self.label_static("press_outside", win, self.FS_TABLE_X_PRESS_OUTSIDE, self.FS_TABLE_Y_PRESS_OUTSIDE, "Pressure Outside :")
 
         # labels live values ####################################################
         self.label_dynamic("press", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, 1, self.FS_VALUE_SIZE) #temp
@@ -185,14 +202,17 @@ class GUI_VIS:
         self.label_dynamic("press4", win, self.FS_VALUE_X_PRESS, self.FS_LEVEL_VALUES, 3) # pressure
         self.label_dynamic("press5", win, self.FS_VALUE_X_TIME, self.FS_VALUE_Y_TIME,4,self.FS_SIZE_VALUE_TIME) # time
         self.label_dynamic("press6", win, self.FS_VALUE_X_TEMP_OUTSIDE, self.FS_VALUE_Y_TEMP_OUTSIDE,5,self.FS_VALUE_SIZE) # temp out
-        self.label_dynamic("press7", win, self.FS_VALUE_X_NAMEDAY, self.FS_VALUE_Y_NAMEDAY,6,self.FS_SIZE_VALUE_NAMEDAY) # Nameday
-        self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,7,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
+        self.label_dynamic("press7", win, self.FS_VALUE_X_NAMEDAY, self.FS_VALUE_Y_NAMEDAY,99,self.FS_SIZE_VALUE_NAMEDAY) # Nameday
+        self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,100,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
+        self.label_dynamic("press9", win,self.FS_VALUE_X_WETTER_STATUS, self.FS_VALUE_Y_WETTER_STATUS,6,self.FS_SIZE_VALUE_WETTER_STATUS,"Calibri") # wetter status
+        self.label_dynamic("press9", win,self.FS_VALUE_X_PRESSURE_OUTSIDE, self.FS_VALUE_Y_PRESSURE_OUTSIDE,7) # presure outside
 
         # labels units ########################################################
         self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, " C", self.FS_SIZE_UNITS)
         self.label_static("temprr", win, self.FS_UNITS_X_HUM, self.FS_LEVEL_UNITS, " %", self.FS_SIZE_UNITS)
         self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS)
         self.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
+        self.label_static("pressure_out", win, self.FS_UNITS_X_PRESSURE_OUTSIDE, self.FS_UNITS_Y_PRESSURE_OUTSIDE, " hPa", self.FS_SIZE_UNITS)
 
         # buttons ######################
         name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
@@ -278,15 +298,15 @@ class GUI_VIS:
 
             :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
             """
-            if 0< index<= 6:
+            if 0< index <= len(self.dinamic_value_function):
                 self.value = self.dinamic_value_function[index]
-            elif index==6: # Nameday
+            elif index==99: # Nameday
                 text_=self.orthodox.current_day_ortodox()
                 if text_ !="":
                     self.value = f"Днес:  {text_}"
                 else:
-                    self.value = f"  "
-            elif index == 7:
+                    self.value = f" DENISLAV PETROV "
+            elif index == 100:
                 self.value=self.VIDEO_MODUS
                 self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
                 self.VIDEO_TEXT='Stop video' if self.VIDEO_ON == True else 'Play video'
