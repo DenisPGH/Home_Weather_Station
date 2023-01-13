@@ -120,10 +120,10 @@ class GUI_VIS:
         self.FS_BUTTON_X_HISTORY_TEMP = 30
         self.FS_BUTTON_X_HISTORY_HUM = 320
         self.FS_BUTTON_X_HISTORY_PRESS = 570
-        self.FS_BUTTON_X_BREAK = 770
+        self.FS_BUTTON_X_BREAK = 750
         self.FS_BUTTON_Y_BREAK = 0
 
-        self.FS_BUTTON_X_SHUTDOWN = 750
+        self.FS_BUTTON_X_SHUTDOWN = 740
         self.FS_BUTTON_Y_SHUTDOWN = 60
         self.FS_SHUTDOWN_SIZE=13
 
