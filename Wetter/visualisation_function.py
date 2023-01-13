@@ -53,6 +53,19 @@ class GUI_VIS:
         self.VIDEO_ON_STRING='Recording...'
         self.VIDEO_MODUS=self.VIDEO_STOPPED_STRING
 
+        self.dinamic_value_function={1: self.sensor.reading()[0],
+                                     2: self.sensor.reading()[1],
+                                     3: self.sensor.reading()[2],
+                                     4: datetime.datetime.today().strftime('%d-%m-%Y    %H:%M'),
+                                     5: self.outside.acctual_temperature_outside(),
+                                     6: self.orthodox.current_day_ortodox(),
+                                     }
+        ####
+        self.FS_LEVEL_UNITS=370
+        self.FS_LEVEL_VALUES=350
+        self.FS_LEVEL_TABLES=300
+        self.FS_LEVEL_BUTTONS=440
+
 
 
     def back_button(self,win):
@@ -110,18 +123,17 @@ class GUI_VIS:
         self.clean_screen_function(win)
         #value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
-        level_tables=300
-        self.label_static("temp", win, 60, level_tables, "Temperature Inside :")
-        self.label_static("temprr", win, 350, level_tables, "Humidity :")
-        self.label_static("press", win, 600, level_tables, "Pressure :")
+        self.label_static("temp", win, 60, self.FS_LEVEL_TABLES, "Temperature Inside :")
+        self.label_static("temprr", win, 350, self.FS_LEVEL_TABLES, "Humidity :")
+        self.label_static("press", win, 600, self.FS_LEVEL_TABLES, "Pressure :")
         self.label_static("tem_outside", win, 50, 100, "Temperature Outside :")
 
         # labels live values ####################################################
-        level_values=350
+
         size_double=65
-        self.label_dynamic("press", win, 65, level_values,1,size_double) #temp
-        self.label_dynamic("press4", win, 355, level_values,2,size_double) #humidity
-        self.label_dynamic("press4", win, 600, level_values,3) # pressure
+        self.label_dynamic("press", win, 65, self.FS_LEVEL_VALUES, 1, size_double) #temp
+        self.label_dynamic("press4", win, 355, self.FS_LEVEL_VALUES, 2, size_double) #humidity
+        self.label_dynamic("press4", win, 600, self.FS_LEVEL_VALUES, 3) # pressure
         self.label_dynamic("press5", win, 0, 0,4,50) # time
         self.label_dynamic("press6", win, 65, 180,5,size_double) # temp
         self.label_dynamic("press7", win, 380, 200,6,20) # Nameday
@@ -129,10 +141,9 @@ class GUI_VIS:
 
         # labels units ########################################################
         size_units = 20
-        level_units = 370
-        self.label_static("temp", win, 170, level_units, " C", size_units)
-        self.label_static("temprr", win, 470, level_units, " %", size_units)
-        self.label_static("press", win, 740, level_units, " hPa", size_units)
+        self.label_static("temp", win, 170, self.FS_LEVEL_UNITS, " C", size_units)
+        self.label_static("temprr", win, 470, self.FS_LEVEL_UNITS, " %", size_units)
+        self.label_static("press", win, 740, self.FS_LEVEL_UNITS, " hPa", size_units)
         self.label_static("tem_out", win, 170, 200, " C", size_units)
 
         # buttons ######################
@@ -141,19 +152,19 @@ class GUI_VIS:
                            command=lambda: self.show_statistic("Temperature", win))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=30, y=level_buttons)
+        name_a.place(x=30, y=self.FS_LEVEL_BUTTONS)
 
         name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Humidity",win))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=320, y=level_buttons)
+        name_b.place(x=320, y=self.FS_LEVEL_BUTTONS)
 
         name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Pressure", win))
         name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_c.pack()
-        name_c.place(x=570, y=level_buttons)
+        name_c.place(x=570, y=self.FS_LEVEL_BUTTONS)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
@@ -220,21 +231,8 @@ class GUI_VIS:
 
             :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
             """
-            if index==1: # temperature
-                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
-                self.value =self.sensor.reading()[0]
-            elif index==2: # humidity
-                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
-                self.value = self.sensor.reading()[1]
-            elif index==3: # pressure
-                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[1:]  # sec
-                self.value = self.sensor.reading()[2]
-            elif index==4: # time
-                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M')
-                self.value = datetime.datetime.today().strftime('%d-%m-%Y    %H:%M')
-            elif index==5: # temperature outside
-                #self.value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]  # sec
-                self.value = self.outside.acctual_temperature_outside()
+            if 0< index<= 6:
+                self.value = self.dinamic_value_function[index]
             elif index==6: # Nameday
                 text_=self.orthodox.current_day_ortodox()
                 if text_ !="":
@@ -294,13 +292,15 @@ class GUI_VIS:
         plot1.set_facecolor((fig_color, fig_color, fig_color))
         plot1.plot(xs, ys, 'g',linewidth=4)
         #################
+
         word_day='day' if period==1 else 'days'
         plot1.set_xlabel(f'{period} {word_day}',fontsize=20,color='White') # xaxis.label.set_color('red')
         plot1.set_ylabel(f'{parameter}',fontsize=20,color='White')
         # set first and last
         plot1.set_xticks([plot1.get_xticks()[0],plot1.get_xticks()[-1]],[f'{plot1.get_xticklabels()[0].get_text()}',plot1.get_xticklabels()[-1]])
-        plot1.tick_params(axis='x', colors='white',rotation=0)
+        plot1.tick_params(axis='x', colors='white',rotation=0,labelsize=15)
         plot1.tick_params(axis='y', colors='white')
+
 
         # print(plot1.get_xticks())
         # plot1.set_xticks([3],['now'])
@@ -354,17 +354,18 @@ class GUI_VIS:
         :param win:
         :return:
         """
-        self.clean_screen_function(win)
-        self.back_button(win)
-        self.label_static("video", win, 400, 0, "VIDEO: ", 30)
-        video_play = tk.Button(win, text=f"Play Video",
-                           fg=f"White",
-                           bg=f"Black",
 
-                           command=lambda: self.video_play_function(win))
-        video_play.config(font=(f"{self.font_buttons}", 20))
-        video_play.pack()
-        video_play.place(x=620, y=10)
+        # self.clean_screen_function(win)
+        # self.back_button(win)
+        # self.label_static("video", win, 400, 0, "VIDEO: ", 30)
+        # video_play = tk.Button(win, text=f"Play Video",
+        #                    fg=f"White",
+        #                    bg=f"Black",
+        #
+        #                    command=lambda: self.video_play_function(win))
+        # video_play.config(font=(f"{self.font_buttons}", 20))
+        # video_play.pack()
+        # video_play.place(x=620, y=10)
 
         if self.VIDEO_ON == False:
             self.VIDEO_ON = True
@@ -376,6 +377,7 @@ class GUI_VIS:
         print(f"{command}")
         if USER == USER_CLIENT:
             os.system(command)
+        self.first_screen(win)
 
 
     def shut_down(self,win):

@@ -3,7 +3,7 @@ Small project for showing temperature, barometric pressure and humidity. Video r
 
 INSTALATION GUIDE: 
 
-1.	Hardware:
+1. Hardware:
 1.1.	 Box with dimensions : 180x125x25mm
 1.2.	Micro SD Card at least 8 GB
 1.3.	HDMI Display 5 inch 700x480px
@@ -14,6 +14,8 @@ INSTALATION GUIDE:
 1.8.	 Internet
 1.9.	CSI Raspberry Pi Camera
 1.10.	 I2C connection between Raspberry Pi and BME280:
+
+
 connection	Raspberry Pi(pin number)	BME280
 Clock	5	SCL
 Data	3	SDA
