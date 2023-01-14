@@ -57,7 +57,8 @@ class Outside:
         :return: the temperatue in C, status, luftdruck in hPa
         """
 
-        if self.hour.TIME()[1] ==00 or self.hour.TIME()[1]==30 or self.first_run==0: # 1:00, 2:00 etc
+        if self.hour.TIME()[1] =="00" or self.hour.TIME()[1]=="15" or\
+                self.hour.TIME()[1] =="30" or self.hour.TIME()[1]=="45" or self.first_run==0: # 1:00, 2:00 etc
             self.first_run=1
 
             try:
