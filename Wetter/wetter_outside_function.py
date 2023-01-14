@@ -66,11 +66,11 @@ class Outside:
                 html = soup(response.text, 'html.parser')
                 temp = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div')
                 status_wetter = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.phrase')
-                presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(6)")
+                presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(8)")
                 self.current_status=status_wetter[0].text
                 self.current_pressure_outside=presure_outside[0].text.split(" ")[1]
                 self.current_temperature=temp[0].text.split("C")[0]
-                #print(self.current_temperature)
+                print(self.current_pressure_outside)
                 # found = re.finditer(self.pattern, str(temp[0]))
                 # for each in found:
                 #     self.current_temperature = each.group('temp')

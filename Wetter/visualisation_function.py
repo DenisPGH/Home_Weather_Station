@@ -15,122 +15,27 @@ from day_info_function import Ortodox
 from sensor_function import Sensor
 from sqlite_db__function import SQLiteSensor
 from statistic_function import History
+
 from wetter_outside_function import Outside
 from paths import USER, USER_CLIENT
 
+from variables_function import Variables
 
-class GUI_VIS:
-    def __init__(self,win):
-        self.width=700
-        self.height=700
-        self.value=0
+
+class GUI_VIS(Variables):
+    def __init__(self, win):
+        super().__init__()
+        self.history = SQLiteSensor()
+        self.outside = Outside()
+        self.sensor = Sensor()
+        self.orthodox = Ortodox()
         self.datetime_=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
         self.yesterday=datetime.datetime.today()-datetime.timedelta(days=1) # '2011-01-01'
         self.YESTERDAY=self.yesterday.strftime('%Y-%m-%d %H:%M:%S').split(" ")[0] # '2011-01-01'
         self.CURRENT_HOUR = datetime.datetime.today().strftime('%H')
-        ################
-        self.fg_buttons = 'White'
-        self.bg_buttons = "Black"
-        self.size_buttons = 17
-        self.font_buttons = 'Areil'
-        #self.history=History()
-        self.history=SQLiteSensor()
-        self.value_unit={'temperature': "C",'pressure': 'hPa', 'humidity': "%"}
-        self.outside=Outside()
-        self.sensor=Sensor()
-        self.interval_refresh_page=10000 #4000
-        self.orthodox=Ortodox()
-        ###################
-        self.VIDEO_ON=False
-        self.VIDEO_TEXT = 'Video'
-        self.FG = 'White'
-        self.VIDEO_BG = 'Green'
-        self.VIDEO_SIZE_FONT = 10
-        self.VIDEO_TEXT_FG='White'
-        self.VIDEO_STOPPED_STRING='Stopped!'
-        self.VIDEO_ON_STRING='Recording...'
-        self.VIDEO_MODUS=self.VIDEO_STOPPED_STRING
-
-        self.dinamic_value_function={1: self.sensor.reading()[0],
-                                     2: self.sensor.reading()[1],
-                                     3: self.sensor.reading()[2],
-                                     4: datetime.datetime.today().strftime('%d-%m-%Y    %H:%M'),
-                                     5: self.outside.acctual_temperature_outside()[0],
-                                     6: self.outside.acctual_temperature_outside()[1],
-                                     7: self.outside.acctual_temperature_outside()[2],
-
-                                     }
-        ####
-        #values
-        self.FS_VALUE_SIZE=65
-        self.FS_LEVEL_VALUES=350
-        self.FS_VALUE_X_TEMP = 65
-        self.FS_VALUE_X_HUM = 355
-        self.FS_VALUE_X_PRESS = 600
-        self.FS_VALUE_X_TEMP_OUTSIDE = 380
-        self.FS_VALUE_Y_TEMP_OUTSIDE = 200
-        self.FS_VALUE_X_TIME = 0
-        self.FS_VALUE_Y_TIME = 0
-        self.FS_SIZE_VALUE_TIME = 50
-
-
-        self.FS_VALUE_X_NAMEDAY = 20
-        self.FS_VALUE_Y_NAMEDAY = 100
-        self.FS_SIZE_VALUE_NAMEDAY = 20
-
-        self.FS_VALUE_X_VIDEO_MODE = 600
-        self.FS_VALUE_Y_VIDEO_MODE = 100
-        self.FS_SIZE_VALUE_VIDEO_MODE = 12
-
-        self.FS_VALUE_X_WETTER_STATUS = 380
-        self.FS_VALUE_Y_WETTER_STATUS = 175
-        self.FS_SIZE_VALUE_WETTER_STATUS = 16
-
-        self.FS_VALUE_X_PRESSURE_OUTSIDE = 600
-        self.FS_VALUE_Y_PRESSURE_OUTSIDE = 230
-        self.FS_SIZE_VALUE_PRESSURE_OUTSIDE = 20
-
-
-        self.FS_VIDEO_BUTTON_X=500
-        self.FS_VIDEO_BUTTON_Y=100
-        # table
-        self.FS_LEVEL_TABLES = 320
-        self.FS_TABLE_X_TEMP=60
-        self.FS_TABLE_X_HUM=350
-        self.FS_TABLE_X_PRESS=600
-        self.FS_TABLE_X_TEMP_OUTSIDE=345
-        self.FS_TABLE_Y_TEMP_OUTSIDE=150
-        self.FS_TABLE_X_PRESS_OUTSIDE=600
-        self.FS_TABLE_Y_PRESS_OUTSIDE=200
-        #units
-        self.FS_SIZE_UNITS=20
-        self.FS_LEVEL_UNITS = 370
-        self.FS_UNITS_X_TEMP = 170
-        self.FS_UNITS_X_HUM = 470
-        self.FS_UNITS_X_PRESS = 735
-        self.FS_UNITS_X_TEMP_OUTSIDE = 470
-        self.FS_UNITS_Y_TEMP_OUTSIDE = 240
-
-        self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
-        self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
-        #buttons
-        self.FS_LEVEL_BUTTONS = 440
-        self.FS_BUTTON_X_HISTORY_TEMP = 30
-        self.FS_BUTTON_X_HISTORY_HUM = 320
-        self.FS_BUTTON_X_HISTORY_PRESS = 570
-        self.FS_BUTTON_X_BREAK = 750
-        self.FS_BUTTON_Y_BREAK = 0
-
-        self.FS_BUTTON_X_SHUTDOWN = 740
-        self.FS_BUTTON_Y_SHUTDOWN = 60
-        self.FS_SHUTDOWN_SIZE=13
-
-
-
-
-
+        
 
     def back_button(self,win):
 
@@ -164,7 +69,6 @@ class GUI_VIS:
         self.label_static("parameter", win, 270, 430, f" {parameter} for the {self.DAY}")
 
         # BUTTONS
-        level_buttons = 430
         name_a = tk.Button(win, text="One day", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,1))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
