@@ -1,3 +1,5 @@
+import copy
+
 import requests
 from bs4 import BeautifulSoup as soup
 import re
@@ -45,7 +47,8 @@ class Outside:
         self.hours=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         self.first_run = 0
         self.current_status="no"
-        self.current_pressure_outside=1000
+        self.current_pressure_outside=0
+        self.searched_units_pressure='0'
 
     def acctual_temperature_outside(self):
         """
@@ -66,14 +69,18 @@ class Outside:
                 html = soup(response.text, 'html.parser')
                 temp = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.current-weather-info > div > div')
                 status_wetter = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.phrase')
-                presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(8)")
+                #presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(8)")
                 self.current_status=status_wetter[0].text
-                self.current_pressure_outside=presure_outside[0].text.split(" ")[1]
-                self.current_temperature=temp[0].text.split("C")[0]
-                print(self.current_pressure_outside)
-                # found = re.finditer(self.pattern, str(temp[0]))
-                # for each in found:
-                #     self.current_temperature = each.group('temp')
+                self.current_temperature = temp[0].text.split("C")[0]
+                #print('start')
+                for child in range(5,13):
+                    if self.searched_units_pressure.isdigit() and 900 <= int(self.searched_units_pressure) <= 1100:
+                        self.current_pressure_outside=self.searched_units_pressure
+                        break
+                    presure_outside = html.select(
+                        f"body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child({child})")
+                    self.searched_units_pressure = presure_outside[0].text.split(" ")[1]
+
                 self.last_temperature=self.current_temperature
             except:
                 self.last_temperature = self.current_temperature

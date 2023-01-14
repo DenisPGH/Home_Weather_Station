@@ -35,7 +35,7 @@ class GUI_VIS(Variables):
         self.yesterday=datetime.datetime.today()-datetime.timedelta(days=1) # '2011-01-01'
         self.YESTERDAY=self.yesterday.strftime('%Y-%m-%d %H:%M:%S').split(" ")[0] # '2011-01-01'
         self.CURRENT_HOUR = datetime.datetime.today().strftime('%H')
-        
+
 
     def back_button(self,win):
 
