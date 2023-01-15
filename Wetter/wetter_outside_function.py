@@ -88,10 +88,11 @@ class Outside:
                 self.last_temperature = self.current_temperature
                 return self.last_temperature,self.current_status,self.current_pressure_outside
             #self.last_temperature = self.current_temperature
+            if mm != self.mm_old:
+                self.db.add_to_table_outside(self.time_.date(),str(self.current_temperature))
+                self.mm_old = mm
             return self.last_temperature,self.current_status,self.current_pressure_outside
-        if mm != self.mm_old:
-            self.db.add_to_table_outside(self.time_.date(),str(self.current_temperature))
-            self.mm_old = mm
+
         return self.current_temperature ,self.current_status,self.current_pressure_outside
 
 
