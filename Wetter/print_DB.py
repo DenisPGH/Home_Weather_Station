@@ -22,4 +22,5 @@ if USER ==USER_CLIENT:
 
 
 # just debug if all is stored
-db.print_all_info_from_table()
+#db.print_all_info_from_table()
+db.print_all_info_from_table_outside()
