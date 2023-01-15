@@ -66,7 +66,7 @@ class GUI_VIS(Variables):
 
         self.clean_screen_function(win)
         # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
-        self.label_static("parameter", win, 270, 430, f" {parameter} for the {self.DAY}")
+        self.label_static("parameter", win, 270, 430, f" {parameter.replace('_',' ')} for the {self.DAY}")
 
         # BUTTONS
         name_a = tk.Button(win, text="One day", fg=self.fg_buttons, bg=self.bg_buttons,
@@ -290,7 +290,7 @@ class GUI_VIS(Variables):
 
         word_day='day' if period==1 else 'days'
         plot1.set_xlabel(f'{period} {word_day}',fontsize=20,color='White') # xaxis.label.set_color('red')
-        plot1.set_ylabel(f'{parameter}',fontsize=20,color='White')
+        plot1.set_ylabel(f'{parameter.replace("_"," ")}',fontsize=20,color='White')
         # set first and last
         plot1.set_xticks([plot1.get_xticks()[0],plot1.get_xticks()[-1]],[f'{plot1.get_xticklabels()[0].get_text()}',plot1.get_xticklabels()[-1]])
         plot1.tick_params(axis='x', colors='white',rotation=0,labelsize=15)

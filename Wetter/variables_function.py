@@ -38,7 +38,7 @@ class Variables:
         self.FS_VALUE_X_TEMP = 65
         self.FS_VALUE_X_HUM = 355
         self.FS_VALUE_X_PRESS = 600
-        self.FS_VALUE_X_TEMP_OUTSIDE = 380
+        self.FS_VALUE_X_TEMP_OUTSIDE = 360
         self.FS_VALUE_Y_TEMP_OUTSIDE = 200
         self.FS_VALUE_X_TIME = 0
         self.FS_VALUE_Y_TIME = 0
@@ -94,8 +94,8 @@ class Variables:
         self.FS_BUTTON_Y_SHUTDOWN = 60
         self.FS_SHUTDOWN_SIZE = 13
 
-        self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 380
-        self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE = 290
+        self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 360
+        self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE = 285
         self.FS_HISTORY_TEMP_OUTSIDE_SIZE = 13
 
 

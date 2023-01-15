@@ -64,7 +64,7 @@ class Outside:
         """
         mm=self.time_.TIME()[1]
 
-        if  mm== "00" or mm== "15" or mm == "30" or mm == "45" or self.first_run==0: # 1:00, 2:00 etc
+        if  mm== "00" or mm== "15" or mm == "30" or mm == "45": # 1:00, 2:00 etc
             self.first_run=1
             try:
                 response = requests.get('https://www.accuweather.com/de/ch/bern/312122/current-weather/312122', headers=self.headers)

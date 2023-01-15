@@ -18,12 +18,12 @@ class SQLiteSensor:
         self.NAME_TABLE_CPU='CPU'
 
 
-    def drop_table(self):
+    def drop_table(self,table):
         """
        delete table in the db
         :return:
         """
-        self.cur.execute(f''' DROP TABLE {self.NAME_TABLE}''')
+        self.cur.execute(f''' DROP TABLE {table}''')
         self.con.commit()
 
     def create_table(self):
@@ -162,6 +162,7 @@ class SQLiteSensor:
 
 if __name__=='__main__':
     db=SQLiteSensor()
+    #db.drop_table(db.NAME_TABLE_OUTSIDE)
     #db.create_table_outside()
     db.print_all_info_from_table_outside()
     #db.csv__to_sqlite()
