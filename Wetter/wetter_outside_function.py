@@ -55,7 +55,7 @@ class Outside:
 
     def acctual_temperature_outside(self):
         """
-        with curl get the page from the wetter, only if 1:00 or 1:30 or 22:00 or 22:30 etc in half hour
+        with curl get the page from the wetter, every 15 mins
         then parse to html
         with regex get the value
 
@@ -82,7 +82,7 @@ class Outside:
                     presure_outside = html.select(
                         f"body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child({child})")
                     self.searched_units_pressure = presure_outside[0].text.split(" ")[1]
-                
+
                 self.last_temperature=self.current_temperature
                 if mm != self.mm_old:
                     self.db.add_to_table_outside(self.time_.date(), str(self.current_temperature))

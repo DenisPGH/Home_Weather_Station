@@ -232,7 +232,7 @@ class GUI_VIS(Variables):
                 self.value = self.sensor.reading()[2]
 
             elif index==4: #time
-                self.value = datetime.datetime.today().strftime('%d-%m-%Y    %H:%M')
+                self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
             elif index==5: #temp outside
                 self.value =self.outside.acctual_temperature_outside()[0]
             elif index==6: #status outside
