@@ -82,15 +82,16 @@ class Outside:
                     presure_outside = html.select(
                         f"body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child({child})")
                     self.searched_units_pressure = presure_outside[0].text.split(" ")[1]
-
+                
                 self.last_temperature=self.current_temperature
+                if mm != self.mm_old:
+                    self.db.add_to_table_outside(self.time_.date(), str(self.current_temperature))
+                    self.mm_old = mm
             except:
                 self.last_temperature = self.current_temperature
                 return self.last_temperature,self.current_status,self.current_pressure_outside
             #self.last_temperature = self.current_temperature
-            if mm != self.mm_old:
-                self.db.add_to_table_outside(self.time_.date(),str(self.current_temperature))
-                self.mm_old = mm
+
             return self.last_temperature,self.current_status,self.current_pressure_outside
 
         return self.current_temperature ,self.current_status,self.current_pressure_outside
