@@ -60,6 +60,10 @@ class Variables:
         self.FS_VALUE_Y_PRESSURE_OUTSIDE = 230
         self.FS_SIZE_VALUE_PRESSURE_OUTSIDE = 20
 
+        self.FS_VALUE_X_CPU_TEMP = 60
+        self.FS_VALUE_Y_CPU_TEMP = 200
+        self.FS_SIZE_VALUE_CPU_TEMP = 40
+
         self.FS_VIDEO_BUTTON_X = 500
         self.FS_VIDEO_BUTTON_Y = 100
         # table
@@ -71,6 +75,9 @@ class Variables:
         self.FS_TABLE_Y_TEMP_OUTSIDE = 150
         self.FS_TABLE_X_PRESS_OUTSIDE = 600
         self.FS_TABLE_Y_PRESS_OUTSIDE = 200
+
+        self.FS_TABLE_X_CPU_TEMP = 60
+        self.FS_TABLE_Y_CPU_TEMP = 150
         # units
         self.FS_SIZE_UNITS = 20
         self.FS_LEVEL_UNITS = 370
@@ -82,6 +89,9 @@ class Variables:
 
         self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
         self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
+
+        self.FS_UNITS_X_CPU_TEMP = 170
+        self.FS_UNITS_Y_CPU_TEMP = 220
         # buttons
         self.FS_LEVEL_BUTTONS = 440
         self.FS_BUTTON_X_HISTORY_TEMP = 30
@@ -97,6 +107,10 @@ class Variables:
         self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 360
         self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE = 285
         self.FS_HISTORY_TEMP_OUTSIDE_SIZE = 13
+
+        self.FS_BUTTON_X_HISTORY_CPU_TEMP = 70
+        self.FS_BUTTON_Y_HISTORY_CPU_TEMP = 285
+        self.FS_HISTORY_HISTORY_CPU_SIZE = 13
 
 
 ################

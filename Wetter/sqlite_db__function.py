@@ -120,7 +120,7 @@ class SQLiteSensor:
             # print(node)
         return x,y
 
-
+###################################################################################
     def create_table_outside(self):
         """
         table for storing the value from the temperature outside in DB
@@ -158,13 +158,56 @@ class SQLiteSensor:
             print(node)
         return
 
+###################################################################################
+    def create_table_cpu(self):
+        """
+        table for storing the value from the temperature cpu in DB
+        :return:
+        """
+        self.cur.execute(f'''CREATE TABLE {self.NAME_TABLE_CPU}
+                         (id integer primary key,
+                          datetime_ DATE, 
+                          temperature_cpu integer)''')
+        self.con.commit()
+
+
+    def add_to_table_cpu(self, date:str, temp_cpu:str,):
+        """
+        create a new row into table of cpu
+        :param date: str '2023-01-08 01:00'
+        :param temp_cpu: str
+
+        :return:
+        """
+
+        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_CPU} (datetime_ ,temperature_cpu)
+                               VALUES (?,?);''',
+                         (date,temp_cpu,))
+        self.con.commit()
+
+    def print_all_info_from_table_cpu(self):
+        """
+        return all info from the table cpu
+        :return: nothing
+        """
+        self.cur.execute(f"select * from {self.NAME_TABLE_CPU}")
+        result = self.cur.fetchall()
+        print('INFO:')
+        for node in result:
+            print(node)
+        return
+
+
+
+
 
 
 if __name__=='__main__':
     db=SQLiteSensor()
+    #db.create_table_cpu()
     #db.drop_table(db.NAME_TABLE_OUTSIDE)
     #db.create_table_outside()
-    db.print_all_info_from_table_outside()
+    db.print_all_info_from_table_cpu()
     #db.csv__to_sqlite()
     #db.print_all_info_from_table()
     #a=db.return_info_for_period('humidity',6)

@@ -47,7 +47,7 @@ class Outside:
         self.time_=TIME_DATE()
         self.hours=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         self.first_run = 0
-        self.current_status="no"
+        self.current_status="no info"
         self.current_pressure_outside=0
         self.searched_units_pressure='0'
         self.db=SQLiteSensor()

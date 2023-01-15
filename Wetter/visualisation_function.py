@@ -11,6 +11,7 @@ import numpy as np
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
+from cpu_monitoring_function import MonitoringCPU
 from day_info_function import Ortodox
 from sensor_function import Sensor
 from sqlite_db__function import SQLiteSensor
@@ -29,6 +30,7 @@ class GUI_VIS(Variables):
         self.outside = Outside()
         self.sensor = Sensor()
         self.orthodox = Ortodox()
+        self.cpu_raspi=MonitoringCPU()
         self.datetime_=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
@@ -96,6 +98,7 @@ class GUI_VIS(Variables):
         self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, "Pressure Inside:")
         self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, self.FS_TABLE_Y_TEMP_OUTSIDE, "Temperature Outside :")
         self.label_static("press_outside", win, self.FS_TABLE_X_PRESS_OUTSIDE, self.FS_TABLE_Y_PRESS_OUTSIDE, "Pressure Outside :")
+        self.label_static("cpu temp", win, self.FS_TABLE_X_CPU_TEMP, self.FS_TABLE_Y_CPU_TEMP, "Temperature CPU :")
 
         # labels live values ####################################################
         self.label_dynamic("press", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, 1, self.FS_VALUE_SIZE) #temp
@@ -107,6 +110,7 @@ class GUI_VIS(Variables):
         self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,100,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
         self.label_dynamic("press9", win,self.FS_VALUE_X_WETTER_STATUS, self.FS_VALUE_Y_WETTER_STATUS,6,self.FS_SIZE_VALUE_WETTER_STATUS,"Calibri") # wetter status
         self.label_dynamic("press9", win,self.FS_VALUE_X_PRESSURE_OUTSIDE, self.FS_VALUE_Y_PRESSURE_OUTSIDE,7) # presure outside
+        self.label_dynamic("press10", win,self.FS_VALUE_X_CPU_TEMP, self.FS_VALUE_Y_CPU_TEMP,8,self.FS_SIZE_VALUE_CPU_TEMP) # cpu temp
 
         # labels units ########################################################
         self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, " C", self.FS_SIZE_UNITS)
@@ -114,31 +118,39 @@ class GUI_VIS(Variables):
         self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS)
         self.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
         self.label_static("pressure_out", win, self.FS_UNITS_X_PRESSURE_OUTSIDE, self.FS_UNITS_Y_PRESSURE_OUTSIDE, " hPa", self.FS_SIZE_UNITS)
+        self.label_static("temp cpu", win, self.FS_UNITS_X_CPU_TEMP, self.FS_UNITS_Y_CPU_TEMP, " C", self.FS_SIZE_UNITS)
 
         # buttons ######################
-        name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature", win,self.history.NAME_TABLE))
-        name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
-        name_a.pack()
-        name_a.place(x=self.FS_BUTTON_X_HISTORY_TEMP, y=self.FS_LEVEL_BUTTONS)
+        button_a.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_a.pack()
+        button_a.place(x=self.FS_BUTTON_X_HISTORY_TEMP, y=self.FS_LEVEL_BUTTONS)
 
-        name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Humidity",win,self.history.NAME_TABLE))
-        name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
-        name_b.pack()
-        name_b.place(x=self.FS_BUTTON_X_HISTORY_HUM, y=self.FS_LEVEL_BUTTONS)
+        button_b.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_b.pack()
+        button_b.place(x=self.FS_BUTTON_X_HISTORY_HUM, y=self.FS_LEVEL_BUTTONS)
 
-        name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Pressure", win,self.history.NAME_TABLE))
-        name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
-        name_c.pack()
-        name_c.place(x=self.FS_BUTTON_X_HISTORY_PRESS, y=self.FS_LEVEL_BUTTONS)
+        button_c.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_c.pack()
+        button_c.place(x=self.FS_BUTTON_X_HISTORY_PRESS, y=self.FS_LEVEL_BUTTONS)
 
-        name_e = tk.Button(win, text="History Outside", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_temp_out = tk.Button(win, text="History Outside", fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature_outside", win,self.history.NAME_TABLE_OUTSIDE))
-        name_e.config(font=(f"{self.font_buttons}", self.FS_HISTORY_TEMP_OUTSIDE_SIZE))
-        name_e.pack()
-        name_e.place(x=self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE, y=self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE)
+        button_temp_out.config(font=(f"{self.font_buttons}", self.FS_HISTORY_TEMP_OUTSIDE_SIZE))
+        button_temp_out.pack()
+        button_temp_out.place(x=self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE, y=self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE)
+
+        button_cpu = tk.Button(win, text="History CPU", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Temperature_cpu", win,
+                                                               self.history.NAME_TABLE_CPU))
+        button_cpu.config(font=(f"{self.font_buttons}", self.FS_HISTORY_HISTORY_CPU_SIZE))
+        button_cpu.pack()
+        button_cpu.place(x=self.FS_BUTTON_X_HISTORY_CPU_TEMP, y=self.FS_BUTTON_Y_HISTORY_CPU_TEMP)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
@@ -227,6 +239,9 @@ class GUI_VIS(Variables):
                 self.value =self.outside.acctual_temperature_outside()[1]
             elif index==7: #presure outside
                 self.value =self.outside.acctual_temperature_outside()[2]
+
+            elif index==8: #cpu temp
+                self.value =self.cpu_raspi.temperature_CPU()
 
             elif index==99: # Nameday
                 text_=self.orthodox.current_day_ortodox()
