@@ -51,7 +51,7 @@ class Outside:
         self.current_pressure_outside=0
         self.searched_units_pressure='0'
         self.db=SQLiteSensor()
-        self.mm_old='0'
+        self.mm_old=''
 
     def acctual_temperature_outside(self):
         """
