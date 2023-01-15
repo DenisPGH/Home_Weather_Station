@@ -427,7 +427,8 @@ class GUI_VIS(Variables):
         """
 
         self.clean_screen_function(win)
-        self.back_button(win)
+        if self.TRIES_ENTER_PASSWORD==0:
+            self.back_button(win)
         self.label_static("enter", win, self.LS_TABLE_ENTER_X, self.LS_TABLE_ENTER_Y, "Password :",self.LS_TABLE_ENTER_SIZE)
         if self.TRIES_ENTER_PASSWORD>0:
             self.label_dynamic("tries", win, self.LS_WRONG_PASSWORD_X, self.LS_WRONG_PASSWORD_Y, 9, self.LS_WRONG_PASSWORD_FONT,'Areil',self.LS_WRONG_PASSWORD_COLOR)  # temp
