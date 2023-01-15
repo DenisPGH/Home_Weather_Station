@@ -60,7 +60,7 @@ class Variables:
         self.FS_VALUE_Y_PRESSURE_OUTSIDE = 230
         self.FS_SIZE_VALUE_PRESSURE_OUTSIDE = 20
 
-        self.FS_VALUE_X_CPU_TEMP = 60
+        self.FS_VALUE_X_CPU_TEMP = 70
         self.FS_VALUE_Y_CPU_TEMP = 200
         self.FS_SIZE_VALUE_CPU_TEMP = 40
 
@@ -90,7 +90,7 @@ class Variables:
         self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
         self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
 
-        self.FS_UNITS_X_CPU_TEMP = 190
+        self.FS_UNITS_X_CPU_TEMP = 170
         self.FS_UNITS_Y_CPU_TEMP = 220
         # buttons
         self.FS_LEVEL_BUTTONS = 440

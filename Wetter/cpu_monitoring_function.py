@@ -23,13 +23,13 @@ class MonitoringCPU:
             cpu=CPUTemperature()
             temperature = cpu.temperature
         else:
-            temperature = 50.00
+            temperature = 50.346
 
-        self.__temperature_cpu=temperature
+        self.__temperature_cpu=int(temperature)
 
         if mm == "00" or mm == "15" or mm == "30" or mm == "45":
             self.first_run = 1
             if mm != self.mm_old:  # or hh != self.hh_old:
-                self.db.add_to_table_cpu(date,f"{temperature:.1f}")
+                self.db.add_to_table_cpu(date,str(int(temperature)))
                 self.mm_old = mm
         return self.__temperature_cpu
