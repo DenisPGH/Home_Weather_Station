@@ -30,6 +30,6 @@ class MonitoringCPU:
         if mm == "00" or mm == "15" or mm == "30" or mm == "45":
             self.first_run = 1
             if mm != self.mm_old:  # or hh != self.hh_old:
-                self.db.add_to_table_cpu(date,str(int(temperature)))
+                self.db.add_to_table_cpu(date,int(temperature))
                 self.mm_old = mm
         return self.__temperature_cpu

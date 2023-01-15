@@ -132,7 +132,7 @@ class SQLiteSensor:
                           temperature_outside integer)''')
         self.con.commit()
 
-    def add_to_table_outside(self, date:str, temp_outside:str,):
+    def add_to_table_outside(self, date:str, temp_outside:int):
         """
         create a new row
         :param date: str '2023-01-08 01:00'
@@ -171,7 +171,7 @@ class SQLiteSensor:
         self.con.commit()
 
 
-    def add_to_table_cpu(self, date:str, temp_cpu:str,):
+    def add_to_table_cpu(self, date:str, temp_cpu:int,):
         """
         create a new row into table of cpu
         :param date: str '2023-01-08 01:00'
