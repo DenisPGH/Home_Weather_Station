@@ -4,6 +4,7 @@ from sqlite_db__function import SQLiteSensor
 
 db = SQLiteSensor()
 if USER ==USER_CLIENT:
+    pass
     # run once
     # 1.inital db
 
@@ -13,9 +14,9 @@ if USER ==USER_CLIENT:
     #db.csv__to_sqlite()
 
     # 4. create table outside
-    db.create_table_outside()
+    #db.create_table_outside()
     # 5. create table cpu
-    db.create_table_cpu()
+    #db.create_table_cpu()
 
 
 # just debug if all is stored
