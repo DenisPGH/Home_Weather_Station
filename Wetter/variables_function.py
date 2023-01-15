@@ -84,7 +84,7 @@ class Variables:
         self.FS_UNITS_X_TEMP = 170
         self.FS_UNITS_X_HUM = 470
         self.FS_UNITS_X_PRESS = 735
-        self.FS_UNITS_X_TEMP_OUTSIDE = 470
+        self.FS_UNITS_X_TEMP_OUTSIDE = 490
         self.FS_UNITS_Y_TEMP_OUTSIDE = 240
 
         self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
