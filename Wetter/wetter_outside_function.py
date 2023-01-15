@@ -85,7 +85,8 @@ class Outside:
 
                 self.last_temperature=self.current_temperature
                 if mm != self.mm_old:
-                    self.db.add_to_table_outside(self.time_.date(), int(self.last_temperature[0]))
+                    degree_sign = u'\N{DEGREE SIGN}'
+                    self.db.add_to_table_outside(self.time_.date(), int(self.last_temperature.replace(degree_sign,"")))
                     self.mm_old = mm
             except:
                 print("Exeption in outside")
