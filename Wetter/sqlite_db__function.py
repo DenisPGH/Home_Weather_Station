@@ -86,7 +86,7 @@ class SQLiteSensor:
 
     def csv__to_sqlite(self):
         """read csv and store all into table"""
-        self.clear_table()
+        self.clear_table(self.NAME_TABLE)
         all=self.csv_db.return_info_db()
         for a in all:
             a_list=a.split("|")
