@@ -4,6 +4,10 @@ import datetime
 class Variables:
     def __init__(self):
         self.PASSWORD = '1234'
+        self.TRIES_ENTER_PASSWORD=0
+        self.MAX_ENTERS_PASSWORD=3
+
+
         self.password=''
         self.fg_buttons = 'White'
         self.bg_buttons = "Black"
@@ -133,6 +137,15 @@ class Variables:
 
         self.LS_ENTER_BUTTON_X = 280+self.factor_keyboard_x_axis
         self.LS_ENTER_BUTTON_Y = 350
+
+        self.LS_CLEAR_BUTTON_X = 470 + self.factor_keyboard_x_axis
+        self.LS_CLEAR_BUTTON_Y = 50
+
+        self.LS_WRONG_PASSWORD_X = 170 + self.factor_keyboard_x_axis
+        self.LS_WRONG_PASSWORD_Y = 20
+        self.LS_WRONG_PASSWORD_FONT = 12
+        self.LS_WRONG_PASSWORD_COLOR = 'Red'
+        self.LS_WRONG_PASSWORD_STRING=f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
 
 
 

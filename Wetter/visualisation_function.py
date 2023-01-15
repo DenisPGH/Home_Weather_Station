@@ -163,6 +163,9 @@ class GUI_VIS(Variables):
         ## shutdown button
         self.shutdown_button(win)
 
+        ## reset tries logout
+        self.TRIES_ENTER_PASSWORD =0
+
 
 
 
@@ -240,6 +243,9 @@ class GUI_VIS(Variables):
 
             elif index==8: #cpu temp
                 self.value =self.cpu_raspi.temperature_CPU()
+
+            elif index==9: #cpu temp
+                self.value =f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
 
             elif index==99: # Nameday
                 text_=self.orthodox.current_day_ortodox()
@@ -397,9 +403,12 @@ class GUI_VIS(Variables):
 
 
         shut_down='sudo shutdown'
-        print('shutdown')
+
         if USER=='raspi':
             os.system(shut_down)
+        else:
+            print(shut_down)
+            exit()
 
 
     def shutdown_button(self,win):
@@ -416,9 +425,12 @@ class GUI_VIS(Variables):
         :param win: current windows
         :return:
         """
+
         self.clean_screen_function(win)
         self.back_button(win)
         self.label_static("enter", win, self.LS_TABLE_ENTER_X, self.LS_TABLE_ENTER_Y, "Password :",self.LS_TABLE_ENTER_SIZE)
+        if self.TRIES_ENTER_PASSWORD>0:
+            self.label_dynamic("tries", win, self.LS_WRONG_PASSWORD_X, self.LS_WRONG_PASSWORD_Y, 9, self.LS_WRONG_PASSWORD_FONT,'Areil',self.LS_WRONG_PASSWORD_COLOR)  # temp
         self.password = tk.Entry(win, show="*", width=10, font=self.LS_ENTER_FONT)
         self.password.pack()
         self.password.place(x=self.LS_ENTER_FIELD_X,y=self.LS_ENTER_FIELD_Y)
@@ -428,7 +440,17 @@ class GUI_VIS(Variables):
         button_enter.config(font=(f"{self.font_buttons}", self.size_buttons))
         button_enter.pack()
         button_enter.place(x=self.LS_ENTER_BUTTON_X, y=self.LS_ENTER_BUTTON_Y)
+
+        button_clear = tk.Button(win, text="Empty", fg="White", bg=self.bg_buttons,
+                                 command=lambda: self.__clear_function(win))
+        button_clear.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_clear.pack()
+        button_clear.place(x=self.LS_CLEAR_BUTTON_X, y=self.LS_CLEAR_BUTTON_Y)
         self.__create_keypad(win)
+
+        if self.TRIES_ENTER_PASSWORD >= self.MAX_ENTERS_PASSWORD:
+            self.shut_down(win)
+        self.TRIES_ENTER_PASSWORD += 1
 
 
     def __check_if_right_password(self, password,win):
@@ -466,6 +488,17 @@ class GUI_VIS(Variables):
         :param text : text to be insert into enter field
         """
         self.password.insert('end', text)
+
+    def __clear_function(self,win):
+        """
+        clear the entry field
+        :param win:
+        :return:
+        """
+
+        self.TRIES_ENTER_PASSWORD -= 1
+        self.logout_screen(win)
+
 
 
 
