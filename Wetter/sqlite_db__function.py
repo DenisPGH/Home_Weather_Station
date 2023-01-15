@@ -14,6 +14,8 @@ class SQLiteSensor:
         self.con = sqlite3.connect(self.NAME_DB)
         self.cur = self.con.cursor()
         self.csv_db=DataBaseWetter()
+        self.NAME_TABLE_OUTSIDE='Outside'
+        self.NAME_TABLE_CPU='CPU'
 
 
     def drop_table(self):
@@ -96,7 +98,7 @@ class SQLiteSensor:
             pres=a_list[5]
             self.store_new_info__into__table(date, hh, mm, temp, hum, pres.strip())
 
-    def return_info_for_period(self,parameter,period=1):
+    def return_info_for_period(self,parameter,table,period=1,):
         """
         return the parameter and the times for the specific period
         :param period: how many days int
@@ -107,7 +109,7 @@ class SQLiteSensor:
         start_period = (now - datetime.timedelta(days=period)).strftime('%Y-%m-%d %H:00:00')
         # start_period='2023-01-08 01:00:00'
         # end_period='2023-01-08 06:00:00'
-        command=f"SELECT datetime_,{parameter} FROM {self.NAME_TABLE}" \
+        command=f"SELECT datetime_,{parameter} FROM {table}" \
                 f" WHERE datetime_ BETWEEN '{start_period}' AND '{now}'"
         self.cur.execute(command)
         result = self.cur.fetchall()
@@ -119,13 +121,53 @@ class SQLiteSensor:
         return x,y
 
 
+    def create_table_outside(self):
+        """
+        table for storing the value from the temperature outside in DB
+        :return:
+        """
+        self.cur.execute(f'''CREATE TABLE {self.NAME_TABLE_OUTSIDE}
+                         (id integer primary key,
+                          datetime_ DATE, 
+                          temperature_outside integer)''')
+        self.con.commit()
+
+    def add_to_table_outside(self, date:str, temp_outside:str,):
+        """
+        create a new row
+        :param date: str '2023-01-08 01:00'
+        :param temp: str
+
+        :return:
+        """
+
+        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_OUTSIDE} (datetime_ ,temperature_outside)
+                               VALUES (?,?);''',
+                         (date,temp_outside,))
+        self.con.commit()
+
+    def print_all_info_from_table_outside(self):
+        """
+        return all info from the table outside
+        :return: nothing
+        """
+        self.cur.execute(f"select * from {self.NAME_TABLE_OUTSIDE}")
+        result = self.cur.fetchall()
+        print('INFO:')
+        for node in result:
+            print(node)
+        return
+
+
 
 if __name__=='__main__':
     db=SQLiteSensor()
+    #db.create_table_outside()
+    db.print_all_info_from_table_outside()
     #db.csv__to_sqlite()
     #db.print_all_info_from_table()
-    a=db.return_info_for_period('humidity',6)
-    print(a)
+    #a=db.return_info_for_period('humidity',6)
+    #print(a)
     #db.drop_table()
     #db.create_table()
     # db.adding_new__row__into__table('2022-02-02','18','30',300,200,1000)

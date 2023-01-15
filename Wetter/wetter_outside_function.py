@@ -28,6 +28,7 @@ import re
 #
 # print(current_temperature)
 from database_function import TIME_DATE
+from sqlite_db__function import SQLiteSensor
 
 
 class Outside:
@@ -43,12 +44,14 @@ class Outside:
         self.pattern=r"(?P<temp>([0-9]+))"
         self.current_temperature=0
         self.last_temperature=0
-        self.hour=TIME_DATE()
+        self.time_=TIME_DATE()
         self.hours=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         self.first_run = 0
         self.current_status="no"
         self.current_pressure_outside=0
         self.searched_units_pressure='0'
+        self.db=SQLiteSensor()
+        self.mm_old='0'
 
     def acctual_temperature_outside(self):
         """
@@ -59,11 +62,10 @@ class Outside:
 
         :return: the temperatue in C, status, luftdruck in hPa
         """
+        mm=self.time_.TIME()[1]
 
-        if self.hour.TIME()[1] =="00" or self.hour.TIME()[1]=="15" or\
-                self.hour.TIME()[1] =="30" or self.hour.TIME()[1]=="45" or self.first_run==0: # 1:00, 2:00 etc
+        if  mm== "00" or mm== "15" or mm == "30" or mm == "45" or self.first_run==0: # 1:00, 2:00 etc
             self.first_run=1
-
             try:
                 response = requests.get('https://www.accuweather.com/de/ch/bern/312122/current-weather/312122', headers=self.headers)
                 html = soup(response.text, 'html.parser')
@@ -87,7 +89,9 @@ class Outside:
                 return self.last_temperature,self.current_status,self.current_pressure_outside
             #self.last_temperature = self.current_temperature
             return self.last_temperature,self.current_status,self.current_pressure_outside
-
+        if mm != self.mm_old:
+            self.db.add_to_table_outside(self.time_.date(),str(self.current_temperature))
+            self.mm_old = mm
         return self.current_temperature ,self.current_status,self.current_pressure_outside
 
 

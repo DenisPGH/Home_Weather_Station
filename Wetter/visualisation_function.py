@@ -56,9 +56,9 @@ class GUI_VIS(Variables):
         for each in win.winfo_children():
             each.destroy()
 
-    def show_statistic(self,parameter,win,period=1):
+    def show_statistic(self,parameter,win,table,period=1):
         """
-
+        :param table: table in DB
         :param parameter: 'Temperature','Humidity','Pressure'
         :param win: cur windows
         :return:
@@ -70,20 +70,20 @@ class GUI_VIS(Variables):
 
         # BUTTONS
         name_a = tk.Button(win, text="One day", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic(parameter,win,1))
+                           command=lambda: self.show_statistic(parameter,win,table,1))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
         name_a.place(x=0, y=50)
 
         name_b = tk.Button(win, text="7 days", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic(parameter,win,7))
+                           command=lambda: self.show_statistic(parameter,win,table,7))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
         name_b.place(x=0, y=100)
 
 
         self.back_button(win)
-        self.plot_me(win, parameter.lower(), period)
+        self.plot_me(win, parameter.lower(), period,table)
 
 
     def first_screen(self,win):
@@ -117,22 +117,28 @@ class GUI_VIS(Variables):
 
         # buttons ######################
         name_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic("Temperature", win))
+                           command=lambda: self.show_statistic("Temperature", win,self.history.NAME_TABLE))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
         name_a.place(x=self.FS_BUTTON_X_HISTORY_TEMP, y=self.FS_LEVEL_BUTTONS)
 
         name_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic("Humidity",win))
+                           command=lambda: self.show_statistic("Humidity",win,self.history.NAME_TABLE))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
         name_b.place(x=self.FS_BUTTON_X_HISTORY_HUM, y=self.FS_LEVEL_BUTTONS)
 
         name_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
-                           command=lambda: self.show_statistic("Pressure", win))
+                           command=lambda: self.show_statistic("Pressure", win,self.history.NAME_TABLE))
         name_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_c.pack()
         name_c.place(x=self.FS_BUTTON_X_HISTORY_PRESS, y=self.FS_LEVEL_BUTTONS)
+
+        name_e = tk.Button(win, text="History Outside", fg=self.fg_buttons, bg=self.bg_buttons,
+                           command=lambda: self.show_statistic("Temperature_outside", win,self.history.NAME_TABLE_OUTSIDE))
+        name_e.config(font=(f"{self.font_buttons}", self.FS_HISTORY_TEMP_OUTSIDE_SIZE))
+        name_e.pack()
+        name_e.place(x=self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE, y=self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE)
 
         # break button
         name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
@@ -256,10 +262,10 @@ class GUI_VIS(Variables):
         """
         win.mainloop()
 
-    def plot_me(self, win, parameter, period):
+    def plot_me(self, win, parameter, period,table):
         """
         this control the graphical windows in the tkinter page
-
+        :param table: which table in DB
         :param win: windows
         :param parameter: 'temperature','humidity','pressure'
         :param today: todays date
@@ -275,7 +281,7 @@ class GUI_VIS(Variables):
 
         # list of squares
         #ys, xs = self.history.values_for_a_period(parameter,period)
-        xs,ys = self.history.return_info_for_period(parameter,period)
+        xs,ys = self.history.return_info_for_period(parameter,table,period)
         plot1 = fig.add_subplot(111) # fig.patch.set_facecolor('xkcd:mint green')
         plot1.grid(color=((0.15,0.15,0.15)))
         plot1.set_facecolor((fig_color, fig_color, fig_color))

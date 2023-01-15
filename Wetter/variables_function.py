@@ -94,6 +94,10 @@ class Variables:
         self.FS_BUTTON_Y_SHUTDOWN = 60
         self.FS_SHUTDOWN_SIZE = 13
 
+        self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 380
+        self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE = 290
+        self.FS_HISTORY_TEMP_OUTSIDE_SIZE = 13
+
 
 ################
         # self.fg_buttons = 'White'

@@ -12,6 +12,9 @@ if USER ==USER_CLIENT:
     # 3.copy csv
     db.csv__to_sqlite()
 
+    # 4. create table outside
+    db.create_table_outside()
+
 
 
 # just debug if all is stored
