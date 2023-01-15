@@ -76,12 +76,12 @@ class SQLiteSensor:
         """
         self.con.close()
 
-    def clear_table(self):
+    def clear_table(self,table):
         """
         clear the rows into table
         :return:
         """
-        self.cur.execute(f"""DELETE FROM {self.NAME_TABLE}""")
+        self.cur.execute(f"""DELETE FROM {table}""")
         self.con.commit()
 
     def csv__to_sqlite(self):

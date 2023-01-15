@@ -9,14 +9,16 @@ if USER ==USER_CLIENT:
     # 1.inital db
 
     # 2.create table
-    db.create_table()
-    # 3.copy csv
-    #db.csv__to_sqlite()
-
-    # 4. create table outside
-    db.create_table_outside()
-    # 5. create table cpu
-    db.create_table_cpu()
+    # db.create_table()
+    # # 3.copy csv
+    # #db.csv__to_sqlite()
+    #
+    # # 4. create table outside
+    # db.create_table_outside()
+    # # 5. create table cpu
+    # db.create_table_cpu()
+    
+    db.clear_table(db.NAME_TABLE_OUTSIDE)
 
 
 # just debug if all is stored
