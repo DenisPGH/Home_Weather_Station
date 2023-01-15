@@ -3,19 +3,15 @@ import os
 import sys
 import tkinter as tk
 from tkinter import *
-from matplotlib import ticker
-import matplotlib.dates as mdates
-import numpy as np
-
 
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 from cpu_monitoring_function import MonitoringCPU
 from day_info_function import Ortodox
+from experiments.logout_function import KeyboardLogout
 from sensor_function import Sensor
 from sqlite_db__function import SQLiteSensor
-from statistic_function import History
 
 from wetter_outside_function import Outside
 from paths import USER, USER_CLIENT
@@ -26,11 +22,13 @@ from variables_function import Variables
 class GUI_VIS(Variables):
     def __init__(self, win):
         super().__init__()
+        super(KeyboardLogout).__init__()
         self.history = SQLiteSensor()
         self.outside = Outside()
         self.sensor = Sensor()
         self.orthodox = Ortodox()
         self.cpu_raspi=MonitoringCPU()
+        #self.logout=KeyboardLogout(win)
         self.datetime_=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
@@ -153,11 +151,11 @@ class GUI_VIS(Variables):
         button_cpu.place(x=self.FS_BUTTON_X_HISTORY_CPU_TEMP, y=self.FS_BUTTON_Y_HISTORY_CPU_TEMP)
 
         # break button
-        name_d = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
-                           command=lambda: self.terminate())
-        name_d.config(font=(f"{self.font_buttons}", self.size_buttons))
-        name_d.pack()
-        name_d.place(x=self.FS_BUTTON_X_BREAK, y=self.FS_BUTTON_Y_BREAK)
+        button_break = tk.Button(win, text="X", fg="Red", bg=self.bg_buttons,
+                           command=lambda: self.logout_screen(win))
+        button_break.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_break.pack()
+        button_break.place(x=self.FS_BUTTON_X_BREAK, y=self.FS_BUTTON_Y_BREAK)
 
         ## video button
         self.video_button(win)
@@ -410,6 +408,70 @@ class GUI_VIS(Variables):
         name_shutdown.config(font=(f"{self.font_buttons}", self.FS_SHUTDOWN_SIZE))
         name_shutdown.pack()
         name_shutdown.place(x=self.FS_BUTTON_X_SHUTDOWN, y=self.FS_BUTTON_Y_SHUTDOWN)
+
+##################################################################################################
+    def logout_screen(self,win):
+        """
+        page where to show keyboard and logout function
+        :param win: current windows
+        :return:
+        """
+        self.clean_screen_function(win)
+        self.back_button(win)
+        self.label_static("enter", win, self.LS_TABLE_ENTER_X, self.LS_TABLE_ENTER_Y, "Password :",self.LS_TABLE_ENTER_SIZE)
+        self.password = tk.Entry(win, show="*", width=10, font=self.LS_ENTER_FONT)
+        self.password.pack()
+        self.password.place(x=self.LS_ENTER_FIELD_X,y=self.LS_ENTER_FIELD_Y)
+
+        button_enter = tk.Button(win, text="Enter", fg="White", bg=self.bg_buttons,
+                                 command=lambda: self.__check_if_right_password(self.password.get(),win))
+        button_enter.config(font=(f"{self.font_buttons}", self.size_buttons))
+        button_enter.pack()
+        button_enter.place(x=self.LS_ENTER_BUTTON_X, y=self.LS_ENTER_BUTTON_Y)
+        self.__create_keypad(win)
+
+
+    def __check_if_right_password(self, password,win):
+        """
+        check if the entered password is corect
+        :param password: entered password
+        :param win:
+        :return:
+        """
+
+        if password == self.PASSWORD:
+            exit()
+        else:
+            self.logout_screen(win)
+
+    def __create_keypad(self,win):
+        """
+        create the buttons of the keyboard
+        :param win:
+        :return:
+        """
+
+
+        for y in range(3):
+            for x in range(1,4):
+                val = y * 3 + x
+                text = str(val)
+                button_key = tk.Button(win, text=text, command=lambda txt=text: self.__insert_text(txt))
+                button_key.config(font=(f"{self.font_buttons}", self.LS_SIZE_FONT_BUTTONS))
+                button_key.pack()
+                button_key.place(x=self.LS_KEYBOARD_X+(x*self.LS_SIZE_BUTTONS), y=self.LS_KEYBOARD_Y+y*self.LS_SIZE_BUTTONS)
+
+    def __insert_text(self, text):
+        """
+        :param text : text to be insert into enter field
+        """
+        self.password.insert('end', text)
+
+
+
+
+
+
 
 
 

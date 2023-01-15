@@ -3,6 +3,8 @@ import datetime
 
 class Variables:
     def __init__(self):
+        self.PASSWORD = '1234'
+        self.password=''
         self.fg_buttons = 'White'
         self.bg_buttons = "Black"
         self.size_buttons = 17
@@ -111,6 +113,27 @@ class Variables:
         self.FS_BUTTON_X_HISTORY_CPU_TEMP = 70
         self.FS_BUTTON_Y_HISTORY_CPU_TEMP = 285
         self.FS_HISTORY_HISTORY_CPU_SIZE = 13
+
+        #####################################
+        self.factor_keyboard_x_axis=60
+        self.LS_KEYBOARD_X=170+self.factor_keyboard_x_axis
+        self.LS_KEYBOARD_Y=120
+        self.LS_SIZE_BUTTONS=60
+        self.LS_SIZE_FONT_BUTTONS=30
+
+        self.LS_TABLE_ENTER_X = 170+self.factor_keyboard_x_axis
+        self.LS_TABLE_ENTER_Y = 50
+        self.LS_TABLE_ENTER_SIZE = 20
+
+
+
+        self.LS_ENTER_FIELD_X = 330+self.factor_keyboard_x_axis
+        self.LS_ENTER_FIELD_Y = 55
+        self.LS_ENTER_FONT = 20
+
+        self.LS_ENTER_BUTTON_X = 280+self.factor_keyboard_x_axis
+        self.LS_ENTER_BUTTON_Y = 350
+
 
 
 ################
