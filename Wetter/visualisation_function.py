@@ -234,6 +234,14 @@ class GUI_VIS(Variables):
 
             elif index==4: #time
                 self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+                ### restat here ##############################################
+                hh,mm=self.value.split("  ")[0].split(":")
+                if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
+                    print('Reboot')
+                    self.IS_REBOOT = True
+                    os.system('sudo reboot')
+
+
             elif index==5: #temp outside
                 self.value =self.outside.acctual_temperature_outside()[0]
             elif index==6: #status outside

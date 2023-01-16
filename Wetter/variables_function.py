@@ -6,6 +6,8 @@ class Variables:
         self.PASSWORD = '1234'
         self.TRIES_ENTER_PASSWORD=0
         self.MAX_ENTERS_PASSWORD=3
+        self.TIME_RESTART='19:20'
+        self.IS_REBOOT=False
 
 
         self.password=''
