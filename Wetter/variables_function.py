@@ -6,8 +6,10 @@ class Variables:
         self.PASSWORD = '1234'
         self.TRIES_ENTER_PASSWORD=0
         self.MAX_ENTERS_PASSWORD=3
-        self.TIME_RESTART='19:20'
+        self.TIME_RESTART='07:05' #"HH:MM"
         self.IS_REBOOT=False
+        self.DEGREE_SIGN=u'\N{DEGREE SIGN}'
+
 
 
         self.password=''
@@ -70,7 +72,7 @@ class Variables:
 
         self.FS_VALUE_X_CPU_TEMP = 70
         self.FS_VALUE_Y_CPU_TEMP = 200
-        self.FS_SIZE_VALUE_CPU_TEMP = 40
+        self.FS_SIZE_VALUE_CPU_TEMP = 65
 
         self.FS_VIDEO_BUTTON_X = 500
         self.FS_VIDEO_BUTTON_Y = 100
@@ -87,13 +89,14 @@ class Variables:
         self.FS_TABLE_X_CPU_TEMP = 60
         self.FS_TABLE_Y_CPU_TEMP = 150
         # units
-        self.FS_SIZE_UNITS = 20
+        self.FS_SIZE_UNITS = 40
+        self.FS_SIZE_UNITS_hPa = 20
         self.FS_LEVEL_UNITS = 370
         self.FS_UNITS_X_TEMP = 170
         self.FS_UNITS_X_HUM = 470
         self.FS_UNITS_X_PRESS = 735
-        self.FS_UNITS_X_TEMP_OUTSIDE = 490
-        self.FS_UNITS_Y_TEMP_OUTSIDE = 240
+        self.FS_UNITS_X_TEMP_OUTSIDE = 470
+        self.FS_UNITS_Y_TEMP_OUTSIDE = 220
 
         self.FS_UNITS_X_PRESSURE_OUTSIDE = 735
         self.FS_UNITS_Y_PRESSURE_OUTSIDE = 250
@@ -148,6 +151,17 @@ class Variables:
         self.LS_WRONG_PASSWORD_FONT = 12
         self.LS_WRONG_PASSWORD_COLOR = 'Red'
         self.LS_WRONG_PASSWORD_STRING=f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
+        ####### strings ###############
+        self.STRING_DEGREES = f" {self.DEGREE_SIGN}C"
+        self.STRING_TABLE_TEMP_IN = "Temperature Inside :"
+        self.STRING_TABLE_TEMP_OUT = "Temperature Outside :"
+        self.STRING_TABLE_HUM_IN = "Humidity Inside:"
+        self.STRING_TABLE_PRESS_IN = "Pressure Inside:"
+        self.STRING_TABLE_PRESS_OUT = "Pressure Outside :"
+        self.STRING_TABLE_CPU = "Temperature CPU :"
+        self.STRING_BUTTON_HISTORY_TEMP = "History Temperature"
+        self.STRING_BUTTON_HISTORY_HUM = "History Humidity"
+        self.STRING_BUTTON_HISTORY_PRESS = "History Pressure"
 
 
 

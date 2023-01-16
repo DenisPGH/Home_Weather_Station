@@ -132,7 +132,7 @@ class SQLiteSensor:
                           temperature_outside integer)''')
         self.con.commit()
 
-    def add_to_table_outside(self, date:str, temp_outside:int):
+    def add_to_table_outside(self, date:str, temp_outside:int,info:str):
         """
         create a new row
         :param date: str '2023-01-08 01:00'
@@ -141,9 +141,9 @@ class SQLiteSensor:
         :return:
         """
 
-        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_OUTSIDE} (datetime_ ,temperature_outside)
-                               VALUES (?,?);''',
-                         (date,temp_outside,))
+        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_OUTSIDE} (datetime_ ,temperature_outside,info)
+                               VALUES (?,?,?);''',
+                         (date,temp_outside,info))
         self.con.commit()
 
     def print_all_info_from_table_outside(self):
@@ -157,6 +157,16 @@ class SQLiteSensor:
         for node in result:
             print(node)
         return
+
+    def add_column_to_table_outside(self):
+        """
+        adding a new column to the table outside-extra added
+        :return:
+        """
+        self.cur.execute(f'''ALTER TABLE {self.NAME_TABLE_OUTSIDE}
+                                ADD COLUMN info text;''')
+        self.con.commit()
+
 
 ###################################################################################
     def create_table_cpu(self):

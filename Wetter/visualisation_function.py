@@ -91,12 +91,12 @@ class GUI_VIS(Variables):
         self.clean_screen_function(win)
         #value = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         # lable function
-        self.label_static("temp", win, self.FS_TABLE_X_TEMP, self.FS_LEVEL_TABLES, "Temperature Inside :")
-        self.label_static("temprr", win, self.FS_TABLE_X_HUM, self.FS_LEVEL_TABLES, "Humidity Inside:")
-        self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, "Pressure Inside:")
-        self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, self.FS_TABLE_Y_TEMP_OUTSIDE, "Temperature Outside :")
-        self.label_static("press_outside", win, self.FS_TABLE_X_PRESS_OUTSIDE, self.FS_TABLE_Y_PRESS_OUTSIDE, "Pressure Outside :")
-        self.label_static("cpu temp", win, self.FS_TABLE_X_CPU_TEMP, self.FS_TABLE_Y_CPU_TEMP, "Temperature CPU :")
+        self.label_static("temp", win, self.FS_TABLE_X_TEMP, self.FS_LEVEL_TABLES, self.STRING_TABLE_TEMP_IN)
+        self.label_static("temprr", win, self.FS_TABLE_X_HUM, self.FS_LEVEL_TABLES, self.STRING_TABLE_HUM_IN)
+        self.label_static("press", win, self.FS_TABLE_X_PRESS, self.FS_LEVEL_TABLES, self.STRING_TABLE_PRESS_IN)
+        self.label_static("tem_outside", win, self.FS_TABLE_X_TEMP_OUTSIDE, self.FS_TABLE_Y_TEMP_OUTSIDE, self.STRING_TABLE_TEMP_OUT)
+        self.label_static("press_outside", win, self.FS_TABLE_X_PRESS_OUTSIDE, self.FS_TABLE_Y_PRESS_OUTSIDE, self.STRING_TABLE_PRESS_OUT)
+        self.label_static("cpu temp", win, self.FS_TABLE_X_CPU_TEMP, self.FS_TABLE_Y_CPU_TEMP, self.STRING_TABLE_CPU)
 
         # labels live values ####################################################
         self.label_dynamic("press", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, 1, self.FS_VALUE_SIZE) #temp
@@ -111,27 +111,27 @@ class GUI_VIS(Variables):
         self.label_dynamic("press10", win,self.FS_VALUE_X_CPU_TEMP, self.FS_VALUE_Y_CPU_TEMP,8,self.FS_SIZE_VALUE_CPU_TEMP) # cpu temp
 
         # labels units ########################################################
-        self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, " C", self.FS_SIZE_UNITS)
+        self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, self.STRING_DEGREES, self.FS_SIZE_UNITS)
         self.label_static("temprr", win, self.FS_UNITS_X_HUM, self.FS_LEVEL_UNITS, " %", self.FS_SIZE_UNITS)
-        self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS)
+        self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS_hPa)
         self.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
-        self.label_static("pressure_out", win, self.FS_UNITS_X_PRESSURE_OUTSIDE, self.FS_UNITS_Y_PRESSURE_OUTSIDE, " hPa", self.FS_SIZE_UNITS)
-        self.label_static("temp cpu", win, self.FS_UNITS_X_CPU_TEMP, self.FS_UNITS_Y_CPU_TEMP, " C", self.FS_SIZE_UNITS)
+        self.label_static("pressure_out", win, self.FS_UNITS_X_PRESSURE_OUTSIDE, self.FS_UNITS_Y_PRESSURE_OUTSIDE, " hPa", self.FS_SIZE_UNITS_hPa)
+        self.label_static("temp cpu", win, self.FS_UNITS_X_CPU_TEMP, self.FS_UNITS_Y_CPU_TEMP, self.STRING_DEGREES, self.FS_SIZE_UNITS)
 
         # buttons ######################
-        button_a = tk.Button(win, text="History Temperature", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_a = tk.Button(win, text=self.STRING_BUTTON_HISTORY_TEMP, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature", win,self.history.NAME_TABLE))
         button_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         button_a.pack()
         button_a.place(x=self.FS_BUTTON_X_HISTORY_TEMP, y=self.FS_LEVEL_BUTTONS)
 
-        button_b = tk.Button(win, text="History Humidity", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_b = tk.Button(win, text=self.STRING_BUTTON_HISTORY_HUM, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Humidity",win,self.history.NAME_TABLE))
         button_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         button_b.pack()
         button_b.place(x=self.FS_BUTTON_X_HISTORY_HUM, y=self.FS_LEVEL_BUTTONS)
 
-        button_c = tk.Button(win, text="History Pressure", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_c = tk.Button(win, text=self.STRING_BUTTON_HISTORY_PRESS, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Pressure", win,self.history.NAME_TABLE))
         button_c.config(font=(f"{self.font_buttons}", self.size_buttons))
         button_c.pack()

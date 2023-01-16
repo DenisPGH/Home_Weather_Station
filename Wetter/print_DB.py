@@ -15,10 +15,13 @@ if USER ==USER_CLIENT:
     #
     # # 4. create table outside
     # db.create_table_outside()
+    # 4.1. add column to outside
+    db.add_column_to_table_outside()
     # # 5. create table cpu
     # db.create_table_cpu()
 
     #db.clear_table(db.NAME_TABLE_OUTSIDE)
+
 
 
 # just debug if all is stored

@@ -52,6 +52,7 @@ class Outside:
         self.searched_units_pressure='0'
         self.db=SQLiteSensor()
         self.mm_old=''
+        self.degree_sign = u'\N{DEGREE SIGN}'
 
     def acctual_temperature_outside(self):
         """
@@ -85,8 +86,8 @@ class Outside:
 
                 self.last_temperature=self.current_temperature
                 if mm != self.mm_old:
-                    degree_sign = u'\N{DEGREE SIGN}'
-                    self.db.add_to_table_outside(self.time_.date(), int(self.last_temperature.replace(degree_sign,"")))
+
+                    self.db.add_to_table_outside(self.time_.date(), int(self.last_temperature.replace(self.degree_sign,"")),self.current_status)
                     self.mm_old = mm
             except:
                 print("Exeption in outside")
