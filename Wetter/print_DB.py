@@ -5,7 +5,7 @@ from sqlite_db__function import SQLiteSensor
 db = SQLiteSensor()
 if USER ==USER_CLIENT:
     pass
-    # run once
+    # UNCOMENT AND  RUN ONCE
     # 1.inital db
 
     # # 2.create table
@@ -16,7 +16,7 @@ if USER ==USER_CLIENT:
     # # 4. create table outside
     # db.create_table_outside()
     # 4.1. add column to outside
-    db.add_column_to_table_outside()
+    # db.add_column_to_table_outside()
     # # 5. create table cpu
     # db.create_table_cpu()
 
