@@ -40,7 +40,7 @@ class GUI_VIS(Variables):
     def back_button(self,win):
 
         # BACK BUTTON to first screen
-        but = tk.Button(win, text="BACK", fg="Red", bg='Black', command=lambda: self.first_screen(win))
+        but = tk.Button(win, text=self.STRING_BUTTON_BACK, fg="Red", bg='Black', command=lambda: self.first_screen(win))
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
         but.place(x=0, y=0)
@@ -69,13 +69,13 @@ class GUI_VIS(Variables):
         self.label_static("parameter", win, 270, 430, f" {parameter.replace('_',' ')} for the {self.DAY}")
 
         # BUTTONS
-        name_a = tk.Button(win, text="One day", fg=self.fg_buttons, bg=self.bg_buttons,
+        name_a = tk.Button(win, text=self.STRING_BUTTON_HISTORY_ONE_DAY, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,table,1))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
         name_a.place(x=0, y=50)
 
-        name_b = tk.Button(win, text="7 days", fg=self.fg_buttons, bg=self.bg_buttons,
+        name_b = tk.Button(win, text=self.STRING_BUTTON_HISTORY_7_DAYS, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,table,7))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
@@ -137,13 +137,13 @@ class GUI_VIS(Variables):
         button_c.pack()
         button_c.place(x=self.FS_BUTTON_X_HISTORY_PRESS, y=self.FS_LEVEL_BUTTONS)
 
-        button_temp_out = tk.Button(win, text="History Outside", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_temp_out = tk.Button(win, text=self.STRING_BUTTON_HISTORY_TEMP_OUT, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature_outside", win,self.history.NAME_TABLE_OUTSIDE))
         button_temp_out.config(font=(f"{self.font_buttons}", self.FS_HISTORY_TEMP_OUTSIDE_SIZE))
         button_temp_out.pack()
         button_temp_out.place(x=self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE, y=self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE)
 
-        button_cpu = tk.Button(win, text="History CPU", fg=self.fg_buttons, bg=self.bg_buttons,
+        button_cpu = tk.Button(win, text=self.STRING_BUTTON_HISTORY_CPU, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic("Temperature_cpu", win,
                                                                self.history.NAME_TABLE_CPU))
         button_cpu.config(font=(f"{self.font_buttons}", self.FS_HISTORY_HISTORY_CPU_SIZE))
@@ -245,7 +245,13 @@ class GUI_VIS(Variables):
             elif index==5: #temp outside
                 self.value =self.outside.acctual_temperature_outside()[0]
             elif index==6: #status outside
-                self.value =self.outside.acctual_temperature_outside()[1]
+                #self.value =self.outside.acctual_temperature_outside()[1]
+                word =self.outside.acctual_temperature_outside()[1]
+                if word in self.DICTIONARY_DE_to_BG.keys():
+                    self.value=self.DICTIONARY_DE_to_BG[word]
+                else:
+                    self.value = self.outside.acctual_temperature_outside()[1]
+
             elif index==7: #presure outside
                 self.value =self.outside.acctual_temperature_outside()[2]
 
@@ -260,7 +266,7 @@ class GUI_VIS(Variables):
                 if text_ !="":
                     self.value = f"Днес:  {text_}"
                 else:
-                    self.value = f"Denislav Petrov "
+                    self.value = self.STRING_NO_NAMEDAY
             elif index == 100:
                 self.value=self.VIDEO_MODUS
                 self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
@@ -407,7 +413,7 @@ class GUI_VIS(Variables):
         just shut down the raspi
         """
         self.clean_screen_function(win)
-        self.label_static("byebye",win,300,200,"Bye-Bye",70)
+        self.label_static("byebye",win,300,200,self.STRING_SHUTDOWN,70)
 
 
         shut_down='sudo shutdown'

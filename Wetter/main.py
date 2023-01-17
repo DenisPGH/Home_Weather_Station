@@ -5,7 +5,7 @@ from tkinter import *
 
 
 
-
+# _*_ coding: utf-8 _*_
 
 
 
