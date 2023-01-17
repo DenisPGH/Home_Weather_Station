@@ -132,18 +132,20 @@ class SQLiteSensor:
                           temperature_outside integer)''')
         self.con.commit()
 
-    def add_to_table_outside(self, date:str, temp_outside:int,info:str):
+    def add_to_table_outside(self, date:str, temp_outside:int,info:str,pressure:int):
         """
         create a new row
         :param date: str '2023-01-08 01:00'
         :param temp: str
+        :param info: string for the wetter
+        :param pressure: atmosphere presure int
 
         :return:
         """
 
-        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_OUTSIDE} (datetime_ ,temperature_outside,info)
-                               VALUES (?,?,?);''',
-                         (date,temp_outside,info))
+        self.cur.execute(f'''INSERT INTO {self.NAME_TABLE_OUTSIDE} (datetime_ ,temperature_outside,info,pressure)
+                               VALUES (?,?,?,?);''',
+                         (date,temp_outside,info,pressure))
         self.con.commit()
 
     def print_all_info_from_table_outside(self):
@@ -165,6 +167,16 @@ class SQLiteSensor:
         """
         self.cur.execute(f'''ALTER TABLE {self.NAME_TABLE_OUTSIDE}
                                 ADD COLUMN info text;''')
+        self.con.commit()
+
+
+    def add_column_pressure__to_table_outside(self):
+        """
+        adding a new column to the table outside-extra added
+        :return:
+        """
+        self.cur.execute(f'''ALTER TABLE {self.NAME_TABLE_OUTSIDE}
+                                ADD COLUMN pressure integer ;''')
         self.con.commit()
 
 

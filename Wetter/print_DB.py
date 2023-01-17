@@ -17,6 +17,8 @@ if USER ==USER_CLIENT:
     # db.create_table_outside()
     # 4.1. add column to outside
     # db.add_column_to_table_outside()
+    # 4.2. add column pressure to outside
+    db.add_column_pressure__to_table_outside()
     # # 5. create table cpu
     # db.create_table_cpu()
 
@@ -26,4 +28,5 @@ if USER ==USER_CLIENT:
 
 # just debug if all is stored
 #db.print_all_info_from_table()
+#.add_column_pressure__to_table_outside()
 db.print_all_info_from_table_outside()
