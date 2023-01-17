@@ -170,8 +170,14 @@ class Variables:
         self.STRING_SHUTDOWN ="Bye-Bye"
         self.STRING_BUTTON_BACK ="BACK"
         #############################
-        self.DICTIONARY_DE_to_BG={'Schneefall': '', 'Leichter Schneefall': '', 'Stark bewölkt': 'dd', 'Teilweise bewölkt': ''}
-
+        self.DICTIONARY_DE_to_BG={'Schneefall': 'Снеговалеж',
+                                  'Leichter Schneefall': 'Лек снеговалеж',
+                                  'Stark bewölkt': 'Силно заоблачено',
+                                  'Teilweise bewölkt': 'Отчасти заоблачено',
+                                  'Wolkig': 'Облачно',
+                                  'Vielfach klar': 'Предимно ясно',
+                                  'Klar': 'Ясно',
+                                  'Sonnig': "Слънчево"}
 
 
 

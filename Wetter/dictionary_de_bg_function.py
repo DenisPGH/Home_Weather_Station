@@ -6,6 +6,7 @@ class Translate(Variables):
     def __init__(self):
         super().__init__()
         self.db = SQLiteSensor()
+        self.found_new_word={}
 
 
     def collect_new_words(self,dictionary_DE_BG:dict):
@@ -20,19 +21,19 @@ class Translate(Variables):
     def collect_new_words_2(self):
         """
         get all new german words from the wetter outside table and print it
-        :return:
+        :return: only the new found words
         """
         res = self.db.return_info_for_period('info', self.db.NAME_TABLE_OUTSIDE, 10)[1]
         for word in res:
             if word not in self.DICTIONARY_DE_to_BG and word != None:
                 self.DICTIONARY_DE_to_BG[word] = ''
-                # self.DE_to_BG[word.replace(":", "")] = ''
+                self.found_new_word[word] = ''
 
-        return self.DICTIONARY_DE_to_BG
+        return self.found_new_word
 
 
 
 if __name__=="__main__":
     t=Translate()
-    a=t.collect_new_words_2()
-    print(a)
+    new_words=t.collect_new_words_2()
+    print(new_words)
