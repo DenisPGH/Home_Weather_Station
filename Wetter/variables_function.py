@@ -88,6 +88,9 @@ class Variables:
 
         self.FS_TABLE_X_CPU_TEMP = 60
         self.FS_TABLE_Y_CPU_TEMP = 150
+
+        self.SS_TABLE_X_LABEL_CHART = 370
+        self.SS_TABLE_Y_LABEL_CHART = 430
         # units
         self.FS_SIZE_UNITS = 40
         self.FS_SIZE_UNITS_hPa = 20
@@ -114,6 +117,16 @@ class Variables:
         self.FS_BUTTON_X_SHUTDOWN = 740
         self.FS_BUTTON_Y_SHUTDOWN = 60
         self.FS_SHUTDOWN_SIZE = 13
+
+        self.SS_LEVEL_BUTTONS=420
+        self.FS_BUTTON_X_BACK = 0
+        self.FS_BUTTON_Y_BACK = self.SS_LEVEL_BUTTONS
+
+        self.FS_BUTTON_X_ONE_DAY = 100
+        self.FS_BUTTON_Y_ONE_DAY= self.SS_LEVEL_BUTTONS
+
+        self.FS_BUTTON_X_7_DAY = 220
+        self.FS_BUTTON_Y_7_DAY = self.SS_LEVEL_BUTTONS
 
         self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 360
         self.FS_BUTTON_Y_HISTORY_TEMP_OUTSIDE = 285

@@ -44,7 +44,7 @@ class GUI_VIS(Variables):
         but = tk.Button(win, text=self.STRING_BUTTON_BACK, fg="Red", bg='Black', command=lambda: self.first_screen(win))
         but.config(font=(f"{self.font_buttons}", self.size_buttons))
         but.pack()
-        but.place(x=0, y=0)
+        but.place(x=self.FS_BUTTON_X_BACK, y=self.FS_BUTTON_Y_BACK)
 
 
 
@@ -67,20 +67,20 @@ class GUI_VIS(Variables):
 
         self.clean_screen_function(win)
         # tk.Label(text=f" {parameter} for last 24 hours", fg="blue")
-        self.label_static("parameter", win, 270, 430, f" {parameter.replace('_',' ')} for the {self.DAY}")
+        self.label_static("parameter", win, self.SS_TABLE_X_LABEL_CHART, self.SS_TABLE_Y_LABEL_CHART, f" {parameter.replace('_',' ')} for the {self.DAY}")
 
         # BUTTONS
         name_a = tk.Button(win, text=self.STRING_BUTTON_HISTORY_ONE_DAY, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,table,1))
         name_a.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_a.pack()
-        name_a.place(x=0, y=50)
+        name_a.place(x=self.FS_BUTTON_X_ONE_DAY, y=self.FS_BUTTON_Y_ONE_DAY)
 
         name_b = tk.Button(win, text=self.STRING_BUTTON_HISTORY_7_DAYS, fg=self.fg_buttons, bg=self.bg_buttons,
                            command=lambda: self.show_statistic(parameter,win,table,7))
         name_b.config(font=(f"{self.font_buttons}", self.size_buttons))
         name_b.pack()
-        name_b.place(x=0, y=100)
+        name_b.place(x=self.FS_BUTTON_X_7_DAY, y=self.FS_BUTTON_Y_7_DAY)
 
 
         self.back_button(win)
@@ -314,7 +314,7 @@ class GUI_VIS(Variables):
 
         # the figure that will contain the plot
         fig_color=0.01
-        fig = Figure(figsize=(7, 5), dpi=80)
+        fig = Figure(figsize=(13, 5), dpi=80)
         fig.patch.set_facecolor((fig_color, fig_color, fig_color))
 
 
