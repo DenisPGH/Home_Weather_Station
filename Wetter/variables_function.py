@@ -125,7 +125,7 @@ class Variables:
         self.FS_BUTTON_X_ONE_DAY = 100
         self.FS_BUTTON_Y_ONE_DAY= self.SS_LEVEL_BUTTONS
 
-        self.FS_BUTTON_X_7_DAY = 220
+        self.FS_BUTTON_X_7_DAY = 230
         self.FS_BUTTON_Y_7_DAY = self.SS_LEVEL_BUTTONS
 
         self.FS_BUTTON_X_HISTORY_TEMP_OUTSIDE = 360
