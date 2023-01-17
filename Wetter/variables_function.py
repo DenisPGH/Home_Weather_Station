@@ -62,7 +62,7 @@ class Variables:
         self.FS_VALUE_Y_VIDEO_MODE = 100
         self.FS_SIZE_VALUE_VIDEO_MODE = 12
 
-        self.FS_VALUE_X_WETTER_STATUS = 380
+        self.FS_VALUE_X_WETTER_STATUS = 360
         self.FS_VALUE_Y_WETTER_STATUS = 175
         self.FS_SIZE_VALUE_WETTER_STATUS = 16
 
