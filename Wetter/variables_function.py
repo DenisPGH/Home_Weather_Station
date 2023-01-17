@@ -166,7 +166,7 @@ class Variables:
         self.STRING_BUTTON_HISTORY_CPU = "History CPU"
         self.STRING_BUTTON_HISTORY_ONE_DAY = "One day"
         self.STRING_BUTTON_HISTORY_7_DAYS = "7 days"
-        self.STRING_NO_NAMEDAY =f"Denislav Petrov "
+        self.STRING_NO_NAMEDAY =f"Денислав Петров"
         self.STRING_SHUTDOWN ="Bye-Bye"
         self.STRING_BUTTON_BACK ="BACK"
         #############################

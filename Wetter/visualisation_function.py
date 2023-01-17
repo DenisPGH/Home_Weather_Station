@@ -37,6 +37,7 @@ class GUI_VIS(Variables):
         self.CURRENT_HOUR = datetime.datetime.today().strftime('%H')
 
 
+
     def back_button(self,win):
 
         # BACK BUTTON to first screen
@@ -213,26 +214,28 @@ class GUI_VIS(Variables):
         name.place(x=x, y=y)
 
         def update_time():
-            """
-            have to change here the source information from the sensor
-
-            :return: new value of the index 1=Temp, 2=hum, 3=Presure, 4=time
-            1: self.sensor.reading()[0],
-                                     2: self.sensor.reading()[1],
-                                     3: self.sensor.reading()[2],
-                                     4: datetime.datetime.today().strftime('%d-%m-%Y    %H:%M'),
-                                     5: self.outside.acctual_temperature_outside()[0],
-                                     6: self.outside.acctual_temperature_outside()[1],
-                                     7: self.outside.acctual_temperature_outside()[2],
-            """
+            # dinamic_value_function =      {1: self.sensor.reading()[0], #temp inside
+            #                                2: self.sensor.reading()[1],# hum inside
+            #                                3: self.sensor.reading()[2], # presurre inside
+            #                                4: datetime.datetime.today().strftime('%H:%M  %d-%m-%Y'),# time
+            #                                5: self.outside.acctual_temperature_outside()[0], # temp outside
+            #                                #6: self.outside.acctual_temperature_outside()[1], # status outside
+            #                                7: self.outside.acctual_temperature_outside()[2], # pressure outside
+            #                                8: self.cpu_raspi.temperature_CPU(), # CPU temp
+            #                                9: f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times." # wrong password
+            #
+            #                                }
+            # if index in dinamic_value_function.keys():
+            #     self.value=dinamic_value_function[index]
             if index==1: #temp
                 self.value = self.sensor.reading()[0]
+
             elif index==2: # hum
                 self.value = self.sensor.reading()[1]
             elif index==3: # pressure
                 self.value = self.sensor.reading()[2]
 
-            elif index==4: #time
+            elif index==4: # time
                 self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
                 ### restat here ##############################################
                 hh,mm=self.value.split("  ")[0].split(":")
@@ -241,9 +244,9 @@ class GUI_VIS(Variables):
                     self.IS_REBOOT = True
                     os.system('sudo reboot')
 
-
             elif index==5: #temp outside
                 self.value =self.outside.acctual_temperature_outside()[0]
+
             elif index==6: #status outside
                 #self.value =self.outside.acctual_temperature_outside()[1]
                 word =self.outside.acctual_temperature_outside()[1]
@@ -252,14 +255,16 @@ class GUI_VIS(Variables):
                 else:
                     self.value = self.outside.acctual_temperature_outside()[1]
 
+
             elif index==7: #presure outside
                 self.value =self.outside.acctual_temperature_outside()[2]
 
             elif index==8: #cpu temp
                 self.value =self.cpu_raspi.temperature_CPU()
 
-            elif index==9: #cpu temp
+            elif index==9: #message passowrd
                 self.value =f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
+
 
             elif index==99: # Nameday
                 text_=self.orthodox.current_day_ortodox()
@@ -267,6 +272,7 @@ class GUI_VIS(Variables):
                     self.value = f"Днес:  {text_}"
                 else:
                     self.value = self.STRING_NO_NAMEDAY
+
             elif index == 100:
                 self.value=self.VIDEO_MODUS
                 self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
