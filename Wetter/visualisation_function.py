@@ -9,7 +9,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 from cpu_monitoring_function import MonitoringCPU
 from day_info_function import Ortodox
-from experiments.logout_function import KeyboardLogout
+from switch_function import Switch_helper
 from sensor_function import Sensor
 from sqlite_db__function import SQLiteSensor
 
@@ -20,15 +20,14 @@ from variables_function import Variables
 
 
 class GUI_VIS(Variables):
-    def __init__(self, win):
+    def __init__(self,win):
         super().__init__()
-        super(KeyboardLogout).__init__()
         self.history = SQLiteSensor()
+        self.my_switch = Switch_helper()
         self.outside = Outside()
         self.sensor = Sensor()
         self.orthodox = Ortodox()
         self.cpu_raspi=MonitoringCPU()
-        #self.logout=KeyboardLogout(win)
         self.datetime_=datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         self.DAY= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[0]
         self.SECONDS= datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S').split(" ")[1].split(":")[2]
@@ -100,16 +99,16 @@ class GUI_VIS(Variables):
         self.label_static("cpu temp", win, self.FS_TABLE_X_CPU_TEMP, self.FS_TABLE_Y_CPU_TEMP, self.STRING_TABLE_CPU)
 
         # labels live values ####################################################
-        self.label_dynamic("press", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, 1, self.FS_VALUE_SIZE) #temp
-        self.label_dynamic("press4", win, self.FS_VALUE_X_HUM, self.FS_LEVEL_VALUES, 2, self.FS_VALUE_SIZE) #humidity
-        self.label_dynamic("press4", win, self.FS_VALUE_X_PRESS, self.FS_LEVEL_VALUES, 3) # pressure
-        self.label_dynamic("press5", win, self.FS_VALUE_X_TIME, self.FS_VALUE_Y_TIME,4,self.FS_SIZE_VALUE_TIME) # time
-        self.label_dynamic("press6", win, self.FS_VALUE_X_TEMP_OUTSIDE, self.FS_VALUE_Y_TEMP_OUTSIDE,5,self.FS_VALUE_SIZE) # temp out
-        self.label_dynamic("press7", win, self.FS_VALUE_X_NAMEDAY, self.FS_VALUE_Y_NAMEDAY,99,self.FS_SIZE_VALUE_NAMEDAY) # Nameday
-        self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,100,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
-        self.label_dynamic("press9", win,self.FS_VALUE_X_WETTER_STATUS, self.FS_VALUE_Y_WETTER_STATUS,6,self.FS_SIZE_VALUE_WETTER_STATUS,"Calibri") # wetter status
-        self.label_dynamic("press9", win,self.FS_VALUE_X_PRESSURE_OUTSIDE, self.FS_VALUE_Y_PRESSURE_OUTSIDE,7) # presure outside
-        self.label_dynamic("press10", win,self.FS_VALUE_X_CPU_TEMP, self.FS_VALUE_Y_CPU_TEMP,8,self.FS_SIZE_VALUE_CPU_TEMP) # cpu temp
+        self.label_dynamic(f"{self.INDEX_TEMP_INSIDE}", win, self.FS_VALUE_X_TEMP, self.FS_LEVEL_VALUES, self.INDEX_TEMP_INSIDE, self.FS_VALUE_SIZE) #temp
+        self.label_dynamic("press4", win, self.FS_VALUE_X_HUM, self.FS_LEVEL_VALUES, self.INDEX_HUM, self.FS_VALUE_SIZE) #humidity
+        self.label_dynamic("press4", win, self.FS_VALUE_X_PRESS, self.FS_LEVEL_VALUES, self.INDEX_PRESS_INSIDE) # pressure
+        self.label_dynamic("press5", win, self.FS_VALUE_X_TIME, self.FS_VALUE_Y_TIME,self.INDEX_TIME,self.FS_SIZE_VALUE_TIME) # time
+        self.label_dynamic("press6", win, self.FS_VALUE_X_TEMP_OUTSIDE, self.FS_VALUE_Y_TEMP_OUTSIDE,self.INDEX_TEMP_OUTSIDE,self.FS_VALUE_SIZE) # temp out
+        self.label_dynamic("press7", win, self.FS_VALUE_X_NAMEDAY, self.FS_VALUE_Y_NAMEDAY,self.INDEX_NAMEDAY,self.FS_SIZE_VALUE_NAMEDAY) # Nameday
+        self.label_dynamic("press8", win,self.FS_VALUE_X_VIDEO_MODE, self.FS_VALUE_Y_VIDEO_MODE,self.INDEX_VIDEO_STATUS,self.FS_SIZE_VALUE_VIDEO_MODE) # Video mode
+        self.label_dynamic("press9", win,self.FS_VALUE_X_WETTER_STATUS, self.FS_VALUE_Y_WETTER_STATUS,self.INDEX_STATUS_OUTSIDE,self.FS_SIZE_VALUE_WETTER_STATUS,"Calibri") # wetter status
+        self.label_dynamic("press9", win,self.FS_VALUE_X_PRESSURE_OUTSIDE, self.FS_VALUE_Y_PRESSURE_OUTSIDE,self.INDEX_PRESS_OUTSIDE) # presure outside
+        self.label_dynamic("press10", win,self.FS_VALUE_X_CPU_TEMP, self.FS_VALUE_Y_CPU_TEMP,self.INDEX_CPU_TEMP,self.FS_SIZE_VALUE_CPU_TEMP) # cpu temp
 
         # labels units ########################################################
         self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, self.STRING_DEGREES, self.FS_SIZE_UNITS)
@@ -214,6 +213,7 @@ class GUI_VIS(Variables):
         name.place(x=x, y=y)
 
         def update_time():
+            """ just update the screens"""
             # dinamic_value_function =      {1: self.sensor.reading()[0], #temp inside
             #                                2: self.sensor.reading()[1],# hum inside
             #                                3: self.sensor.reading()[2], # presurre inside
@@ -223,20 +223,22 @@ class GUI_VIS(Variables):
             #                                7: self.outside.acctual_temperature_outside()[2], # pressure outside
             #                                8: self.cpu_raspi.temperature_CPU(), # CPU temp
             #                                9: f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times." # wrong password
-            #
-            #                                }
+
+                                           # }
             # if index in dinamic_value_function.keys():
             #     self.value=dinamic_value_function[index]
-            if index==1: #temp
+            """ """
+            if index==self.INDEX_TEMP_INSIDE: #temp
                 self.value = self.sensor.reading()[0]
 
-            elif index==2: # hum
+            elif index==self.INDEX_HUM: # hum
                 self.value = self.sensor.reading()[1]
-            elif index==3: # pressure
+            elif index==self.INDEX_PRESS_INSIDE: # pressure
                 self.value = self.sensor.reading()[2]
 
-            elif index==4: # time
-                self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+            elif index==self.INDEX_TIME: # time
+                #self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+                self.value = self.my_switch.searched_index(self.INDEX_TIME)
                 ### restat here ##############################################
                 hh,mm=self.value.split("  ")[0].split(":")
                 if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
@@ -244,10 +246,10 @@ class GUI_VIS(Variables):
                     self.IS_REBOOT = True
                     os.system('sudo reboot')
 
-            elif index==5: #temp outside
+            elif index==self.INDEX_TEMP_OUTSIDE: #temp outside
                 self.value =self.outside.acctual_temperature_outside()[0]
 
-            elif index==6: #status outside
+            elif index==self.INDEX_STATUS_OUTSIDE: #status outside
                 #self.value =self.outside.acctual_temperature_outside()[1]
                 word =self.outside.acctual_temperature_outside()[1]
                 if word in self.DICTIONARY_DE_to_BG.keys():
@@ -256,34 +258,39 @@ class GUI_VIS(Variables):
                     self.value = self.outside.acctual_temperature_outside()[1]
 
 
-            elif index==7: #presure outside
+            elif index==self.INDEX_PRESS_OUTSIDE: #presure outside
                 self.value =self.outside.acctual_temperature_outside()[2]
 
-            elif index==8: #cpu temp
+            elif index==self.INDEX_CPU_TEMP: #cpu temp
                 self.value =self.cpu_raspi.temperature_CPU()
+                ### if it is too hot, shutdown
+                if USER==USER_CLIENT and self.value>self.MAX_TEMPERATURE_CPU and self.IS_REBOOT==False:
+                    self.IS_REBOOT = True
+                    os.system("sudo shutdown")
 
-            elif index==9: #message passowrd
+
+            elif index==self.INDEX_WRONG_PASSWORD_STRING: #message passowrd
                 self.value =f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
 
 
-            elif index==99: # Nameday
+            elif index==self.INDEX_NAMEDAY: # Nameday
                 text_=self.orthodox.current_day_ortodox()
                 if text_ !="":
                     self.value = f"Днес:  {text_}"
                 else:
                     self.value = self.STRING_NO_NAMEDAY
 
-            elif index == 100:
+            elif index == self.INDEX_VIDEO_STATUS:
                 self.value=self.VIDEO_MODUS
                 self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
                 self.VIDEO_TEXT='Stop video' if self.VIDEO_ON == True else 'Play video'
 
 
+            #self.value = self.my_switch.searched_index(index)
             name.config(text=self.value)
             name.after(self.interval_refresh_page, update_time)
 
         update_time()
-
 
     def terminate(self):
         """
@@ -451,7 +458,7 @@ class GUI_VIS(Variables):
             self.back_button(win)
         self.label_static("enter", win, self.LS_TABLE_ENTER_X, self.LS_TABLE_ENTER_Y, "Password :",self.LS_TABLE_ENTER_SIZE)
         if self.TRIES_ENTER_PASSWORD>0:
-            self.label_dynamic("tries", win, self.LS_WRONG_PASSWORD_X, self.LS_WRONG_PASSWORD_Y, 9, self.LS_WRONG_PASSWORD_FONT,'Areil',self.LS_WRONG_PASSWORD_COLOR)  # temp
+            self.label_dynamic("tries", win, self.LS_WRONG_PASSWORD_X, self.LS_WRONG_PASSWORD_Y, self.INDEX_WRONG_PASSWORD_STRING, self.LS_WRONG_PASSWORD_FONT,'Areil',self.LS_WRONG_PASSWORD_COLOR)  # temp
         self.password = tk.Entry(win, show="*", width=10, font=self.LS_ENTER_FONT)
         self.password.pack()
         self.password.place(x=self.LS_ENTER_FIELD_X,y=self.LS_ENTER_FIELD_Y)

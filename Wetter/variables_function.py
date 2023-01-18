@@ -9,6 +9,7 @@ class Variables:
         self.TIME_RESTART='07:05' #"HH:MM"
         self.IS_REBOOT=False
         self.DEGREE_SIGN=u'\N{DEGREE SIGN}'
+        self.MAX_TEMPERATURE_CPU=65
 
 
 
@@ -31,6 +32,7 @@ class Variables:
         self.VIDEO_STOPPED_STRING = 'Stopped!'
         self.VIDEO_ON_STRING = 'Recording...'
         self.VIDEO_MODUS = self.VIDEO_STOPPED_STRING
+
 
         # self.dinamic_value_function = {1: self.sensor.reading()[0],
         #                                2: self.sensor.reading()[1],
@@ -182,6 +184,23 @@ class Variables:
         self.STRING_NO_NAMEDAY =f"Денислав Петров"
         self.STRING_SHUTDOWN ="Bye-Bye"
         self.STRING_BUTTON_BACK ="BACK"
+        ######  indexes  #######################
+        self.INDEX_TEMP_INSIDE=1
+        self.INDEX_HUM=2
+        self.INDEX_PRESS_INSIDE=3
+        self.INDEX_TIME=4
+        self.INDEX_TEMP_OUTSIDE=5
+        self.INDEX_STATUS_OUTSIDE=6
+        self.INDEX_PRESS_OUTSIDE=7
+        self.INDEX_CPU_TEMP=8
+        self.INDEX_WRONG_PASSWORD_STRING=9
+        self.INDEX_NAMEDAY=10
+        self.INDEX_VIDEO_STATUS=11
+
+
+
+
+        #############################
         #############################
         self.DICTIONARY_DE_to_BG={'Schneefall': 'Снеговалеж',
                                   'Leichter Schneefall': 'Лек снеговалеж',
