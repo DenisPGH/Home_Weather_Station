@@ -209,7 +209,8 @@ class Variables:
                                   'Wolkig': 'Облачно',
                                   'Vielfach klar': 'Предимно ясно',
                                   'Klar': 'Ясно',
-                                  'Sonnig': "Слънчево"}
+                                  'Sonnig': "Слънчево",
+                                  'Eisnebel': 'Мъгла и лед'}
 
 
 

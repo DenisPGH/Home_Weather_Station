@@ -77,16 +77,18 @@ class Switch_helper(Variables):
         return self.VIDEO_MODUS
 
     def number_to_string(self,argument):
-        match argument:
-            case 0:
-                return "zero"
-            case 1:
-                return "one"
-            case 2:
-                return "two"
-            case default:
-                return "something"
+        pass
 
-
+        # match argument:
+        #     case 0:
+        #         return "zero"
+        #     case 1:
+        #         return "one"
+        #     case 2:
+        #         return "two"
+        #     case default:
+        #         return "something"
+        #
+        #
 
 
