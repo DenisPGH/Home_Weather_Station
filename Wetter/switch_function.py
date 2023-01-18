@@ -18,7 +18,7 @@ class Switch_helper(Variables):
         self.orthodox = Ortodox()
         self.default="Incorrect day"
 
-    def searched_index(self, index):
+    def day(self, index):
         return getattr(self, 'case_' + str(index), lambda: self.default)()
 
     def case_1(self):

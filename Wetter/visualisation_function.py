@@ -238,7 +238,7 @@ class GUI_VIS(Variables):
 
             elif index==self.INDEX_TIME: # time
                 #self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
-                self.value = self.my_switch.searched_index(self.INDEX_TIME)
+                self.value = self.my_switch.day(self.INDEX_TIME)
                 ### restat here ##############################################
                 hh,mm=self.value.split("  ")[0].split(":")
                 if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
