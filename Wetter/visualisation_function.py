@@ -296,6 +296,7 @@ class GUI_VIS(Variables):
     def _update_function(self,name,index):
         """
         function for the update the screens
+        every dynamic label hat own functionality and source to get the new value
         :param name: name of the dynamic label
         :param index: index in the system for searching
         :return:
