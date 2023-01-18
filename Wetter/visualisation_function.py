@@ -237,8 +237,8 @@ class GUI_VIS(Variables):
                 self.value = self.sensor.reading()[2]
 
             elif index==self.INDEX_TIME: # time
-                #self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
-                self.value = self.my_switch.day(self.INDEX_TIME)
+                self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+
                 ### restat here ##############################################
                 hh,mm=self.value.split("  ")[0].split(":")
                 if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
@@ -384,6 +384,9 @@ class GUI_VIS(Variables):
         name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
         name_e.place(x=self.FS_VIDEO_BUTTON_X, y=self.FS_VIDEO_BUTTON_Y)
+        # self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
+        # self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
+        # self.VIDEO_MODUS = self.VIDEO_ON_STRING if self.VIDEO_ON == True else self.VIDEO_STOPPED_STRING
 
     def video_play_function(self,win):
         print('palyed')

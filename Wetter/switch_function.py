@@ -16,9 +16,9 @@ class Switch_helper(Variables):
         self.outside = Outside()
         self.cpu_raspi = MonitoringCPU()
         self.orthodox = Ortodox()
-        self.default="Incorrect day"
+        self.default="Incorrect index"
 
-    def day(self, index):
+    def searched_index(self, index):
         return getattr(self, 'case_' + str(index), lambda: self.default)()
 
     def case_1(self):
@@ -72,9 +72,9 @@ class Switch_helper(Variables):
 
     def case_11(self):
         r = self.VIDEO_MODUS
-        self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
-        self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
-        return r
+        # self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
+        # self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
+        return self.VIDEO_MODUS
 
     def number_to_string(self,argument):
         match argument:
