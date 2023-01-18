@@ -194,6 +194,7 @@ class GUI_VIS(Variables):
 
     def label_dynamic(self,name:str,win,x,y, index=0,size_text=40,font='Ariel', fg="White",bg="Black"):
         """
+        function for dynamic updating of the values
         :param font: font of the text
         :param size_text: size of the text
         :param name: name of the label
@@ -206,91 +207,160 @@ class GUI_VIS(Variables):
         :return: nothing
         """
         # border= "flat", "raised", "sunken", "ridge", "solid", and "groove".
-
         name = Label(win, text=self.value, fg=fg, bg=bg,relief="groove", borderwidth=2,bd=0)
         name.config(font=(f"{font}", size_text),text=self.value)
         name.pack()
         name.place(x=x, y=y)
 
-        def update_time():
-            """ just update the screens"""
-            # dinamic_value_function =      {1: self.sensor.reading()[0], #temp inside
-            #                                2: self.sensor.reading()[1],# hum inside
-            #                                3: self.sensor.reading()[2], # presurre inside
-            #                                4: datetime.datetime.today().strftime('%H:%M  %d-%m-%Y'),# time
-            #                                5: self.outside.acctual_temperature_outside()[0], # temp outside
-            #                                #6: self.outside.acctual_temperature_outside()[1], # status outside
-            #                                7: self.outside.acctual_temperature_outside()[2], # pressure outside
-            #                                8: self.cpu_raspi.temperature_CPU(), # CPU temp
-            #                                9: f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times." # wrong password
+        # def update_time(index):
+        #     """ just update the screens"""
+        #     # dinamic_value_function =      {1: self.sensor.reading()[0], #temp inside
+        #     #                                2: self.sensor.reading()[1],# hum inside
+        #     #                                3: self.sensor.reading()[2], # presurre inside
+        #     #                                4: datetime.datetime.today().strftime('%H:%M  %d-%m-%Y'),# time
+        #     #                                5: self.outside.acctual_temperature_outside()[0], # temp outside
+        #     #                                #6: self.outside.acctual_temperature_outside()[1], # status outside
+        #     #                                7: self.outside.acctual_temperature_outside()[2], # pressure outside
+        #     #                                8: self.cpu_raspi.temperature_CPU(), # CPU temp
+        #     #                                9: f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times." # wrong password
+        #
+        #                                    # }
+        #     # if index in dinamic_value_function.keys():
+        #     #     self.value=dinamic_value_function[index]
+        #     """ """
+        #     if index==self.INDEX_TEMP_INSIDE: #temp
+        #         self.value = self.sensor.reading()[0]
+        #
+        #     elif index==self.INDEX_HUM: # hum
+        #         self.value = self.sensor.reading()[1]
+        #     elif index==self.INDEX_PRESS_INSIDE: # pressure
+        #         self.value = self.sensor.reading()[2]
+        #
+        #     elif index==self.INDEX_TIME: # time
+        #         self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+        #
+        #         ### restat here ##############################################
+        #         hh,mm=self.value.split("  ")[0].split(":")
+        #         if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
+        #             print('Reboot')
+        #             self.IS_REBOOT = True
+        #             os.system('sudo reboot')
+        #
+        #     elif index==self.INDEX_TEMP_OUTSIDE: #temp outside
+        #         self.value =self.outside.acctual_temperature_outside()[0]
+        #
+        #     elif index==self.INDEX_STATUS_OUTSIDE: #status outside
+        #         #self.value =self.outside.acctual_temperature_outside()[1]
+        #         word =self.outside.acctual_temperature_outside()[1]
+        #         if word in self.DICTIONARY_DE_to_BG.keys():
+        #             self.value=self.DICTIONARY_DE_to_BG[word]
+        #         else:
+        #             self.value = self.outside.acctual_temperature_outside()[1]
+        #
+        #
+        #     elif index==self.INDEX_PRESS_OUTSIDE: #presure outside
+        #         self.value =self.outside.acctual_temperature_outside()[2]
+        #
+        #     elif index==self.INDEX_CPU_TEMP: #cpu temp
+        #         self.value =self.cpu_raspi.temperature_CPU()
+        #         ### if it is too hot, shutdown
+        #         if USER==USER_CLIENT and self.value>self.MAX_TEMPERATURE_CPU and self.IS_REBOOT==False:
+        #             self.IS_REBOOT = True
+        #             os.system("sudo shutdown")
+        #
+        #
+        #     elif index==self.INDEX_WRONG_PASSWORD_STRING: #message passowrd
+        #         self.value =f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
+        #
+        #
+        #     elif index==self.INDEX_NAMEDAY: # Nameday
+        #         text_=self.orthodox.current_day_ortodox()
+        #         if text_ !="":
+        #             self.value = f"Днес:  {text_}"
+        #         else:
+        #             self.value = self.STRING_NO_NAMEDAY
+        #
+        #     elif index == self.INDEX_VIDEO_STATUS:
+        #         self.value=self.VIDEO_MODUS
+        #         self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
+        #         self.VIDEO_TEXT='Stop video' if self.VIDEO_ON == True else 'Play video'
+        #
+        #
+        #     #self.value = self.my_switch.searched_index(index)
+        #     name.config(text=self.value)
+        #     name.after(self.interval_refresh_page, update_time,index)
 
-                                           # }
-            # if index in dinamic_value_function.keys():
-            #     self.value=dinamic_value_function[index]
-            """ """
-            if index==self.INDEX_TEMP_INSIDE: #temp
-                self.value = self.sensor.reading()[0]
+        #update_time(index)
+        self._update_function(name,index)
 
-            elif index==self.INDEX_HUM: # hum
-                self.value = self.sensor.reading()[1]
-            elif index==self.INDEX_PRESS_INSIDE: # pressure
-                self.value = self.sensor.reading()[2]
+    def _update_function(self,name,index):
+        """
+        function for the update the screens
+        :param name: name of the dynamic label
+        :param index: index in the system for searching
+        :return:
+        """
 
-            elif index==self.INDEX_TIME: # time
-                self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+        """ """
+        if index == self.INDEX_TEMP_INSIDE:  # temp
+            self.value = self.sensor.reading()[0]
 
-                ### restat here ##############################################
-                hh,mm=self.value.split("  ")[0].split(":")
-                if f"{hh}:{mm}" == self.TIME_RESTART and USER==USER_CLIENT and self.IS_REBOOT==False:
-                    print('Reboot')
-                    self.IS_REBOOT = True
-                    os.system('sudo reboot')
+        elif index == self.INDEX_HUM:  # hum
+            self.value = self.sensor.reading()[1]
+        elif index == self.INDEX_PRESS_INSIDE:  # pressure
+            self.value = self.sensor.reading()[2]
 
-            elif index==self.INDEX_TEMP_OUTSIDE: #temp outside
-                self.value =self.outside.acctual_temperature_outside()[0]
+        elif index == self.INDEX_TIME:  # time
+            self.value = datetime.datetime.today().strftime('%H:%M  %d-%m-%Y')
+            ### restat here ##############################################
+            hh, mm = self.value.split("  ")[0].split(":")
+            if f"{hh}:{mm}" == self.TIME_RESTART and USER == USER_CLIENT and self.IS_REBOOT == False:
+                print('Reboot')
+                self.IS_REBOOT = True
+                os.system('sudo reboot')
 
-            elif index==self.INDEX_STATUS_OUTSIDE: #status outside
-                #self.value =self.outside.acctual_temperature_outside()[1]
-                word =self.outside.acctual_temperature_outside()[1]
-                if word in self.DICTIONARY_DE_to_BG.keys():
-                    self.value=self.DICTIONARY_DE_to_BG[word]
-                else:
-                    self.value = self.outside.acctual_temperature_outside()[1]
+        elif index == self.INDEX_TEMP_OUTSIDE:  # temp outside
+            self.value = self.outside.acctual_temperature_outside()[0]
 
-
-            elif index==self.INDEX_PRESS_OUTSIDE: #presure outside
-                self.value =self.outside.acctual_temperature_outside()[2]
-
-            elif index==self.INDEX_CPU_TEMP: #cpu temp
-                self.value =self.cpu_raspi.temperature_CPU()
-                ### if it is too hot, shutdown
-                if USER==USER_CLIENT and self.value>self.MAX_TEMPERATURE_CPU and self.IS_REBOOT==False:
-                    self.IS_REBOOT = True
-                    os.system("sudo shutdown")
+        elif index == self.INDEX_STATUS_OUTSIDE:  # status outside
+            # self.value =self.outside.acctual_temperature_outside()[1]
+            word = self.outside.acctual_temperature_outside()[1]
+            if word in self.DICTIONARY_DE_to_BG.keys():
+                self.value = self.DICTIONARY_DE_to_BG[word]
+            else:
+                self.value = self.outside.acctual_temperature_outside()[1]
 
 
-            elif index==self.INDEX_WRONG_PASSWORD_STRING: #message passowrd
-                self.value =f"Wrong password! You have {self.MAX_ENTERS_PASSWORD-self.TRIES_ENTER_PASSWORD} more times."
+        elif index == self.INDEX_PRESS_OUTSIDE:  # presure outside
+            self.value = self.outside.acctual_temperature_outside()[2]
+
+        elif index == self.INDEX_CPU_TEMP:  # cpu temp
+            self.value = self.cpu_raspi.temperature_CPU()
+            ### if it is too hot, shutdown
+            if USER == USER_CLIENT and self.value > self.MAX_TEMPERATURE_CPU and self.IS_REBOOT == False:
+                self.IS_REBOOT = True
+                os.system("sudo shutdown")
 
 
-            elif index==self.INDEX_NAMEDAY: # Nameday
-                text_=self.orthodox.current_day_ortodox()
-                if text_ !="":
-                    self.value = f"Днес:  {text_}"
-                else:
-                    self.value = self.STRING_NO_NAMEDAY
-
-            elif index == self.INDEX_VIDEO_STATUS:
-                self.value=self.VIDEO_MODUS
-                self.VIDEO_BG='Red' if self.VIDEO_ON == True else 'Green'
-                self.VIDEO_TEXT='Stop video' if self.VIDEO_ON == True else 'Play video'
+        elif index == self.INDEX_WRONG_PASSWORD_STRING:  # message passowrd
+            self.value = f"Wrong password! You have {self.MAX_ENTERS_PASSWORD - self.TRIES_ENTER_PASSWORD} more times."
 
 
-            #self.value = self.my_switch.searched_index(index)
-            name.config(text=self.value)
-            name.after(self.interval_refresh_page, update_time)
+        elif index == self.INDEX_NAMEDAY:  # Nameday
+            text_ = self.orthodox.current_day_ortodox()
+            if text_ != "":
+                self.value = f"Днес:  {text_}"
+            else:
+                self.value = self.STRING_NO_NAMEDAY
 
-        update_time()
+        elif index == self.INDEX_VIDEO_STATUS:
+            self.value = self.VIDEO_MODUS
+            self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
+            self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
+
+        # self.value = self.my_switch.searched_index(index)
+        name.config(text=self.value)
+        name.after(self.interval_refresh_page, self._update_function, name,index)
 
     def terminate(self):
         """
@@ -384,9 +454,6 @@ class GUI_VIS(Variables):
         name_e.config(font=(f"{self.font_buttons}", self.VIDEO_SIZE_FONT))
         name_e.pack()
         name_e.place(x=self.FS_VIDEO_BUTTON_X, y=self.FS_VIDEO_BUTTON_Y)
-        # self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
-        # self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
-        # self.VIDEO_MODUS = self.VIDEO_ON_STRING if self.VIDEO_ON == True else self.VIDEO_STOPPED_STRING
 
     def video_play_function(self,win):
         print('palyed')

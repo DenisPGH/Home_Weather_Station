@@ -9,7 +9,7 @@ class Variables:
         self.TIME_RESTART='07:05' #"HH:MM"
         self.IS_REBOOT=False
         self.DEGREE_SIGN=u'\N{DEGREE SIGN}'
-        self.MAX_TEMPERATURE_CPU=65
+        self.MAX_TEMPERATURE_CPU=65    # degrees
 
 
 

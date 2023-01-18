@@ -55,11 +55,15 @@ class Switch_helper(Variables):
         return self.outside.acctual_temperature_outside()[2]
 
     def case_8(self):
-        return self.cpu_raspi.temperature_CPU()
+        val=self.cpu_raspi.temperature_CPU()
+        if USER == USER_CLIENT and val > self.MAX_TEMPERATURE_CPU and self.IS_REBOOT == False:
+            self.IS_REBOOT = True
+            os.system("sudo shutdown")
+        return
 
     def case_9(self):
-        to=f"Wrong password! You have {self.MAX_ENTERS_PASSWORD - self.TRIES_ENTER_PASSWORD} more times."
-        return  to
+        self.value=f"Wrong password! You have {self.MAX_ENTERS_PASSWORD - self.TRIES_ENTER_PASSWORD} more times."
+        return  self.value
 
     def case_10(self):
         text_ = self.orthodox.current_day_ortodox()
@@ -71,24 +75,15 @@ class Switch_helper(Variables):
         return to_return
 
     def case_11(self):
-        r = self.VIDEO_MODUS
-        # self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
-        # self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
-        return self.VIDEO_MODUS
+        if self.VIDEO_ON == False:
+            self.VIDEO_ON = True
+        elif self.VIDEO_ON == True:
+            self.VIDEO_ON = False
 
-    def number_to_string(self,argument):
-        pass
+        self.VIDEO_MODUS = self.VIDEO_ON_STRING if self.VIDEO_ON == True else self.VIDEO_STOPPED_STRING
+        self.VIDEO_BG = 'Red' if self.VIDEO_ON == True else 'Green'
+        self.VIDEO_TEXT = 'Stop video' if self.VIDEO_ON == True else 'Play video'
+        return self.VIDEO_BG
 
-        # match argument:
-        #     case 0:
-        #         return "zero"
-        #     case 1:
-        #         return "one"
-        #     case 2:
-        #         return "two"
-        #     case default:
-        #         return "something"
-        #
-        #
 
 
