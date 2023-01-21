@@ -210,7 +210,10 @@ class Variables:
                                   'Vielfach klar': 'Предимно ясно',
                                   'Klar': 'Ясно',
                                   'Sonnig': "Слънчево",
-                                  'Eisnebel': 'Мъгла и лед'}
+                                  'Eisnebel': 'Мъгла и лед',
+                                  'Überwiegend sonnig': 'Предимно слънчево',
+                                  'Teils sonnig': 'Отчасти слънчево',
+                                  }
 
 
 
