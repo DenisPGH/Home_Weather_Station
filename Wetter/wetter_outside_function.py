@@ -74,7 +74,7 @@ class Outside:
                 status_wetter = html.select('body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.card-content > div.current-weather > div.phrase')
                 #presure_outside=html.select("body > div > div.two-column-page-content > div.page-column-1 > div.page-content.content-module > div.current-weather-card.card-module.content-module > div.current-weather-details.no-realfeel-phrase.odd > div:nth-child(8)")
                 self.current_status=status_wetter[0].text
-                self.current_temperature = temp[0].text.split("C")[0]
+                self.current_temperature = temp[0].text.split("C")[0] #.replace(self.degree_sign,"")
                 #print('start')
                 for child in range(5,13):
                     if self.searched_units_pressure.isdigit() and 900 <= int(self.searched_units_pressure) <= 1100:

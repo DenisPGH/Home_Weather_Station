@@ -114,7 +114,7 @@ class GUI_VIS(Variables):
         self.label_static("temp", win, self.FS_UNITS_X_TEMP, self.FS_LEVEL_UNITS, self.STRING_DEGREES, self.FS_SIZE_UNITS)
         self.label_static("temprr", win, self.FS_UNITS_X_HUM, self.FS_LEVEL_UNITS, " %", self.FS_SIZE_UNITS)
         self.label_static("press", win, self.FS_UNITS_X_PRESS, self.FS_LEVEL_UNITS, " hPa", self.FS_SIZE_UNITS_hPa)
-        self.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
+        #.label_static("tem_out", win, self.FS_UNITS_X_TEMP_OUTSIDE, self.FS_UNITS_Y_TEMP_OUTSIDE, " C", self.FS_SIZE_UNITS)
         self.label_static("pressure_out", win, self.FS_UNITS_X_PRESSURE_OUTSIDE, self.FS_UNITS_Y_PRESSURE_OUTSIDE, " hPa", self.FS_SIZE_UNITS_hPa)
         self.label_static("temp cpu", win, self.FS_UNITS_X_CPU_TEMP, self.FS_UNITS_Y_CPU_TEMP, self.STRING_DEGREES, self.FS_SIZE_UNITS)
 
