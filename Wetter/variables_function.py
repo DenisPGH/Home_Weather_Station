@@ -7,6 +7,7 @@ class Variables:
         self.TRIES_ENTER_PASSWORD=0
         self.MAX_ENTERS_PASSWORD=3
         self.TIME_RESTART='07:05' #"HH:MM"
+        self.TIME_UPDATE='07:09' #"HH:MM"
         self.IS_REBOOT=False
         self.DEGREE_SIGN=u'\N{DEGREE SIGN}'
         self.MAX_TEMPERATURE_CPU=65    # degrees
