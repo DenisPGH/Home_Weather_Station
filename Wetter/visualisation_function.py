@@ -321,8 +321,10 @@ class GUI_VIS(Variables):
                 os.system('sudo reboot')
 
             if f"{hh}:{mm}" == self.TIME_UPDATE and USER == USER_CLIENT:
-                print('update')
                 os.system('sudo apt-get update')
+
+            if f"{hh}:{mm}" == self.TIME_SHUTDOWN and USER == USER_CLIENT:
+                os.system('sudo shutdown')
 
         elif index == self.INDEX_TEMP_OUTSIDE:  # temp outside
             self.value = self.outside.acctual_temperature_outside()[0]
