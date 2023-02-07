@@ -19,10 +19,12 @@ String show_text="DENISLAV";
 int show_value=0;
 String show_units="A"; // C, 
 
-unsigned long interval=2000;
+unsigned long interval=1000;  //2000
+int count_modes=3;  //4
 unsigned long current_time=0;
 unsigned long last_time=0;
 int state=0;
+float ERROR_PRESSORE=70;
 
 
 //////////////////////////////// BME280 start ///////////////////////////////////////////////////
@@ -72,11 +74,12 @@ void setup(void)
 
 void loop(void)
 { 
+      
       current_time=millis();
   
     if (current_time-last_time>=interval){
           state++;
-          if (state>4){state=1;}
+          if (state>count_modes){state=1;}
           last_time=current_time;
     }
 //        Serial.print("state: ");
@@ -122,7 +125,7 @@ void displayRobo(){
 
 void sensor_values(){
     TEMP=bme.readTemperature();
-    PRESSURE=bme.readPressure() / 100.0F;
+    PRESSURE=bme.readPressure() / 93.15F;  //100.0F   1039-967
     ALTITUDE=bme.readAltitude(SEALEVELPRESSURE_HPA);
     HUMIDITY=bme.readHumidity();
     
