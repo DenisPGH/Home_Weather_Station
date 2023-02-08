@@ -75,17 +75,17 @@ void setup(void)
 void loop(void)
 { 
       
-      current_time=millis();
-  
-    if (current_time-last_time>=interval){
-          state++;
-          if (state>count_modes){state=1;}
-          last_time=current_time;
-    }
+//      current_time=millis();
+//  
+//    if (current_time-last_time>=interval){
+//          state++;
+//          if (state>count_modes){state=1;}
+//          last_time=current_time;
+//    }
 //        Serial.print("state: ");
 //        Serial.println(state);
         sensor_values();
-        status_showing(state);
+        //status_showing(state);
   
         displayRobo();
         display.display();
@@ -98,19 +98,26 @@ void displayRobo(){
   display.clearDisplay();  // clear the display
   display.setTextColor(WHITE); // color
   display.setTextSize(2);  // size of text
-  
- display.setCursor(5,0); //0,17
- display.print(show_text);
+  // TEMP
+ display.setCursor(5,17); //0,17
+ display.print(TEMP);
 
-// display.setCursor(110,0); //0,17
-// display.print( " :");
+ display.setCursor(25,17); //0,17
+ display.print( " C");
+ // HUM
+ display.setCursor(75,17); //70,17
+ display.print(HUMIDITY);
+ display.setCursor(95,17); //0,17
+ display.print( " %");
 
- display.setCursor(20,17); //70,17
- display.print(show_value);
+// Pressure
+ display.setCursor(20,0); //110,17
+ display.print(PRESSURE);
 
-              display.setCursor(90,17); //110,17
-              display.print(show_units);
+ display.setCursor(70,0); //110,17
+ display.print(" hPa");
 
+             
 // display.setCursor(0,17); //0,17
 // display.print("min:");
 //
